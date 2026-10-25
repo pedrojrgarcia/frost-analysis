@@ -221,3 +221,7 @@ __marimo__/
 
 # Local database
 frost_data.db
+
+# Frontend
+frontend/node_modules/
+frontend/package-lock.json
