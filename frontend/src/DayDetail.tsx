@@ -1,6 +1,7 @@
-import { WeatherDay, GddDay } from "./api";
+import { Source, SOURCE_LABELS, WeatherDay, GddDay } from "./api";
 
 interface Props {
+  source: Source | null;
   day: WeatherDay | null;
   gdd: GddDay | null;
 }
@@ -14,8 +15,12 @@ function Row({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default function DayDetail({ day, gdd }: Props) {
-  if (!day) {
+function orNa(value: number | null, format: (v: number) => string): string {
+  return value === null ? "n/a" : format(value);
+}
+
+export default function DayDetail({ source, day, gdd }: Props) {
+  if (!day || !source) {
     return (
       <div style={{ color: "#999", fontSize: 13, paddingTop: 8 }}>
         Click a day to see details
@@ -23,11 +28,10 @@ export default function DayDetail({ day, gdd }: Props) {
     );
   }
 
-  const sunshineHours = (day.sunshine_duration / 3600).toFixed(1);
-
   return (
     <div style={{ fontFamily: "sans-serif", fontSize: 13, minWidth: 200 }}>
-      <h3 style={{ margin: "0 0 12px", fontSize: 15 }}>{day.date}</h3>
+      <h3 style={{ margin: "0 0 4px", fontSize: 15 }}>{day.date}</h3>
+      <div style={{ color: "#666", marginBottom: 12 }}>{SOURCE_LABELS[source]}</div>
       <table style={{ borderCollapse: "collapse" }}>
         <tbody>
           <Row label="Min temperature" value={`${day.temp_min} °C`} />
@@ -35,8 +39,8 @@ export default function DayDetail({ day, gdd }: Props) {
           <Row label="Mean temperature" value={`${day.temp_mean} °C`} />
           <Row label="Humidity" value={`${day.humidity} %`} />
           <Row label="Wind speed" value={`${day.wind_speed} km/h`} />
-          <Row label="Sunshine" value={`${sunshineHours} h`} />
-          <Row label="Cloud cover" value={`${day.cloud_cover} %`} />
+          <Row label="Sunshine" value={orNa(day.sunshine_duration, (v) => `${(v / 3600).toFixed(1)} h`)} />
+          <Row label="Cloud cover" value={orNa(day.cloud_cover, (v) => `${v} %`)} />
           {gdd && (
             <>
               <Row label="GDD (day)" value={`${gdd.gdd_daily.toFixed(2)}`} />

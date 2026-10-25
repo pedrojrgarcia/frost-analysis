@@ -1,5 +1,12 @@
 const API_BASE = "http://localhost:5001";
 
+export type Source = "open_meteo" | "gee";
+
+export const SOURCE_LABELS: Record<Source, string> = {
+  open_meteo: "Open-Meteo",
+  gee: "Google Earth Engine (ERA5-Land)",
+};
+
 export interface WeatherDay {
   date: string;
   temp_min: number;
@@ -7,8 +14,8 @@ export interface WeatherDay {
   temp_mean: number;
   humidity: number;
   wind_speed: number;
-  sunshine_duration: number;
-  cloud_cover: number;
+  sunshine_duration: number | null;
+  cloud_cover: number | null;
 }
 
 export interface GddDay {
@@ -23,32 +30,24 @@ export interface GddMilestone {
   milestone_date: string;
 }
 
-export async function fetchWeather(
-  yearFrom: number,
-  yearTo: number
-): Promise<WeatherDay[]> {
+async function getJson<T>(path: string, source: Source, yearFrom: number, yearTo: number): Promise<T> {
   const res = await fetch(
-    `${API_BASE}/weather?year_from=${yearFrom}&year_to=${yearTo}`
+    `${API_BASE}/${path}?source=${source}&year_from=${yearFrom}&year_to=${yearTo}`
   );
+  if (!res.ok) {
+    throw new Error(`${path} (${source}) failed: ${res.status} ${res.statusText}`);
+  }
   return res.json();
 }
 
-export async function fetchGdd(
-  yearFrom: number,
-  yearTo: number
-): Promise<GddDay[]> {
-  const res = await fetch(
-    `${API_BASE}/gdd?year_from=${yearFrom}&year_to=${yearTo}`
-  );
-  return res.json();
+export function fetchWeather(source: Source, yearFrom: number, yearTo: number): Promise<WeatherDay[]> {
+  return getJson("weather", source, yearFrom, yearTo);
 }
 
-export async function fetchGddMilestones(
-  yearFrom: number,
-  yearTo: number
-): Promise<GddMilestone[]> {
-  const res = await fetch(
-    `${API_BASE}/gdd-milestone?year_from=${yearFrom}&year_to=${yearTo}`
-  );
-  return res.json();
+export function fetchGdd(source: Source, yearFrom: number, yearTo: number): Promise<GddDay[]> {
+  return getJson("gdd", source, yearFrom, yearTo);
+}
+
+export function fetchGddMilestones(source: Source, yearFrom: number, yearTo: number): Promise<GddMilestone[]> {
+  return getJson("gdd-milestone", source, yearFrom, yearTo);
 }

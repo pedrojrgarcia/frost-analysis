@@ -1,13 +1,25 @@
-import { WeatherDay, GddMilestone } from "./api";
+import { Source, SOURCE_LABELS, WeatherDay, GddDay, GddMilestone } from "./api";
+
+export interface SourceData {
+  weather: WeatherDay[];
+  gddDays: GddDay[];
+  milestones: GddMilestone[];
+}
+
+export interface Selection {
+  source: Source;
+  day: WeatherDay;
+}
 
 interface Props {
   yearFrom: number;
   yearTo: number;
-  weather: WeatherDay[];
-  milestones: GddMilestone[];
-  selectedDate: string | null;
-  onDaySelect: (day: WeatherDay | null) => void;
+  data: Record<Source, SourceData>;
+  selection: Selection | null;
+  onSelect: (selection: Selection | null) => void;
 }
+
+const SOURCES: Source[] = ["open_meteo", "gee"];
 
 const MONTHS = [
   { month: 3, name: "March", days: 31 },
@@ -34,16 +46,87 @@ function dayColor(
   return "transparent";
 }
 
+interface MonthGridProps {
+  year: number;
+  source: Source;
+  weatherByDate: Map<string, WeatherDay>;
+  milestoneByYear: Map<number, string>;
+  selectedDate: string | null;
+  onSelect: (day: WeatherDay | null) => void;
+}
+
+function YearGrid({
+  year,
+  weatherByDate,
+  milestoneByYear,
+  selectedDate,
+  onSelect,
+}: MonthGridProps) {
+  return (
+    <div style={{ display: "flex", gap: 16 }}>
+      {MONTHS.map(({ month, name, days }) => (
+        <div key={month}>
+          <div style={{ fontWeight: "bold", marginBottom: 4 }}>{name}</div>
+          <div style={{ display: "flex", flexWrap: "wrap", width: 7 * 20 }}>
+            {Array.from({ length: days }, (_, i) => {
+              const day = i + 1;
+              const date = `${year}-${pad(month)}-${pad(day)}`;
+              const entry = weatherByDate.get(date);
+              const bg = entry
+                ? dayColor(date, entry.temp_min, entry.temp_mean, milestoneByYear)
+                : "#eee";
+              const isSelected = selectedDate === date;
+              const title = entry
+                ? `${date}\nMin: ${entry.temp_min}°C\nMax: ${entry.temp_max}°C\nMean: ${entry.temp_mean}°C`
+                : date;
+              return (
+                <div
+                  key={day}
+                  title={title}
+                  onClick={() => entry && onSelect(isSelected ? null : entry)}
+                  style={{
+                    width: 18,
+                    height: 18,
+                    margin: 1,
+                    background: bg,
+                    border: isSelected ? "2px solid #333" : "1px solid #ccc",
+                    cursor: entry ? "pointer" : "default",
+                    borderRadius: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 9,
+                    color: bg === "transparent" || bg === "#eee" ? "#999" : bg === "#f1c40f" ? "#333" : "#fff",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function CalendarView({
   yearFrom,
   yearTo,
-  weather,
-  milestones,
-  selectedDate,
-  onDaySelect,
+  data,
+  selection,
+  onSelect,
 }: Props) {
-  const weatherByDate = new Map(weather.map((d) => [d.date, d]));
-  const milestoneByYear = new Map(milestones.map((m) => [m.year, m.milestone_date]));
+  const lookups = Object.fromEntries(
+    SOURCES.map((source) => [
+      source,
+      {
+        weatherByDate: new Map(data[source].weather.map((d) => [d.date, d])),
+        milestoneByYear: new Map(data[source].milestones.map((m) => [m.year, m.milestone_date])),
+      },
+    ])
+  ) as Record<Source, { weatherByDate: Map<string, WeatherDay>; milestoneByYear: Map<number, string> }>;
   const years = Array.from(
     { length: yearTo - yearFrom + 1 },
     (_, i) => yearFrom + i
@@ -54,48 +137,20 @@ export default function CalendarView({
       {years.map((year) => (
         <div key={year} style={{ marginBottom: 24 }}>
           <h3 style={{ margin: "0 0 8px" }}>{year}</h3>
-          <div style={{ display: "flex", gap: 16 }}>
-            {MONTHS.map(({ month, name, days }) => (
-              <div key={month}>
-                <div style={{ fontWeight: "bold", marginBottom: 4 }}>{name}</div>
-                <div style={{ display: "flex", flexWrap: "wrap", width: 7 * 20 }}>
-                  {Array.from({ length: days }, (_, i) => {
-                    const day = i + 1;
-                    const date = `${year}-${pad(month)}-${pad(day)}`;
-                    const entry = weatherByDate.get(date);
-                    const bg = entry
-                      ? dayColor(date, entry.temp_min, entry.temp_mean, milestoneByYear)
-                      : "#eee";
-                    const isSelected = selectedDate === date;
-                    const title = entry
-                      ? `${date}\nMin: ${entry.temp_min}°C\nMax: ${entry.temp_max}°C\nMean: ${entry.temp_mean}°C`
-                      : date;
-                    return (
-                      <div
-                        key={day}
-                        title={title}
-                        onClick={() => entry && onDaySelect(isSelected ? null : entry)}
-                        style={{
-                          width: 18,
-                          height: 18,
-                          margin: 1,
-                          background: bg,
-                          border: isSelected ? "2px solid #333" : "1px solid #ccc",
-                          cursor: entry ? "pointer" : "default",
-                          borderRadius: 2,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 9,
-                          color: bg === "transparent" || bg === "#eee" ? "#999" : bg === "#f1c40f" ? "#333" : "#fff",
-                          boxSizing: "border-box",
-                        }}
-                      >
-                        {day}
-                      </div>
-                    );
-                  })}
+          <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
+            {SOURCES.map((source) => (
+              <div key={source}>
+                <div style={{ fontFamily: "sans-serif", fontSize: 13, marginBottom: 6, color: "#555" }}>
+                  {SOURCE_LABELS[source]}
                 </div>
+                <YearGrid
+                  year={year}
+                  source={source}
+                  weatherByDate={lookups[source].weatherByDate}
+                  milestoneByYear={lookups[source].milestoneByYear}
+                  selectedDate={selection?.source === source ? selection.day.date : null}
+                  onSelect={(day) => onSelect(day ? { source, day } : null)}
+                />
               </div>
             ))}
           </div>
