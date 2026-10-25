@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS daily_weather (
     lon                REAL,
     temp_min           REAL,
     temp_max           REAL,
+    temp_mean          REAL,
     humidity           REAL,
     wind_speed         REAL,
     sunshine_duration  REAL,
@@ -23,8 +24,8 @@ CREATE TABLE IF NOT EXISTS daily_weather (
 
 INSERT_SQL = """
 INSERT OR REPLACE INTO daily_weather
-    (date, lat, lon, temp_min, temp_max, humidity, wind_speed, sunshine_duration, cloud_cover)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    (date, lat, lon, temp_min, temp_max, temp_mean, humidity, wind_speed, sunshine_duration, cloud_cover)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 """
 
 
@@ -39,6 +40,7 @@ def fetch_year(lat, lon, year, end_date):
         "daily": ",".join([
             "temperature_2m_min",
             "temperature_2m_max",
+            "temperature_2m_mean",
             "relative_humidity_2m_max",
             "wind_speed_10m_max",
             "sunshine_duration",
@@ -58,6 +60,7 @@ def daily_rows(lat, lon, daily):
             lon,
             daily["temperature_2m_min"][i],
             daily["temperature_2m_max"][i],
+            daily["temperature_2m_mean"][i],
             daily["relative_humidity_2m_max"][i],
             daily["wind_speed_10m_max"][i],
             daily["sunshine_duration"][i],
@@ -80,6 +83,10 @@ def main():
 
     conn = sqlite3.connect(DB_FILE)
     conn.execute(CREATE_TABLE_SQL)
+    try:
+        conn.execute("ALTER TABLE daily_weather ADD COLUMN temp_mean REAL")
+    except sqlite3.OperationalError:
+        pass  # column already exists
     conn.commit()
 
     total = 0
