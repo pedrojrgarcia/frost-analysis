@@ -35,14 +35,32 @@ Results are saved to `frost_data.db` (SQLite). Re-running is safe — existing r
 
 Fetches ERA5-Land daily data from Google Earth Engine into a separate table, `daily_weather_gee`, so it can be compared with Open-Meteo.
 
-One-time setup: create a Google Cloud project, enable the Earth Engine API and register it at https://code.earthengine.google.com/register, then:
+**One-time setup** — the Google Cloud project is `frost-vineyard`. It needs the Earth Engine API enabled and must be registered for Earth Engine at https://code.earthengine.google.com/register.
 
 ```bash
-earthengine authenticate
-python fetch-google.py --lat <latitude> --lon <longitude> --project <gcp-project-id> [--years <N>]
+source .venv/bin/activate
+pip install -r requirements.txt    # includes earthengine-api
+earthengine authenticate           # opens a browser, sign in once
 ```
 
-Same `--lat`, `--lon` and `--years` arguments as `fetch.py`. Re-running is safe.
+Check that it works (should print `1`):
+
+```bash
+python -c "import ee; ee.Initialize(project='frost-vineyard'); print(ee.Number(1).getInfo())"
+```
+
+**Fetch the data** (use the same coordinates as for `fetch.py`):
+
+```bash
+python fetch-google.py --lat <latitude> --lon <longitude> --project frost-vineyard [--years <N>]
+```
+
+**Example — last 25 years for Madrid:**
+```bash
+python fetch-google.py --lat 40.4168 --lon -3.7038 --project frost-vineyard
+```
+
+Same `--lat`, `--lon` and `--years` arguments as `fetch.py`, plus the required `--project`. Re-running is safe. Afterwards run `python analyze.py` (Step 2) so the GDD table for this source is computed.
 
 Differences from Open-Meteo: ERA5-Land is a reanalysis (not raw satellite pixels), has no sunshine duration or cloud cover (shown as n/a), humidity is derived from temperature and dewpoint, wind speed is the daily mean of the wind components (Open-Meteo stores the daily max), and the most recent days may be missing.
 
