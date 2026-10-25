@@ -34,6 +34,25 @@ def weather():
     return jsonify([dict(r) for r in rows])
 
 
+@app.get("/gdd")
+def gdd():
+    year_from = request.args.get("year_from", type=int)
+    year_to = request.args.get("year_to", type=int)
+    conn = get_db()
+    rows = conn.execute(
+        """
+        SELECT date, year, gdd_daily, gdd_accumulated
+        FROM daily_gdd
+        WHERE year BETWEEN ? AND ?
+          AND CAST(substr(date, 6, 2) AS INTEGER) BETWEEN 3 AND 5
+        ORDER BY date
+        """,
+        (year_from, year_to),
+    ).fetchall()
+    conn.close()
+    return jsonify([dict(r) for r in rows])
+
+
 @app.get("/gdd-milestone")
 def gdd_milestone():
     year_from = request.args.get("year_from", type=int)

@@ -5,6 +5,8 @@ interface Props {
   yearTo: number;
   weather: WeatherDay[];
   milestones: GddMilestone[];
+  selectedDate: string | null;
+  onDaySelect: (day: WeatherDay | null) => void;
 }
 
 const MONTHS = [
@@ -20,13 +22,15 @@ function pad(n: number) {
 function dayColor(
   date: string,
   tempMin: number,
+  tempMean: number,
   milestoneByYear: Map<number, string>
 ): string {
   const year = parseInt(date.slice(0, 4));
   const milestone = milestoneByYear.get(year);
-  if (milestone === date) return "#c0392b"; // red — GDD milestone
-  if (tempMin < -1.5) return "#1a5276"; // dark blue
-  if (tempMin < 0) return "#85c1e9"; // light blue
+  if (milestone === date) return "#c0392b";  // red — GDD milestone
+  if (tempMin < -1.5) return "#1a5276";      // dark blue
+  if (tempMin < 0) return "#85c1e9";         // light blue
+  if (tempMean > 10) return "#f1c40f";       // yellow — mean > 10°C
   return "transparent";
 }
 
@@ -35,6 +39,8 @@ export default function CalendarView({
   yearTo,
   weather,
   milestones,
+  selectedDate,
+  onDaySelect,
 }: Props) {
   const weatherByDate = new Map(weather.map((d) => [d.date, d]));
   const milestoneByYear = new Map(milestones.map((m) => [m.year, m.milestone_date]));
@@ -58,8 +64,9 @@ export default function CalendarView({
                     const date = `${year}-${pad(month)}-${pad(day)}`;
                     const entry = weatherByDate.get(date);
                     const bg = entry
-                      ? dayColor(date, entry.temp_min, milestoneByYear)
+                      ? dayColor(date, entry.temp_min, entry.temp_mean, milestoneByYear)
                       : "#eee";
+                    const isSelected = selectedDate === date;
                     const title = entry
                       ? `${date}\nMin: ${entry.temp_min}°C\nMax: ${entry.temp_max}°C\nMean: ${entry.temp_mean}°C`
                       : date;
@@ -67,19 +74,21 @@ export default function CalendarView({
                       <div
                         key={day}
                         title={title}
+                        onClick={() => entry && onDaySelect(isSelected ? null : entry)}
                         style={{
                           width: 18,
                           height: 18,
                           margin: 1,
                           background: bg,
-                          border: "1px solid #ccc",
-                          cursor: "default",
+                          border: isSelected ? "2px solid #333" : "1px solid #ccc",
+                          cursor: entry ? "pointer" : "default",
                           borderRadius: 2,
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           fontSize: 9,
-                          color: bg === "transparent" || bg === "#eee" ? "#999" : "#fff",
+                          color: bg === "transparent" || bg === "#eee" ? "#999" : bg === "#f1c40f" ? "#333" : "#fff",
+                          boxSizing: "border-box",
                         }}
                       >
                         {day}
@@ -96,6 +105,7 @@ export default function CalendarView({
         <span><span style={{ background: "#85c1e9", padding: "2px 8px", marginRight: 4 }} />temp_min &lt; 0°C</span>
         <span><span style={{ background: "#1a5276", padding: "2px 8px", marginRight: 4 }} />temp_min &lt; -1.5°C</span>
         <span><span style={{ background: "#c0392b", padding: "2px 8px", marginRight: 4 }} />GDD ≥ 40 milestone</span>
+        <span><span style={{ background: "#f1c40f", padding: "2px 8px", marginRight: 4 }} />temp_mean &gt; 10°C</span>
       </div>
     </div>
   );

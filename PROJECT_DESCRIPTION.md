@@ -33,3 +33,6 @@ where any of these situations happened:
 a) minimum temperature with less than 0 degrees Celsius (with color light blue)
 b) minimum temperature with less than -1.5 degrees Celsius (with color dark blue)
 c) the accumulate reached 40 degrees (with color red)
+d) mean temperature over 10 degrees Celsius (with color yellow)
+
+Clicking on a day displays all available data for that day in a side panel to the right.
