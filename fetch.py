@@ -1,5 +1,6 @@
 import argparse
 import sqlite3
+import time
 from datetime import date, timedelta
 
 import requests
@@ -98,6 +99,7 @@ def main():
         conn.commit()
         print(f"{len(rows)} days inserted.")
         total += len(rows)
+        time.sleep(0.5)
 
     conn.close()
     print(f"Done. Total: {total} days stored in {DB_FILE}")
