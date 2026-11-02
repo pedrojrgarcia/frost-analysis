@@ -3,53 +3,45 @@ import {
   fetchWeather,
   fetchGdd,
   fetchGddMilestones,
-  Source,
+  WeatherDay,
   GddDay,
+  GddMilestone,
 } from "./api";
-import CalendarView, { SourceData, Selection } from "./CalendarView";
+import CalendarView from "./CalendarView";
 import DayDetail from "./DayDetail";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const SOURCES: Source[] = ["open_meteo", "gee"];
-
-const EMPTY: SourceData = { weather: [], gddDays: [], milestones: [] };
 
 export default function App() {
   const [yearFrom, setYearFrom] = useState(CURRENT_YEAR - 5);
   const [yearTo, setYearTo] = useState(CURRENT_YEAR);
-  const [data, setData] = useState<Record<Source, SourceData>>({
-    open_meteo: EMPTY,
-    gee: EMPTY,
-  });
+  const [weather, setWeather] = useState<WeatherDay[]>([]);
+  const [gddDays, setGddDays] = useState<GddDay[]>([]);
+  const [milestones, setMilestones] = useState<GddMilestone[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [selection, setSelection] = useState<Selection | null>(null);
+  const [selectedDay, setSelectedDay] = useState<WeatherDay | null>(null);
 
   useEffect(() => {
     setLoading(true);
     setError(null);
-    setSelection(null);
-    Promise.all(
-      SOURCES.map((source) =>
-        Promise.all([
-          fetchWeather(source, yearFrom, yearTo),
-          fetchGdd(source, yearFrom, yearTo),
-          fetchGddMilestones(source, yearFrom, yearTo),
-        ]).then(([weather, gddDays, milestones]): [Source, SourceData] => [
-          source,
-          { weather, gddDays, milestones },
-        ])
-      )
-    )
-      .then((entries) =>
-        setData(Object.fromEntries(entries) as Record<Source, SourceData>)
-      )
+    setSelectedDay(null);
+    Promise.all([
+      fetchWeather(yearFrom, yearTo),
+      fetchGdd(yearFrom, yearTo),
+      fetchGddMilestones(yearFrom, yearTo),
+    ])
+      .then(([w, g, m]) => {
+        setWeather(w);
+        setGddDays(g);
+        setMilestones(m);
+      })
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, [yearFrom, yearTo]);
 
-  const selectedGdd: GddDay | null = selection
-    ? (data[selection.source].gddDays.find((g) => g.date === selection.day.date) ?? null)
+  const selectedGdd: GddDay | null = selectedDay
+    ? (gddDays.find((g) => g.date === selectedDay.date) ?? null)
     : null;
 
   return (
@@ -86,16 +78,13 @@ export default function App() {
           <CalendarView
             yearFrom={yearFrom}
             yearTo={yearTo}
-            data={data}
-            selection={selection}
-            onSelect={setSelection}
+            weather={weather}
+            milestones={milestones}
+            selectedDate={selectedDay?.date ?? null}
+            onSelect={setSelectedDay}
           />
           <div style={{ position: "sticky", top: 24 }}>
-            <DayDetail
-              source={selection?.source ?? null}
-              day={selection?.day ?? null}
-              gdd={selectedGdd}
-            />
+            <DayDetail day={selectedDay} gdd={selectedGdd} />
           </div>
         </div>
       )}

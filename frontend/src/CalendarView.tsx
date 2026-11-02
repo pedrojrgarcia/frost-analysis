@@ -1,25 +1,13 @@
-import { Source, SOURCE_LABELS, WeatherDay, GddDay, GddMilestone } from "./api";
-
-export interface SourceData {
-  weather: WeatherDay[];
-  gddDays: GddDay[];
-  milestones: GddMilestone[];
-}
-
-export interface Selection {
-  source: Source;
-  day: WeatherDay;
-}
+import { WeatherDay, GddMilestone } from "./api";
 
 interface Props {
   yearFrom: number;
   yearTo: number;
-  data: Record<Source, SourceData>;
-  selection: Selection | null;
-  onSelect: (selection: Selection | null) => void;
+  weather: WeatherDay[];
+  milestones: GddMilestone[];
+  selectedDate: string | null;
+  onSelect: (day: WeatherDay | null) => void;
 }
-
-const SOURCES: Source[] = ["open_meteo", "gee"];
 
 const MONTHS = [
   { month: 3, name: "March", days: 31 },
@@ -46,9 +34,8 @@ function dayColor(
   return "transparent";
 }
 
-interface MonthGridProps {
+interface YearGridProps {
   year: number;
-  source: Source;
   weatherByDate: Map<string, WeatherDay>;
   milestoneByYear: Map<number, string>;
   selectedDate: string | null;
@@ -61,7 +48,7 @@ function YearGrid({
   milestoneByYear,
   selectedDate,
   onSelect,
-}: MonthGridProps) {
+}: YearGridProps) {
   return (
     <div style={{ display: "flex", gap: 16 }}>
       {MONTHS.map(({ month, name, days }) => (
@@ -114,19 +101,13 @@ function YearGrid({
 export default function CalendarView({
   yearFrom,
   yearTo,
-  data,
-  selection,
+  weather,
+  milestones,
+  selectedDate,
   onSelect,
 }: Props) {
-  const lookups = Object.fromEntries(
-    SOURCES.map((source) => [
-      source,
-      {
-        weatherByDate: new Map(data[source].weather.map((d) => [d.date, d])),
-        milestoneByYear: new Map(data[source].milestones.map((m) => [m.year, m.milestone_date])),
-      },
-    ])
-  ) as Record<Source, { weatherByDate: Map<string, WeatherDay>; milestoneByYear: Map<number, string> }>;
+  const weatherByDate = new Map(weather.map((d) => [d.date, d]));
+  const milestoneByYear = new Map(milestones.map((m) => [m.year, m.milestone_date]));
   const years = Array.from(
     { length: yearTo - yearFrom + 1 },
     (_, i) => yearFrom + i
@@ -137,23 +118,13 @@ export default function CalendarView({
       {years.map((year) => (
         <div key={year} style={{ marginBottom: 24 }}>
           <h3 style={{ margin: "0 0 8px" }}>{year}</h3>
-          <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
-            {SOURCES.map((source) => (
-              <div key={source}>
-                <div style={{ fontFamily: "sans-serif", fontSize: 13, marginBottom: 6, color: "#555" }}>
-                  {SOURCE_LABELS[source]}
-                </div>
-                <YearGrid
-                  year={year}
-                  source={source}
-                  weatherByDate={lookups[source].weatherByDate}
-                  milestoneByYear={lookups[source].milestoneByYear}
-                  selectedDate={selection?.source === source ? selection.day.date : null}
-                  onSelect={(day) => onSelect(day ? { source, day } : null)}
-                />
-              </div>
-            ))}
-          </div>
+          <YearGrid
+            year={year}
+            weatherByDate={weatherByDate}
+            milestoneByYear={milestoneByYear}
+            selectedDate={selectedDate}
+            onSelect={onSelect}
+          />
         </div>
       ))}
       <div style={{ marginTop: 16, display: "flex", gap: 16, fontSize: 11 }}>

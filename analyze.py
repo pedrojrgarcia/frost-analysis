@@ -2,10 +2,8 @@ import sqlite3
 
 DB_FILE = "frost_data.db"
 
-SOURCES = [
-    {"name": "open_meteo", "weather": "daily_weather", "gdd": "daily_gdd"},
-    {"name": "gee", "weather": "daily_weather_gee", "gdd": "daily_gdd_gee"},
-]
+WEATHER_TABLE = "daily_weather"
+GDD_TABLE = "daily_gdd"
 
 
 def create_table_sql(gdd_table):
@@ -52,10 +50,9 @@ def compute_gdd_for_year(conn, weather_table, year):
     return gdd_rows
 
 
-def analyze_source(conn, source):
-    name, weather_table, gdd_table = source["name"], source["weather"], source["gdd"]
+def analyze(conn, weather_table, gdd_table):
     if not table_exists(conn, weather_table):
-        print(f"[{name}] table {weather_table} not found, skipping.")
+        print(f"Table {weather_table} not found. Run fetch.py first.")
         return
 
     conn.execute(create_table_sql(gdd_table))
@@ -72,13 +69,12 @@ def analyze_source(conn, source):
         rows = compute_gdd_for_year(conn, weather_table, year)
         conn.executemany(insert_sql(gdd_table), rows)
         conn.commit()
-        print(f"[{name}] {year}: GDD calculated for {len(rows)} days.")
+        print(f"{year}: GDD calculated for {len(rows)} days.")
 
 
 def main():
     conn = sqlite3.connect(DB_FILE)
-    for source in SOURCES:
-        analyze_source(conn, source)
+    analyze(conn, WEATHER_TABLE, GDD_TABLE)
     conn.close()
 
 
