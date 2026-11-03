@@ -1,48 +1,65 @@
 import { useState, useEffect } from "react";
 import {
-  fetchWeather,
-  fetchGdd,
+  fetchDays,
   fetchGddMilestones,
-  WeatherDay,
-  GddDay,
+  fetchDwdBudbreak,
+  fetchFrostSummary,
+  fetchTerrain,
+  Day,
+  DwdBudbreak,
+  FrostSummary,
   GddMilestone,
+  Terrain,
 } from "./api";
 import CalendarView from "./CalendarView";
 import DayDetail from "./DayDetail";
+import FrostChart from "./FrostChart";
+import FrostSummaryTable from "./FrostSummaryTable";
+import PlotBox from "./PlotBox";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
 export default function App() {
   const [yearFrom, setYearFrom] = useState(CURRENT_YEAR - 5);
   const [yearTo, setYearTo] = useState(CURRENT_YEAR);
-  const [weather, setWeather] = useState<WeatherDay[]>([]);
-  const [gddDays, setGddDays] = useState<GddDay[]>([]);
+  const [days, setDays] = useState<Day[]>([]);
   const [milestones, setMilestones] = useState<GddMilestone[]>([]);
+  const [dwd, setDwd] = useState<DwdBudbreak[]>([]);
+  const [summary, setSummary] = useState<FrostSummary[]>([]);
+  const [terrain, setTerrain] = useState<Terrain | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedDay, setSelectedDay] = useState<WeatherDay | null>(null);
+  const [selectedDay, setSelectedDay] = useState<Day | null>(null);
 
   useEffect(() => {
     setLoading(true);
     setError(null);
     setSelectedDay(null);
     Promise.all([
-      fetchWeather(yearFrom, yearTo),
-      fetchGdd(yearFrom, yearTo),
+      fetchDays(yearFrom, yearTo),
       fetchGddMilestones(yearFrom, yearTo),
+      fetchDwdBudbreak(yearFrom, yearTo),
+      fetchFrostSummary(yearFrom, yearTo),
+      fetchTerrain(),
     ])
-      .then(([w, g, m]) => {
-        setWeather(w);
-        setGddDays(g);
+      .then(([d, m, w, s, t]) => {
+        setDays(d);
         setMilestones(m);
+        setDwd(w);
+        setSummary(s);
+        setTerrain(t);
       })
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, [yearFrom, yearTo]);
 
-  const selectedGdd: GddDay | null = selectedDay
-    ? (gddDays.find((g) => g.date === selectedDay.date) ?? null)
-    : null;
+  // nearest station per year
+  const nearestByYear = new Map<number, DwdBudbreak>();
+  for (const r of dwd) {
+    const best = nearestByYear.get(r.year);
+    if (!best || r.distance_km < best.distance_km) nearestByYear.set(r.year, r);
+  }
+  const dwdByDate = new Map([...nearestByYear.values()].map((r) => [r.budbreak_date, r]));
 
   return (
     <div style={{ padding: 24, fontFamily: "sans-serif" }}>
@@ -78,13 +95,27 @@ export default function App() {
           <CalendarView
             yearFrom={yearFrom}
             yearTo={yearTo}
-            weather={weather}
+            days={days}
             milestones={milestones}
+            dwdByDate={dwdByDate}
             selectedDate={selectedDay?.date ?? null}
             onSelect={setSelectedDay}
           />
-          <div style={{ position: "sticky", top: 24 }}>
-            <DayDetail day={selectedDay} gdd={selectedGdd} />
+          <div
+            style={{
+              position: "sticky",
+              top: 24,
+              maxHeight: "calc(100vh - 48px)",
+              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
+              gap: 24,
+            }}
+          >
+            <PlotBox terrain={terrain} />
+            <FrostChart summary={summary} />
+            <FrostSummaryTable summary={summary} />
+            <DayDetail day={selectedDay} dwd={selectedDay ? (dwdByDate.get(selectedDay.date) ?? null) : null} />
           </div>
         </div>
       )}

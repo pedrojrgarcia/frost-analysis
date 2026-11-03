@@ -225,3 +225,9 @@ frost_data.db
 # Frontend
 frontend/node_modules/
 frontend/package-lock.json
+
+# Terrain tiles, QGIS project, OMEGA plot and interview notes (not public)
+data/dgm1/
+data/*.qgz
+data/Weinbergsflaeche_Kroev.*
+presentation/
