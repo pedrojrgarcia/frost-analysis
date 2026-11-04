@@ -24,6 +24,9 @@ function monthsOf(year: number) {
   }));
 }
 
+// four months side by side: 7 tiles of 20 px plus a 16 px gap each
+const CALENDAR_WIDTH = 4 * (7 * 20 + 16);
+
 function pad(n: number) {
   return String(n).padStart(2, "0");
 }
@@ -38,7 +41,7 @@ function dayColor(
   const year = parseInt(date.slice(0, 4));
   const milestone = milestoneByYear.get(year);
   if (milestone === date) return "#c0392b";  // red — GDD milestone (green ring if also DWD)
-  if (isDwd) return "#27ae60";               // green — DWD budbreak, nearest station
+  if (isDwd) return "#27ae60";               // green — DWD budbreak, nearest valley station
   if (nightMin !== null && nightMin <= -1.5) return "#1a5276";  // dark blue
   if (nightMin !== null && nightMin <= 0) return "#85c1e9";     // light blue
   if (gdd > 0) return "#f1c40f";             // yellow — (Tmax+Tmin)/2 > 7.5°C
@@ -63,7 +66,7 @@ function YearGrid({
   onSelect,
 }: YearGridProps) {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 4 * (7 * 20 + 16) }}>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: CALENDAR_WIDTH }}>
       {monthsOf(year).map(({ year: monthYear, month, name, days }) => (
         <div key={month}>
           <div style={{ fontWeight: "bold", marginBottom: 4 }}>{name}</div>
@@ -131,7 +134,31 @@ export default function CalendarView({
   );
 
   return (
-    <div style={{ fontFamily: "monospace", fontSize: 12 }}>
+    <div style={{ fontFamily: "monospace", fontSize: 12, maxWidth: CALENDAR_WIDTH }}>
+      {/* legend stays visible at the top while scrolling, wrapped to the calendar width */}
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          background: "Canvas",
+          padding: "8px 0",
+          marginBottom: 12,
+          borderBottom: "1px solid #e4e4e4",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "6px 14px",
+          fontFamily: "sans-serif",
+          fontSize: 12,
+        }}
+      >
+        <LegendItem color="#85c1e9" label="Frost night (≤ 0 °C)" />
+        <LegendItem color="#1a5276" label="Severe frost (≤ −1.5 °C)" />
+        <LegendItem color="#c0392b" label="Budbreak, model (GDD ≥ 40)" />
+        <LegendItem color="#27ae60" label="Budbreak, DWD valley station" />
+        <span style={{ color: "#888" }}>Green ring on red = same day</span>
+        <LegendItem color="#f1c40f" label="GDD > 0 ((Tmax+Tmin)/2 > 7.5 °C)" />
+      </div>
       {years.map((year) => (
         <div key={year} style={{ marginBottom: 24 }}>
           <h3 style={{ margin: "0 0 8px" }}>{year}</h3>
@@ -145,13 +172,25 @@ export default function CalendarView({
           />
         </div>
       ))}
-      <div style={{ marginTop: 16, display: "flex", gap: 16, fontSize: 11 }}>
-        <span><span style={{ background: "#85c1e9", padding: "2px 8px", marginRight: 4 }} />night_min ≤ 0°C</span>
-        <span><span style={{ background: "#1a5276", padding: "2px 8px", marginRight: 4 }} />night_min ≤ −1.5°C</span>
-        <span><span style={{ background: "#c0392b", padding: "2px 8px", marginRight: 4 }} />GDD ≥ 40 milestone</span>
-        <span><span style={{ background: "#27ae60", padding: "2px 8px", marginRight: 4 }} />DWD budbreak (nearest station; green ring on red = same day as GDD)</span>
-        <span><span style={{ background: "#f1c40f", padding: "2px 8px", marginRight: 4 }} />(Tmax+Tmin)/2 &gt; 7.5°C</span>
-      </div>
     </div>
+  );
+}
+
+function LegendItem({ color, label }: { color: string; label: string }) {
+  return (
+    <span style={{ whiteSpace: "nowrap" }}>
+      <span
+        style={{
+          display: "inline-block",
+          width: 12,
+          height: 12,
+          borderRadius: 2,
+          background: color,
+          verticalAlign: "-2px",
+          marginRight: 5,
+        }}
+      />
+      {label}
+    </span>
   );
 }

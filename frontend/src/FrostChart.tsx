@@ -1,4 +1,5 @@
 import { FrostSummary } from "./api";
+import { CHART_MARGIN_LEFT, CHART_MARGIN_RIGHT, CHART_MAX_WIDTH, chartLayout, useBoxWidth } from "./chartLayout";
 
 interface Props {
   summary: FrostSummary[];
@@ -10,10 +11,8 @@ const INK = "#333";
 const MUTED = "#666";
 const GRID = "#e4e4e4";
 
-const BAR_STEP = 44;
-const BAR_WIDTH = 28;
 const PLOT_HEIGHT = 160;
-const MARGIN = { top: 28, right: 12, bottom: 28, left: 32 };
+const MARGIN = { top: 28, right: CHART_MARGIN_RIGHT, bottom: 28, left: CHART_MARGIN_LEFT };
 
 function summaryLine(summary: FrostSummary[]): string {
   const years = summary.map((s) => s.year);
@@ -30,6 +29,7 @@ function summaryLine(summary: FrostSummary[]): string {
 }
 
 export default function FrostChart({ summary }: Props) {
+  const [boxRef, boxWidth] = useBoxWidth();
   if (summary.length === 0) return null;
 
   const maxNights = Math.max(1, ...summary.map((s) => s.frost_nights ?? 0));
@@ -38,8 +38,9 @@ export default function FrostChart({ summary }: Props) {
   const ticks: number[] = [];
   for (let t = 0; t <= yMax; t += tickStep) ticks.push(t);
 
-  const plotWidth = summary.length * BAR_STEP;
-  const width = MARGIN.left + plotWidth + MARGIN.right;
+  const { step, plotWidth, width, labelEvery } = chartLayout(boxWidth, summary.length);
+  const barWidth = step * 0.64;
+  const showValues = step >= 16; // numbers above the bars only when there is room
   const height = MARGIN.top + PLOT_HEIGHT + MARGIN.bottom;
   const y = (n: number) => MARGIN.top + PLOT_HEIGHT - (n / yMax) * PLOT_HEIGHT;
 
@@ -47,7 +48,7 @@ export default function FrostChart({ summary }: Props) {
     <div style={{ fontSize: 13 }}>
       <p style={{ margin: "0 0 12px", lineHeight: 1.4 }}>{summaryLine(summary)}</p>
       <h3 style={{ margin: "0 0 8px", fontSize: 15 }}>Frost nights after budbreak per year</h3>
-      <div style={{ overflowX: "auto" }}>
+      <div ref={boxRef} style={{ width: "100%", maxWidth: CHART_MAX_WIDTH }}>
         <svg width={width} height={height} role="img" aria-label="Frost nights after budbreak per year">
           {ticks.map((t) => (
             <g key={t}>
@@ -57,9 +58,17 @@ export default function FrostChart({ summary }: Props) {
               </text>
             </g>
           ))}
+          <text
+            transform={`translate(12, ${MARGIN.top + PLOT_HEIGHT / 2}) rotate(-90)`}
+            textAnchor="middle"
+            fontSize={11}
+            fill={MUTED}
+          >
+            frost nights
+          </text>
           {summary.map((s, i) => {
-            const x = MARGIN.left + i * BAR_STEP + (BAR_STEP - BAR_WIDTH) / 2;
-            const cx = x + BAR_WIDTH / 2;
+            const x = MARGIN.left + i * step + (step - barWidth) / 2;
+            const cx = x + barWidth / 2;
             const total = s.frost_nights;
             const rad = s.radiation_nights ?? 0;
             const adv = s.advection_nights ?? 0;
@@ -75,13 +84,13 @@ export default function FrostChart({ summary }: Props) {
               <g key={s.year}>
                 <title>{tip}</title>
                 {rad > 0 && (
-                  <rect x={x} y={radTop} width={BAR_WIDTH} height={y(0) - radTop} fill={RADIATION_COLOR} />
+                  <rect x={x} y={radTop} width={barWidth} height={y(0) - radTop} fill={RADIATION_COLOR} />
                 )}
                 {adv > 0 && (
                   <rect
                     x={x}
                     y={advTop}
-                    width={BAR_WIDTH}
+                    width={barWidth}
                     height={radTop - advTop - (rad > 0 ? 2 : 0)}
                     fill={ADVECTION_COLOR}
                   />
@@ -90,22 +99,26 @@ export default function FrostChart({ summary }: Props) {
                   <rect
                     x={x - 1.5}
                     y={top - 1.5}
-                    width={BAR_WIDTH + 3}
+                    width={barWidth + 3}
                     height={y(0) - top + 3}
                     fill="none"
                     stroke={INK}
                     strokeWidth={2}
                   />
                 )}
-                <text x={cx} y={top - 5} textAnchor="middle" fontSize={11} fill={INK}>
-                  {total === null ? "–" : total}
-                </text>
+                {showValues && (
+                  <text x={cx} y={top - 5} textAnchor="middle" fontSize={11} fill={INK}>
+                    {total === null ? "–" : total}
+                  </text>
+                )}
                 {severe && (
                   <path d={`M ${cx - 4} ${top - 22} L ${cx + 4} ${top - 22} L ${cx} ${top - 15} Z`} fill={INK} />
                 )}
-                <text x={cx} y={y(0) + 16} textAnchor="middle" fontSize={11} fill={MUTED}>
-                  {s.year}
-                </text>
+                {s.year % labelEvery === 0 && (
+                  <text x={cx} y={y(0) + 16} textAnchor="middle" fontSize={11} fill={MUTED}>
+                    {s.year}
+                  </text>
+                )}
               </g>
             );
           })}
