@@ -16,6 +16,10 @@ GDD_MILESTONE = 40  # accumulated GDD (base set in analyze.py) that counts as bu
 FROST_TEMP = 0.0
 SEVERE_FROST_TEMP = -1.5
 FROST_END = "06-30"  # frost nights are counted up to this day
+# DWD stations used for the budbreak date: only those in the Moselle valley near Kröv.
+# Stations outside the valley (e.g. Wittlich) bud about two weeks later and would hide frosts.
+# Years without a date from these stations use the GDD model.
+BUDBREAK_STATIONS = {"Enkirch", "Ürzig", "Wintrich"}
 
 app = Flask(__name__)
 CORS(app)
@@ -140,8 +144,10 @@ def frost_summary():
         return parsed
     year_from, year_to = parsed
 
-    nearest = {}  # year -> nearest DWD station row
+    nearest = {}  # year -> nearest DWD station row (valley stations only)
     for r in load_dwd(year_from, year_to):
+        if r["station"] not in BUDBREAK_STATIONS:
+            continue
         if r["year"] not in nearest or r["distance_km"] < nearest[r["year"]]["distance_km"]:
             nearest[r["year"]] = r
 
@@ -183,7 +189,7 @@ def frost_summary():
             "coldest_night_date": None,
             "coldest_night_temp": None,
         }
-        if budbreak:
+        if budbreak and rows:  # no weather rows (e.g. before 1976) = no frost count, not 0
             # a night belongs to its morning date; the night of the budbreak day itself is before it
             nights = [r for r in rows if r["date"] > budbreak and r["night_min"] is not None]
             frost = [r for r in nights if r["night_min"] <= FROST_TEMP]

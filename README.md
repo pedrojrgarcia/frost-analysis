@@ -116,7 +116,8 @@ Columns of `hourly_daily` (one row per date):
 
 **Budbreak**
 
-- DWD date of the nearest station (Ürzig, 7.3 km) when it exists.
+- DWD date of the nearest station **in the Moselle valley** (Enkirch, Ürzig or Wintrich; `BUDBREAK_STATIONS` in `api.py`) when it exists.
+  Stations outside the valley (e.g. Wittlich) bud about two weeks later and would hide frosts, so they are not used.
 - Otherwise the model: `GDD = max(0, (Tmax + Tmin) / 2 − 7.5)`, added up from 1 January. Budbreak = first day with a sum of 40.
 - The base 7.5 °C was chosen by comparing with 19 years of DWD data at Ürzig (mean error about ±11 days).
   The common base of 10 °C was about three weeks too late. Setting: `GDD_BASE` in `analyze.py`.
@@ -132,6 +133,9 @@ Columns of `hourly_daily` (one row per date):
 
 ## Browser view
 
+- **Dot chart** in the right column, under the bar chart: one dot per frost night after budbreak (blue = radiation, orange = advection),
+  ▼ = severe frost year, a 10-year average line (from 10 selected years on), "m" = budbreak from the model.
+  Follows the selected years (e.g. 1976–2025 for 50 years).
 - **Calendar** per year, December of the previous year to October (winter, spring and autumn frost).
 - **Plot box:** area, height, slope, aspect (needs `terrain.py`).
 - **Summary line and chart:** frost nights after budbreak per year, split into radiation and advection; ▼ = severe frost.
