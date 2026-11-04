@@ -231,3 +231,6 @@ data/dgm1/
 data/*.qgz
 data/Weinbergsflaeche_Kroev.*
 presentation/
+
+# macOS Finder files
+.DS_Store
