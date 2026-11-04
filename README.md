@@ -125,7 +125,7 @@ Columns of `hourly_daily` (one row per date):
 **Frost**
 
 - Frost night: night minimum ≤ 0 °C. Severe: ≤ −1.5 °C.
-- Counted only after budbreak, up to 30 June. The night of the budbreak day itself is not counted
+- Counted only after budbreak, up to 31 May. The night of the budbreak day itself is not counted
   (a night belongs to its morning date). Severe nights are also counted as frost nights.
 - Years without a budbreak date have empty values in the frost count.
 - **Radiation frost:** mean night wind < 10 km/h (at 10 m height, about 5 km/h near the buds) **and** clouds < 20 %.

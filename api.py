@@ -15,7 +15,7 @@ TERRAIN_FILE = Path("data") / "terrain.json"
 GDD_MILESTONE = 40  # accumulated GDD (base set in analyze.py) that counts as budbreak
 FROST_TEMP = 0.0
 SEVERE_FROST_TEMP = -1.5
-FROST_END = "06-30"  # frost nights are counted up to this day
+FROST_END = "05-31"  # frost nights are counted up to this day (in 50 years the latest was 2 May)
 # DWD stations used for the budbreak date: only those in the Moselle valley near Kröv.
 # Stations outside the valley (e.g. Wittlich) bud about two weeks later and would hide frosts.
 # Years without a date from these stations use the GDD model.

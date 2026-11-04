@@ -15,7 +15,7 @@ export default function FrostSummaryTable({ summary }: Props) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, fontSize: 13 }}>
       <div style={{ overflowX: "auto" }}>
-        <h3 style={{ margin: "0 0 8px", fontSize: 15 }}>Frost nights after budbreak (up to 30 June)</h3>
+        <h3 style={{ margin: "0 0 8px", fontSize: 15 }}>Frost nights after budbreak (up to 31 May)</h3>
         <table style={{ borderCollapse: "collapse" }}>
           <thead>
             <tr>
