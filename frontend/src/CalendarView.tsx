@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Day, DwdBudbreak, GddMilestone } from "./api";
 
 interface Props {
@@ -8,6 +9,16 @@ interface Props {
   dwdByDate: Map<string, DwdBudbreak>;
   selectedDate: string | null;
   onSelect: (day: Day | null) => void;
+  title?: string;
+  // extra content in the sticky header, e.g. a switch (station calendar)
+  headerExtra?: ReactNode;
+  // what night_min means in the tooltip
+  nightLabel?: string;
+  // legend text for the red budbreak tile
+  budbreakLabel?: string;
+  // optional second budbreak (lilac), e.g. the station at another GDD threshold
+  secondMilestones?: GddMilestone[];
+  secondLabel?: string;
 }
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -36,11 +47,13 @@ function dayColor(
   nightMin: number | null,
   gdd: number,
   milestoneByYear: Map<number, string>,
-  isDwd: boolean
+  isDwd: boolean,
+  secondByYear: Map<number, string>
 ): string {
   const year = parseInt(date.slice(0, 4));
   const milestone = milestoneByYear.get(year);
   if (milestone === date) return "#c0392b";  // red — GDD milestone (green ring if also DWD)
+  if (secondByYear.get(year) === date) return "#a569bd";  // lilac — second GDD milestone
   if (isDwd) return "#27ae60";               // green — DWD budbreak, nearest valley station
   if (nightMin !== null && nightMin <= -1.5) return "#1a5276";  // dark blue
   if (nightMin !== null && nightMin <= 0) return "#85c1e9";     // light blue
@@ -52,18 +65,22 @@ interface YearGridProps {
   year: number;
   dayByDate: Map<string, Day>;
   milestoneByYear: Map<number, string>;
+  secondByYear: Map<number, string>;
   dwdByDate: Map<string, DwdBudbreak>;
   selectedDate: string | null;
   onSelect: (day: Day | null) => void;
+  nightLabel: string;
 }
 
 function YearGrid({
   year,
   dayByDate,
   milestoneByYear,
+  secondByYear,
   dwdByDate,
   selectedDate,
   onSelect,
+  nightLabel,
 }: YearGridProps) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: CALENDAR_WIDTH }}>
@@ -78,11 +95,11 @@ function YearGrid({
               const isDwd = dwdByDate.has(date);
               const isBoth = isDwd && milestoneByYear.get(monthYear) === date;
               const bg = entry
-                ? dayColor(date, entry.night_min, entry.gdd, milestoneByYear, isDwd)
+                ? dayColor(date, entry.night_min, entry.gdd, milestoneByYear, isDwd, secondByYear)
                 : "#eee";
               const isSelected = selectedDate === date;
               const title = entry
-                ? `${date}\nNight min: ${entry.night_min ?? "n/a"}°C\nTmin: ${entry.tmin}°C\nTmax: ${entry.tmax}°C`
+                ? `${date}\n${nightLabel}: ${entry.night_min ?? "n/a"}°C\nTmin: ${entry.tmin}°C\nTmax: ${entry.tmax}°C`
                 : date;
               return (
                 <div
@@ -125,9 +142,16 @@ export default function CalendarView({
   dwdByDate,
   selectedDate,
   onSelect,
+  title,
+  headerExtra,
+  nightLabel = "Night min",
+  budbreakLabel = "Budbreak, model (GDD ≥ 40)",
+  secondMilestones = [],
+  secondLabel,
 }: Props) {
   const dayByDate = new Map(days.map((d) => [d.date, d]));
   const milestoneByYear = new Map(milestones.map((m) => [m.year, m.milestone_date]));
+  const secondByYear = new Map(secondMilestones.map((m) => [m.year, m.milestone_date]));
   const years = Array.from(
     { length: yearTo - yearFrom + 1 },
     (_, i) => yearFrom + i
@@ -152,9 +176,12 @@ export default function CalendarView({
           fontSize: 12,
         }}
       >
+        {title && <div style={{ width: "100%", fontWeight: "bold", fontSize: 13 }}>{title}</div>}
+        {headerExtra && <div style={{ width: "100%" }}>{headerExtra}</div>}
         <LegendItem color="#85c1e9" label="Frost night (≤ 0 °C)" />
         <LegendItem color="#1a5276" label="Severe frost (≤ −1.5 °C)" />
-        <LegendItem color="#c0392b" label="Budbreak, model (GDD ≥ 40)" />
+        <LegendItem color="#c0392b" label={budbreakLabel} />
+        {secondLabel && <LegendItem color="#a569bd" label={secondLabel} />}
         <LegendItem color="#27ae60" label="Budbreak, DWD valley station" />
         <span style={{ color: "#888" }}>Green ring on red = same day</span>
         <LegendItem color="#f1c40f" label="GDD > 0 ((Tmax+Tmin)/2 > 7.5 °C)" />
@@ -166,9 +193,11 @@ export default function CalendarView({
             year={year}
             dayByDate={dayByDate}
             milestoneByYear={milestoneByYear}
+            secondByYear={secondByYear}
             dwdByDate={dwdByDate}
             selectedDate={selectedDate}
             onSelect={onSelect}
+            nightLabel={nightLabel}
           />
         </div>
       ))}

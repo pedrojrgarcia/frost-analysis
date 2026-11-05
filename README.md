@@ -211,6 +211,8 @@ See `.gitignore`. Get these yourself after cloning:
 - `frost_data.db`: run `fetch.py` and `analyze.py`
 - `data/dgm1/`: download the DGM1 tiles (see above)
 - `data/Weinbergsflaeche_Kroev.*`: the plot Shapefile (put it in `data/`)
+- `data/Traben-Trarbach AAAA.csv`: hourly station data from wetter.rlp.de (station Traben-Trarbach, Download / Grafik, Stundenwerte, all parameters, 01.01–31.12, one file per year)
+- everything else in `data/` except `dwd_budbreak.csv` and `terrain.json`
 - `data/*.qgz`, `presentation/`: personal files
 
 ## API
@@ -220,6 +222,7 @@ All endpoints except `/terrain` need `year_from` and `year_to` (otherwise error 
 | Endpoint | Returns |
 |---|---|
 | `/days` | Day and night values, December to October |
+| `/station-days` | Station Traben-Trarbach (from `data/Traben-Trarbach *.csv`): Tmin/Tmax 2 m, GDD from 1 January, night minimum at 2 m and 20 cm, mean wind 2.5 m |
 | `/gdd-milestone` | Model budbreak (GDD ≥ 40) per year |
 | `/dwd-budbreak` | DWD budbreak dates (empty without `data/dwd_budbreak.csv`) |
 | `/frost-summary` | Frost count per year (budbreak, source, station distance, frost/severe/radiation/advection nights, coldest night) |

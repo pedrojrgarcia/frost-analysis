@@ -1,8 +1,9 @@
-import { Day, DwdBudbreak } from "./api";
+import { Day, DwdBudbreak, StationDay } from "./api";
 
 interface Props {
   day: Day | null;
   dwd: DwdBudbreak | null;
+  station: StationDay | null;
 }
 
 function pad(n: number) {
@@ -30,7 +31,7 @@ function Heading({ children }: { children: string }) {
   );
 }
 
-export default function DayDetail({ day, dwd }: Props) {
+export default function DayDetail({ day, dwd, station }: Props) {
   if (!day) {
     return (
       <div style={{ color: "#999", fontSize: 13, paddingTop: 8 }}>
@@ -53,7 +54,7 @@ export default function DayDetail({ day, dwd }: Props) {
           <Row label="Max wind speed" value={fmt(day.wind_max, "km/h")} />
           <Row label="Sunshine" value={fmt(day.sunshine_hours, "h")} />
           <Row label="Mean cloud cover" value={fmt(day.cloud_mean, "%", 0)} />
-          <Heading>Night (20:00 previous day – 08:00)</Heading>
+          <Heading>Night, ERA5 (20:00 previous day – 08:00)</Heading>
           <Row label="Night minimum" value={fmt(day.night_min, "°C")} />
           <Row
             label="Night minimum hour"
@@ -62,6 +63,16 @@ export default function DayDetail({ day, dwd }: Props) {
           <Row label="Mean wind speed" value={fmt(day.night_wind_mean, "km/h")} />
           <Row label="Mean cloud cover" value={fmt(day.night_cloud_mean, "%", 0)} />
           {day.frost_type && <Row label="Frost type" value={day.frost_type} />}
+          {station && (
+            <>
+              <Heading>Station Traben-Trarbach</Heading>
+              <Row label="Max / min temperature 2 m" value={`${fmt(station.tmax, "°C")} / ${fmt(station.tmin, "°C")}`} />
+              <Row label="GDD (accumulated)" value={fmt(station.gdd_accumulated, "", 2)} />
+              <Row label="Night minimum 2 m" value={fmt(station.night_min_2m, "°C")} />
+              <Row label="Night minimum 20 cm" value={fmt(station.night_min_20cm, "°C")} />
+              <Row label="Mean wind 2.5 m" value={fmt(station.night_wind_mean, "km/h")} />
+            </>
+          )}
           {dwd && (
             <>
               <Heading>DWD budbreak</Heading>

@@ -92,3 +92,18 @@ export async function fetchTerrain(): Promise<Terrain | null> {
 export function fetchGddMilestones(yearFrom: number, yearTo: number): Promise<GddMilestone[]> {
   return getJson("gdd-milestone", yearFrom, yearTo);
 }
+
+export interface StationDay {
+  date: string;
+  tmin: number | null; // 2 m
+  tmax: number | null; // 2 m
+  gdd: number | null;
+  gdd_accumulated: number; // from 1 January, missing days add nothing
+  night_min_2m: number | null;
+  night_min_20cm: number | null;
+  night_wind_mean: number | null; // km/h at 2.5 m
+}
+
+export function fetchStationDays(yearFrom: number, yearTo: number): Promise<StationDay[]> {
+  return getJson("station-days", yearFrom, yearTo);
+}

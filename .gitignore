@@ -226,10 +226,14 @@ frost_data.db
 frontend/node_modules/
 frontend/package-lock.json
 
-# Terrain tiles, QGIS project, OMEGA plot and interview notes (not public)
-data/dgm1/
-data/*.qgz
-data/Weinbergsflaeche_Kroev.*
+# data/: only the files the API needs are in Git (DWD budbreak, terrain result).
+# Everything else stays local: DGM1 tiles, QGIS project, OMEGA plot, station CSVs,
+# Sentinel-2 exports, screenshots.
+data/*
+!data/dwd_budbreak.csv
+!data/terrain.json
+
+# Interview notes (not public)
 presentation/
 
 # macOS Finder files

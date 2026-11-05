@@ -1,6 +1,7 @@
 import csv
 import json
 import sqlite3
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from flask import Flask, jsonify, request
@@ -205,6 +206,85 @@ def frost_summary():
         summary.append(entry)
     conn.close()
     return jsonify(summary)
+
+
+STATION_FILES = "Traben-Trarbach *.csv"  # hourly CSVs from wetter.rlp.de (Agrarmeteorologie RLP), one per year
+STATION_MIN_NIGHT_HOURS = 10  # of the 12 night hours, otherwise the night counts as missing
+STATION_MIN_DAY_HOURS = 20  # of the 24 day hours, otherwise Tmin/Tmax/GDD count as missing
+STATION_GDD_BASE = 7.5  # same base as analyze.py
+
+
+def station_value(text):
+    text = (text or "").strip().replace(",", ".")
+    return None if text in ("", "-") else float(text)
+
+
+def load_station_hours():
+    """All hourly rows of the station files as (datetime, row dict)."""
+    hours = []
+    for path in sorted(Path("data").glob(STATION_FILES)):
+        with open(path, newline="", encoding="latin-1") as f:
+            for r in csv.DictReader(f, delimiter=";"):
+                hours.append((datetime.strptime(f"{r['Tag']} {r['Stunde']}", "%d.%m.%Y %H:%M"), r))
+    return hours
+
+
+@app.get("/station-days")
+def station_days():
+    """Station Traben-Trarbach per day: Tmin/Tmax (2 m), GDD from 1 January, and the night before
+    (20:00-08:00, stored on the morning date): minimum at 2 m and 20 cm, mean wind at 2.5 m.
+    Same months as /days: December of year_from - 1 through October of year_to."""
+    parsed = parse_args()
+    if not isinstance(parsed[0], int):
+        return parsed
+    year_from, year_to = parsed
+    days = {}
+    nights = {}
+    for moment, r in load_station_hours():
+        if not year_from - 1 <= moment.year <= year_to:
+            continue
+        day = days.setdefault(moment.date().isoformat(), {"min": [], "max": []})
+        low, high = station_value(r.get("MIN_TA200min")), station_value(r.get("MAX_TA200max"))
+        if low is not None:
+            day["min"].append(low)
+        if high is not None:
+            day["max"].append(high)
+        if moment.hour >= 20:
+            morning = (moment + timedelta(days=1)).date()
+        elif moment.hour < 8:
+            morning = moment.date()
+        else:
+            continue
+        night = nights.setdefault(morning.isoformat(), {"t200": [], "t020": [], "wind": []})
+        for key, column in (("t200", "MIN_TA200min"), ("t020", "MIN_TA020min"), ("wind", "AVG_WV200")):
+            value = station_value(r.get(column))
+            if value is not None:
+                night[key].append(value)
+
+    result = []
+    accumulated, year = 0.0, None
+    for date in sorted(set(days) | set(nights)):
+        if date[:4] != year:  # GDD starts again on 1 January
+            accumulated, year = 0.0, date[:4]
+        d = days.get(date, {"min": [], "max": []})
+        n = nights.get(date, {"t200": [], "t020": [], "wind": []})
+        tmin = min(d["min"]) if len(d["min"]) >= STATION_MIN_DAY_HOURS else None
+        tmax = max(d["max"]) if len(d["max"]) >= STATION_MIN_DAY_HOURS else None
+        gdd = max(0.0, (tmax + tmin) / 2 - STATION_GDD_BASE) if tmin is not None and tmax is not None else None
+        accumulated += gdd or 0.0  # a missing day adds nothing
+        if not f"{year_from - 1}-12-01" <= date <= f"{year_to}-10-31" or date[5:7] == "11":
+            continue
+        result.append({
+            "date": date,
+            "tmin": tmin,
+            "tmax": tmax,
+            "gdd": None if gdd is None else round(gdd, 2),
+            "gdd_accumulated": round(accumulated, 2),
+            "night_min_2m": min(n["t200"]) if len(n["t200"]) >= STATION_MIN_NIGHT_HOURS else None,
+            "night_min_20cm": min(n["t020"]) if len(n["t020"]) >= STATION_MIN_NIGHT_HOURS else None,
+            "night_wind_mean": round(sum(n["wind"]) / len(n["wind"]) * 3.6, 1) if n["wind"] else None,  # m/s -> km/h
+        })
+    return jsonify(result)
 
 
 @app.get("/terrain")
