@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Frostrisiko Kröv – OMEGA Space</title>
+<style>
+  @page { size: A4; margin: 8mm 11mm 8mm; }
+  :root { --ink: #1d1d1f; --en: #8a8a8e; --line: #e2e2e6; --accent: #7a1f2b; --soft: #f6f5f3; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--ink); font-size: 8.8pt; line-height: 1.3; margin: 0; }
+
+  .doc-title { font-size: 21pt; font-weight: 700; color: var(--accent); margin: 0; line-height: 1.15; }
+  .doc-sub { color: var(--en); font-size: 9.5pt; margin: 1pt 0 0; }
+  .doc-meta { font-size: 8.5pt; color: var(--en); margin: 3pt 0 10pt; padding-bottom: 7pt; border-bottom: 0.8pt solid var(--line); }
+
+  .part-head { display: flex; align-items: baseline; gap: 7pt; margin: 9pt 0 4pt; padding-bottom: 2pt; border-bottom: 1.5pt solid var(--accent); break-after: avoid; }
+  .part-num { background: var(--accent); color: #fff; font-weight: 700; font-size: 10.5pt; border-radius: 3pt; padding: 0 6pt; }
+  .part-title { font-size: 12pt; font-weight: 700; color: var(--accent); }
+  .part-title .en { display: inline; font-size: 9.5pt; font-weight: 400; margin-left: 6pt; }
+  h3 { font-size: 9.8pt; margin: 5pt 0 2pt; break-after: avoid; }
+  h3 .en { display: inline; font-weight: 400; font-size: 8.5pt; margin-left: 6pt; }
+
+  p { margin: 0 0 1pt; }
+  .en { color: var(--en); font-size: 7.6pt; line-height: 1.28; display: block; margin: 0; }
+  ul, ol { margin: 2pt 0 5pt; padding-left: 14pt; }
+  li { margin-bottom: 2pt; }
+  li .en { margin: 1pt 0 0; }
+
+  .question { background: var(--soft); border-left: 3pt solid var(--accent); padding: 4pt 7pt; margin: 0 0 4pt; break-inside: avoid; }
+  .question .label { font-size: 7.5pt; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 1pt; }
+  .question .en { margin-bottom: 0; }
+  .summary { border: 1pt solid var(--line); border-radius: 4pt; padding: 5pt 8pt; margin: 0 0 4pt; break-inside: avoid; }
+  .summary h4 { margin: 0 0 3pt; font-size: 9pt; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+  .summary ul { margin: 0; }
+  .summary li { margin-bottom: 1pt; }
+  .result { background: #faf9f8; border: 1pt solid var(--line); border-radius: 4pt; padding: 4pt 7pt; margin: 3pt 0 4pt; break-inside: avoid; }
+  .result .en { margin-bottom: 0; }
+  .callout { border: 1.3pt solid var(--accent); border-radius: 4pt; padding: 6pt 9pt; break-inside: avoid; }
+  .callout p { font-size: 9.5pt; }
+  .callout .en { margin-bottom: 0; font-size: 8.8pt; }
+  .note { font-size: 8.8pt; color: #444; }
+  .block { break-inside: avoid; }
+
+  table { width: 100%; border-collapse: collapse; margin: 2pt 0 4pt; font-size: 8.3pt; break-inside: avoid; }
+  th, td { text-align: left; padding: 2pt 4pt; border-bottom: 0.6pt solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 600; font-size: 8.5pt; }
+  td .en, th .en { margin: 1pt 0 0; font-size: 7.3pt; }
+  td.lbl { font-weight: 600; }
+  .num { text-align: right; white-space: nowrap; }
+  tr.used td { background: #eef6ee; }
+  tr.out td { color: #777; }
+
+  .two { display: flex; gap: 10pt; }
+  .two > * { flex: 1; min-width: 0; }
+
+  figure { margin: 3pt 0 3pt; break-inside: avoid; }
+  figure img { max-width: 100%; border: 0.6pt solid var(--line); border-radius: 3pt; display: block; margin: 0 auto; }
+  figcaption { font-size: 8.8pt; margin-top: 3pt; }
+  figcaption .en { margin-bottom: 0; }
+  .key { display: inline-block; width: 9pt; height: 9pt; vertical-align: -1pt; margin: 0 3pt 0 7pt; border: 0.5pt solid #bbb; border-radius: 1.5pt; }
+  .src { font-size: 7.3pt; color: var(--en); }
+
+  /* Spanish: below the English, smaller and in italics */
+  .es { color: #a9a9ae; font-size: 6.9pt; line-height: 1.25; display: block; margin: 0 0 3pt; font-style: italic; }
+  .en { margin-bottom: 0; } /* the Spanish line follows directly */
+  li .es, .callout .es, .result .es, .question .es, figcaption .es { margin: 1pt 0 0; }
+  td .es, th .es { margin: 0; font-size: 6.8pt; }
+  h3 .es, .part-title .es { display: inline; font-weight: 400; font-size: 0.7em; margin-left: 5pt; }
+  .explain { font-size: 8pt; color: #555; background: #faf9f8; border-left: 2pt solid var(--line); padding: 3pt 6pt; margin: 2pt 0 3pt; }
+  .explain .en, .explain .es { margin: 1pt 0 0; }
+</style>
+</head>
+<body>
+<p class="doc-title">Frostrisiko Weinbergsfläche Kröv</p>
+<p class="doc-sub">Frost risk of a vineyard plot in Kröv · <i>Riesgo de helada de una parcela de viñedo en Kröv</i></p>
+<p class="doc-meta">OMEGA Space · Kennenlerngespräch 11.11.2026 · Deutsch, darunter Englisch (grau) und Spanisch (kursiv)</p>
+<div class="summary">
+  <h4>Auf einen Blick <span style="color:var(--en); text-transform:none; letter-spacing:0; font-weight:400;">· At a glance · <i>De un vistazo</i></span></h4>
+  <ul>
+  <li><b>Gelände:</b> steiler Hang nach Süden, direkt an der Mosel.
+    <span class="en">Terrain: steep slope facing south, right on the Moselle.</span>
+    <span class="es">Terreno: ladera empinada orientada al sur, junto al Mosela.</span></li>
+  <li><b>Kaltluft:</b> In klaren, ruhigen Nächten sammelt sie sich unten am Hang.
+    <span class="en">Cold air: on clear, calm nights it collects at the bottom of the slope.</span>
+    <span class="es">Aire frío: en noches despejadas y tranquilas se acumula abajo en la ladera.</span></li>
+  <li><b>Frost nach dem Austrieb:</b> in 19 von 50 Jahren, zuletzt in 8 von 11 Jahren. Stark 2017 und 2022.
+    <span class="en">Frost after budbreak: in 19 of 50 years, recently in 8 of 11 years. Severe in 2017 and 2022.</span>
+    <span class="es">Helada tras la brotación: en 19 de 50 años, últimamente en 8 de 11. Fuerte en 2017 y 2022.</span></li>
+  <li><b>Messstation Traben-Trarbach (1 km, Steilhang, 132 m), 2008–2025:</b> 65 Frostnächte nach dem Austrieb statt 16 in ERA5. In klaren Nächten 2,3 °C kälter. ERA5 unterschätzt den Frost.
+    <span class="en">Station Traben-Trarbach (1 km, steep slope, 132 m), 2008–2025: 65 frost nights after budbreak instead of 16 in ERA5. 2.3 °C colder on clear nights. ERA5 underestimates frost.</span>
+    <span class="es">Estación Traben-Trarbach (1 km, ladera empinada, 132 m), 2008–2025: 65 noches de helada tras la brotación en vez de 16 en ERA5. 2,3 °C más fría en noches despejadas. ERA5 subestima la helada.</span></li>
+  <li><b>Einschätzung:</b> mittleres bis hohes Risiko, unten am Hang am höchsten.
+    <span class="en">Assessment: medium to high risk, highest at the bottom of the slope.</span>
+    <span class="es">Valoración: riesgo medio a alto, más alto abajo en la ladera.</span></li>
+  </ul>
+</div>
+<div class="part-head"><span class="part-title">Die Fläche <span class="en">The plot</span> <span class="es">La parcela</span></span></div>
+<div class="two">
+<table>
+  <tr><td class="lbl">Ort</td><td>Kröv an der Mosel (Großlage Kröver Nacktarsch). Mitte: 49,98444° N, 7,09784° O (Angabe von OMEGA)<span class="en">Kröv on the Moselle. Centre: 49.98444° N, 7.09784° E (given by OMEGA)</span><span class="es">Kröv, junto al Mosela. Centro: 49,98444° N, 7,09784° E (dato de OMEGA)</span></td></tr>
+  <tr><td class="lbl">Nutzung</td><td>Weinberg. Rebsorte nicht angegeben, wahrscheinlich Riesling (die häufigste Sorte an der Mosel)<span class="en">Vineyard. Variety not given, probably Riesling (the most common variety on the Moselle)</span><span class="es">Viñedo. Variedad no indicada, probablemente Riesling (la más común en el Mosela)</span></td></tr>
+  <tr><td class="lbl">Größe</td><td>7,72 ha (ca. 730 × 320 m)<span class="en">7.72 ha (about 730 × 320 m)</span><span class="es">7,72 ha (aprox. 730 × 320 m)</span></td></tr>
+  <tr><td class="lbl">Höhe</td><td>104 bis 185 m über dem Meer (81 m Unterschied), gemessen mit dem DGM1 in QGIS<span class="en">104 to 185 m above sea level (81 m difference), measured with DGM1 in QGIS</span><span class="es">104 a 185 m sobre el nivel del mar (81 m de diferencia), medido con el DGM1 en QGIS</span></td></tr>
+  <tr><td class="lbl">Neigung</td><td>im Mittel 24,7°, also ca. 46 %: 46 m Höhe auf 100 m Strecke (tan 24,7° ≈ 0,46). Für jeden m² aus der Höhe der Nachbarn berechnet, dann gemittelt → Steillage (ab 30 %)<span class="en">24.7° on average, so about 46 %: 46 m of height over 100 m (tan 24.7° ≈ 0.46). Calculated for each m² from the height of its neighbours, then averaged → steep slope (from 30 %)</span><span class="es">24,7° de media, es decir, aprox. 46 %: 46 m de altura en 100 m (tan 24,7° ≈ 0,46). Calculado para cada m² a partir de la altura de sus vecinos y luego promediado → ladera empinada (desde 30 %)</span></td></tr>
+  <tr><td class="lbl">Richtung</td><td>Süd (ca. 174°). Keine Koordinate, sondern die Himmelsrichtung, in die der Hang zeigt (0° = Nord, 180° = Süd), aus dem DGM1 berechnet<span class="en">South (about 174°). Not a coordinate, but the compass direction the slope faces (0° = north, 180° = south), calculated from DGM1</span><span class="es">Sur (aprox. 174°). No es una coordenada, sino la dirección hacia la que mira la ladera (0° = norte, 180° = sur), calculada con el DGM1</span></td></tr>
+</table>
+<figure style="margin-top:3pt;">
+  <img src="gelaende_hillshade.png" alt="Schummerung" style="max-height:40mm;">
+  <figcaption>Das Gelände von oben. Rot = die Fläche. Die Linien quer zum Hang sind Terrassen und Mauern.
+    <span class="en">The terrain from above. Red = the plot. The lines across the slope are terraces and walls.</span>
+    <span class="es">El terreno desde arriba. Rojo = la parcela. Las líneas que cruzan la ladera son terrazas y muros.</span></figcaption>
+<div class="explain"><b>DGM1</b> = Digitales Geländemodell 1 m: Höhenkarte des Landes Rheinland-Pfalz. Ein Flugzeug misst den Boden mit Laser (ohne Bäume und Häuser). Für jedes Quadrat von 1 × 1 m gibt es einen Höhenwert.
+  <span class="en">DGM1 = digital terrain model 1 m: height map of Rhineland-Palatinate. A plane measures the ground with a laser (without trees and houses). There is one height value for every 1 × 1 m square.</span>
+  <span class="es">DGM1 = modelo digital del terreno de 1 m: mapa de alturas de Renania-Palatinado. Un avión mide el suelo con láser (sin árboles ni casas). Hay un valor de altura por cada cuadrado de 1 × 1 m.</span>
+  <span class="src">Quelle: ©GeoBasis-DE / LVermGeoRP (2023), dl-de/by-2-0, www.lvermgeo.rlp.de [Daten bearbeitet]</span></div>
+</figure>
+</div>
+<div class="block">
+<div class="part-head"><span class="part-num">1</span><span class="part-title">Daten und Methode <span class="en">Data and method</span> <span class="es">Datos y método</span></span></div>
+<div class="question">
+  <span class="label">Frage von OMEGA</span>
+  Welche freien Satelliten-, Höhen- und Wetterdaten nutzen Sie für Gelände und Frostgeschichte? Warum?
+  <span class="en">Which free satellite, elevation and weather data do you use for terrain and frost history? Why?</span>
+  <span class="es">¿Qué datos libres de satélite, altura y clima usa para el terreno y el historial de heladas? ¿Por qué?</span>
+</div>
+<table>
+  <tr><th style="width:18%">Daten<span class="en">Data</span><span class="es">Datos</span></th><th style="width:25%">Woher?<span class="en">Source</span><span class="es">Fuente</span></th><th>Wofür?<span class="en">What for?</span><span class="es">¿Para qué?</span></th></tr>
+  <tr><td class="lbl">Temperatur</td><td><b>ERA5-Land</b> (Copernicus): feinere Version von ERA5 nur für Land, Raster ca. <b>9 km</b>. Gut für Temperatur und Feuchte am Boden. Über Open-Meteo, stündlich seit 1976.<span class="en">ERA5-Land: finer, land-only version of ERA5, grid about 9 km. Good for temperature and humidity near the ground. Via Open-Meteo, hourly since 1976.</span><span class="es">ERA5-Land: versión más fina de ERA5, solo para tierra, cuadrícula de unos 9 km. Buena para temperatura y humedad junto al suelo. Vía Open-Meteo, por horas desde 1976.</span></td><td>Wie kalt jede Nacht war. Ich brauche Stunden, weil Frost nachts kommt.<span class="en">How cold each night was. I need hours because frost comes at night.</span><span class="es">Lo fría que fue cada noche. Necesito horas porque la helada llega de noche.</span></td></tr>
+  <tr><td class="lbl">Wind, Wolken</td><td><b>ERA5</b> (Copernicus): globales Modell der ganzen Atmosphäre, Raster ca. <b>25 km</b>. Wolken, Sonne und Wind liefert Open-Meteo nicht aus ERA5-Land, darum hier ERA5.<span class="en">ERA5: global model of the whole atmosphere, grid about 25 km. Open-Meteo does not provide clouds, sunshine and wind from ERA5-Land, so I use ERA5 here.</span><span class="es">ERA5: modelo global de toda la atmósfera, cuadrícula de unos 25 km. Open-Meteo no da nubes, sol ni viento de ERA5-Land, por eso aquí uso ERA5.</span></td><td>Ob die Nacht ruhig und klar war. Dann wird es am Boden besonders kalt.<span class="en">Whether the night was calm and clear. Then it gets especially cold near the ground.</span><span class="es">Si la noche fue tranquila y despejada. Entonces hace especialmente frío junto al suelo.</span></td></tr>
+  <tr><td class="lbl">Höhe und Zeit</td><td>ERA5-Land: Raster ca. 9 km. Open-Meteo passt die Temperatur mit einem Höhenmodell (ca. 90 m) an die Höhe des Punktes an (ca. −0,65 °C pro 100 m). Zeit: Ortszeit (Europe/Berlin).</td><td>Ich bekomme also nicht den Rohwert des 9-km-Pixels (wie in Google Earth Engine, in UTC), sondern einen an die Höhe angepassten Wert in Ortszeit.<span class="en">ERA5-Land grid about 9 km. Open-Meteo adjusts the temperature to the point's height with a terrain model (about 90 m), about −0.65 °C per 100 m, in local time. So I do not get the raw 9 km pixel (as in Google Earth Engine, in UTC), but a height-adjusted value in local time.</span><span class="es">ERA5-Land: cuadrícula de unos 9 km. Open-Meteo ajusta la temperatura a la altura del punto con un modelo de elevación (unos 90 m), unos −0,65 °C por cada 100 m, en hora local. No es el píxel bruto de 9 km (como en Google Earth Engine, en UTC), sino un valor ajustado a la altura y en hora local.</span></td></tr>
+  <tr><td class="lbl">Gelände</td><td>DGM1 Rheinland-Pfalz (Laser, 1 m)</td><td>Höhe, Neigung, Richtung. 1 m = ein Wert pro 1 × 1 m. Die Fläche hat 77.200 m², also ca. 77.000 Höhenwerte (ein 90-m-Modell hätte nur ca. 10).<span class="en">Height, slope, direction. 1 m = one value per 1 × 1 m. The plot has 77,200 m², so about 77,000 height values (a 90 m model would have only about 10).</span><span class="es">Altura, pendiente, orientación. 1 m = un valor por 1 × 1 m. La parcela tiene 77.200 m², así que unos 77.000 valores (un modelo de 90 m tendría solo unos 10).</span></td></tr>
+  <tr><td class="lbl">Austrieb</td><td>Deutscher Wetterdienst (DWD)</td><td>Der Tag, an dem die Rebe zu wachsen beginnt. Frost ist erst danach gefährlich.<span class="en">The day the vine starts to grow. Frost is only dangerous after that.</span><span class="es">El día en que la vid empieza a crecer. La helada solo es peligrosa después.</span></td></tr>
+  <tr><td class="lbl">Satellit</td><td>Sentinel-2 (Copernicus), 10 m</td><td>NDVI = (Nahinfrarot − Rot) / (Nahinfrarot + Rot). Grüne Blätter: hoch (0,6–0,9), Boden: niedrig (0,1–0,2). Ergebnis 2021–2023: siehe Grenzen.<span class="en">NDVI = (near infrared − red) / (near infrared + red). Green leaves: high (0.6–0.9), soil: low (0.1–0.2). Result 2021–2023: see Limits.</span><span class="es">NDVI = (infrarrojo cercano − rojo) / (infrarrojo cercano + rojo). Hojas verdes: alto (0,6–0,9), suelo: bajo (0,1–0,2). Resultado 2021–2023: ver Límites.</span></td></tr>
+</table>
+</div>
+<div class="block">
+<h3>So rechne ich <span class="en">How I calculate</span> <span class="es">Cómo calculo</span></h3>
+<ol>
+  <li>Für jede Nacht (20 bis 8 Uhr) nehme ich die <b>tiefste Temperatur</b>, nicht den Mittelwert: Der Schaden passiert im kältesten Moment, meist vor Sonnenaufgang.
+    <span class="en">For every night (20:00 to 08:00) I take the lowest temperature, not the mean: the damage happens at the coldest moment, usually before sunrise.</span>
+    <span class="es">Para cada noche (20 a 8 h) tomo la temperatura más baja, no la media: el daño ocurre en el momento más frío, normalmente antes del amanecer.</span></li>
+  <li><b>Frost</b> = 0 °C oder kälter. <b>Starker Frost</b> = −1,5 °C oder kälter.
+    <span class="en">Frost = 0 °C or colder. Severe frost = −1.5 °C or colder.</span>
+    <span class="es">Helada = 0 °C o menos. Helada fuerte = −1,5 °C o menos.</span></li>
+  <li>Ich zähle nur Frost <b>nach dem Austrieb, bis Ende Mai</b>. Vorher ist die Knospe geschützt. In 50 Jahren gab es danach keinen Frost mehr (spätester: 2. Mai 1981).
+    <span class="en">I only count frost after budbreak, until the end of May. Before that the bud is protected. In 50 years there was no frost after that (latest: 2 May 1981).</span>
+    <span class="es">Solo cuento heladas tras la brotación, hasta finales de mayo. Antes la yema está protegida. En 50 años no hubo heladas después (la última: 2 de mayo de 1981).</span></li>
+  <li>Mit Wind und Wolken bestimme ich die <b>Frostart</b> (Erklärung in Teil 2).
+    <span class="en">With wind and clouds I decide the frost type (explained in part 2).</span>
+    <span class="es">Con el viento y las nubes determino el tipo de helada (explicado en la parte 2).</span></li>
+</ol>
+</div>
+<div class="block">
+<div class="part-head"><span class="part-num">2</span><span class="part-title">Landwirtschaftliche Einordnung <span class="en">Agricultural interpretation</span> <span class="es">Interpretación agrícola</span></span></div>
+<div class="question">
+  <span class="label">Frage von OMEGA</span>
+  Wie beeinflusst das Gelände das Kleinklima? Wann ist Frost für die Rebe besonders gefährlich? Was bedeutet das für die Auswertung?
+  <span class="en">How does the terrain shape the microclimate? When is frost especially dangerous for the vine? What does that mean for the analysis?</span>
+  <span class="es">¿Cómo influye el terreno en el microclima? ¿Cuándo es especialmente peligrosa la helada para la vid? ¿Qué significa eso para el análisis?</span>
+</div>
+<div class="two">
+<div>
+<h3>Wo sammelt sich die kalte Luft? <span class="en">Where does the cold air collect?</span> <span class="es">¿Dónde se acumula el aire frío?</span></h3>
+<p>Kalte Luft ist schwer. In klaren, ruhigen Nächten fließt sie den Hang hinunter, wie Wasser, und sammelt sich unten nahe der Mosel. Mauern, Hecken, Wege oder Gebäude können sie aufhalten. Wald oder Hochflächen oberhalb können zusätzliche Kaltluft liefern.</p>
+<span class="en">Cold air is heavy. On clear, calm nights it flows down the slope, like water, and collects at the bottom near the Moselle. Walls, hedges, paths or buildings can hold it back. Forest or plateaus above can send extra cold air.</span>
+<span class="es">El aire frío pesa. En noches despejadas y tranquilas baja por la ladera, como el agua, y se acumula abajo, cerca del Mosela. Muros, setos, caminos o edificios pueden frenarlo. Un bosque o una meseta encima pueden aportar más aire frío.</span>
+<div class="result"><p><b>Ergebnis (Bild rechts):</b> Unten am Hang (blauer Streifen) ist das Frostrisiko am höchsten.</p>
+<span class="en">Result (picture on the right): at the bottom of the slope (blue strip) the frost risk is highest.</span>
+<span class="es">Resultado (imagen a la derecha): abajo en la ladera (franja azul) el riesgo de helada es el más alto.</span>
+</div>
+</div>
+<figure style="margin-top:0;">
+  <img src="kaltluft_tpi.png" alt="TPI" style="max-height:40mm;">
+  <figcaption><span class="key" style="background:#6baed6; margin-left:0;"></span>tiefer: Kaltluft bleibt <span class="key" style="background:#f4a582"></span>höher: Kaltluft fließt ab
+    <span class="en">blue: lower, cold air stays · red: higher, cold air drains away</span>
+    <span class="es">azul: más bajo, el aire frío se queda · rojo: más alto, el aire frío se va</span></figcaption>
+<div class="explain"><b>TPI</b> (Topographic Position Index): Höhe einer Stelle minus mittlere Höhe ihrer Umgebung. Ich habe das DGM1 auf Quadrate von 25 m vergröbert; jedes Quadrat wird mit seinen 8 Nachbarn verglichen, also mit ca. 75 m Umgebung. So zählen kleine Dinge wie Mauern nicht, nur die Form des Hangs. Negativ = Senke/Hangfuß, positiv = Kuppe/Kante.
+  <span class="en">TPI (Topographic Position Index): height of a spot minus the mean height of its surroundings. I coarsened DGM1 to 25 m squares; each square is compared with its 8 neighbours, so with about 75 m of surroundings. So small things like walls don't count, only the shape of the slope. Negative = hollow/foot, positive = hilltop/edge.</span>
+  <span class="es">TPI (índice de posición topográfica): altura de un punto menos la altura media de su entorno. Simplifiqué el DGM1 a cuadrados de 25 m; cada uno se compara con sus 8 vecinos, es decir, con unos 75 m de entorno. Así las cosas pequeñas como muros no cuentan, solo la forma de la ladera. Negativo = hondonada/pie, positivo = cima/borde.</span>
+  <span class="src">Quelle: Weiss, A. (2001): Topographic Position and Landforms Analysis</span></div>
+</figure>
+</div>
+</div>
+<div class="block">
+<h3>Wann ist Frost gefährlich? <span class="en">When is frost dangerous?</span> <span class="es">¿Cuándo es peligrosa la helada?</span></h3>
+<p>Vor dem <b>Austrieb</b> (die Rebe beginnt zu wachsen) ist die Knospe geschützt. Danach erfrieren junge Triebe schon bei ca. −0,5 bis −2 °C, an der Mosel meist im April. Den Tag des Austriebs nehme ich so:</p>
+<span class="en">Before budbreak (the vine starts to grow) the bud is protected. After that, young shoots freeze at about −0.5 to −2 °C, at the Moselle usually in April. I get the day of budbreak like this:</span>
+<span class="es">Antes de la brotación (la vid empieza a crecer) la yema está protegida. Después, los brotes jóvenes se hielan con unos −0,5 a −2 °C, en el Mosela normalmente en abril. El día de brotación lo obtengo así:</span>
+<ul>
+  <li><b>Wenn möglich:</b> der beobachtete Tag des DWD an einer Station im Moseltal (Ürzig, Enkirch, Wintrich).
+    <span class="en">If possible: the day observed by the DWD at a station in the Moselle valley (Ürzig, Enkirch, Wintrich).</span>
+    <span class="es">Si es posible: el día observado por el DWD en una estación del valle del Mosela (Ürzig, Enkirch, Wintrich).</span></li>
+  <li><b>Sonst berechne ich ihn:</b> GDD pro Tag = max(0, (Tmax + Tmin)/2 − 7,5). Beispiel: 16 °C und 6 °C → 11 − 7,5 = 3,5. Summe ab 1. Januar; erster Tag mit Summe ≥ <b>40</b> = Austrieb. Die 40 habe ich an 19 Jahren DWD Ürzig gewählt (kleinster Fehler: ca. 11 Tage, Modell ca. 3 Tage zu früh).
+    <span class="en">Otherwise I calculate it: GDD per day = max(0, (Tmax + Tmin)/2 − 7.5). Example: 16 °C and 6 °C → 11 − 7.5 = 3.5. Sum from 1 January; first day with sum ≥ 40 = budbreak. I chose 40 using 19 years of DWD Ürzig (smallest error: about 11 days, model about 3 days early).</span>
+    <span class="es">Si no, lo calculo: GDD por día = max(0, (Tmax + Tmin)/2 − 7,5). Ejemplo: 16 °C y 6 °C → 11 − 7,5 = 3,5. Suma desde el 1 de enero; primer día con suma ≥ 40 = brotación. Elegí 40 con 19 años del DWD en Ürzig (menor error: unos 11 días, el modelo unos 3 días antes).</span></li>
+</ul>
+</div>
+<div class="block">
+<h3>DWD-Stationen <span class="en">DWD stations</span> <span class="es">Estaciones del DWD</span></h3>
+<table>
+  <tr><th>Station</th><th class="num">Entfernung<span class="en">Distance</span><span class="es">Distancia</span></th><th>Jahre<span class="en">Years</span><span class="es">Años</span></th><th>Lage<span class="en">Location</span><span class="es">Ubicación</span></th><th>Austrieb im Vergleich zu Ürzig<span class="en">Budbreak vs Ürzig</span><span class="es">Brotación frente a Ürzig</span></th></tr>
+  <tr class="used"><td><b>Enkirch</b> ✓</td><td class="num">2,5 km</td><td>1963–1986</td><td>Moseltal</td><td>4 Tage später</td></tr>
+  <tr class="used"><td><b>Ürzig</b> ✓</td><td class="num">7,3 km</td><td>1951–2025</td><td>Moseltal</td><td>—</td></tr>
+  <tr class="used"><td><b>Wintrich</b> ✓</td><td class="num">14,6 km</td><td>1995–2009</td><td>Moseltal</td><td>(nur 2 Jahre)</td></tr>
+  <tr class="out"><td>Wittlich</td><td class="num">15,3 km</td><td>1952–2012</td><td>außerhalb des Tals</td><td>15 Tage später</td></tr>
+</table>
+<p class="note">✓ = genutzt: nah, im Moseltal, mit Jahren ab 1976. Andere Stationen sind sehr alt oder liegen in Seitentälern bzw. höher. Wittlich (außerhalb des Tals) treibt 15 Tage später aus: Der Ort ist sehr wichtig. Test: Mein Modell trifft Enkirch auf ca. 9 Tage.</p>
+<span class="en">✓ = used: close, in the Moselle valley, with years from 1976. Other stations are very old or lie in side valleys or higher. Wittlich (outside the valley) buds 15 days later: location matters a lot. Test: my model hits Enkirch within about 9 days.</span>
+<span class="es">✓ = usadas: cercanas, en el valle del Mosela y con años desde 1976. Otras estaciones son muy antiguas o están en valles laterales o más altas. Wittlich (fuera del valle) brota 15 días más tarde: el lugar importa mucho. Prueba: mi modelo acierta Enkirch con unos 9 días.</span>
+</div>
+<div class="block">
+<h3>Zwei Arten von Frost <span class="en">Two kinds of frost</span> <span class="es">Dos tipos de helada</span></h3>
+<table>
+  <tr><th style="width:22%">Frostart<span class="en">Type</span><span class="es">Tipo</span></th><th style="width:36%">Wann?<span class="en">When?</span><span class="es">¿Cuándo?</span></th><th>Für die Versicherung<span class="en">For insurance</span><span class="es">Para el seguro</span></th></tr>
+  <tr><td class="lbl">Strahlungsfrost<span class="en">radiation frost</span><span class="es">helada por radiación</span></td><td>klare, ruhige Nacht<span class="en">clear, calm night</span><span class="es">noche despejada y tranquila</span></td><td>Der Ort entscheidet: Unten friert es zuerst. Risiko einzelner Flächen.<span class="en">Location decides: the bottom freezes first. Risk for single plots.</span><span class="es">El lugar decide: abajo se hiela primero. Riesgo de parcelas concretas.</span></td></tr>
+  <tr><td class="lbl">Advektionsfrost<span class="en">advection frost</span><span class="es">helada por advección</span></td><td>kalte Luft kommt mit Wind<span class="en">cold air comes with wind</span><span class="es">llega aire frío con viento</span></td><td>Die ganze Region wird kalt. Risiko vieler Flächen gleichzeitig.<span class="en">The whole region gets cold. Risk for many plots at once.</span><span class="es">Toda la región se enfría. Riesgo de muchas parcelas a la vez.</span></td></tr>
+</table>
+<p class="note"><b>Grenzwerte (meine Wahl):</b> Strahlungsfrost = Wolken unter 20 % <i>und</i> Wind unter 10 km/h. Die FAO beschreibt Strahlungsfrost als klar und windstill, ohne feste Zahlen (Snyder &amp; de Melo-Abreu 2005); 20 % steht für „fast klar“. ERA5-Wind gilt in 10 m Höhe. FAO-56 (Allen et al. 1998): u₂ = u₁₀ × 4,87 / ln(67,8 × 10 − 5,42) ≈ u₁₀ × 0,75. Also 10 km/h → 7,5 km/h in 2 m; 5 km/h → 3,75 km/h (fast nie im Nachtmittel, daher fast kein Strahlungsfrost).</p>
+<span class="en">Limits (my choice): radiation frost = clouds below 20 % and wind below 10 km/h. FAO describes radiation frost as clear and calm, without fixed numbers (Snyder &amp; de Melo-Abreu 2005); 20 % means “almost clear”. ERA5 wind is at 10 m. FAO-56 (Allen et al. 1998): u₂ = u₁₀ × 4.87 / ln(67.8 × 10 − 5.42) ≈ u₁₀ × 0.75. So 10 km/h → 7.5 km/h at 2 m; 5 km/h → 3.75 km/h (almost never as a night mean, so almost no radiation frost).</span>
+<span class="es">Límites (elección mía): helada por radiación = nubes por debajo del 20 % y viento por debajo de 10 km/h. La FAO la describe como despejada y en calma, sin cifras fijas (Snyder y de Melo-Abreu 2005); 20 % significa «casi despejado». El viento de ERA5 es a 10 m. FAO-56 (Allen et al. 1998): u₂ = u₁₀ × 4,87 / ln(67,8 × 10 − 5,42) ≈ u₁₀ × 0,75. Así 10 km/h → 7,5 km/h a 2 m; 5 km/h → 3,75 km/h (casi nunca como media nocturna, por eso casi no salía helada por radiación).</span>
+</div>
+<div class="block">
+<h3>Ergebnis: 50 Jahre <span class="en">Result: 50 years</span> <span class="es">Resultado: 50 años</span></h3>
+<figure>
+  <img src="app_history_chart.png" alt="Frost 1976–2025" style="max-height:48mm;">
+  <figcaption>Ein Punkt = eine Frostnacht nach dem Austrieb. Blau = Strahlung, orange = Advektion. ▼ = starker Frost. Linie = Mittel der letzten 10 Jahre.
+    <span class="en">One dot = one frost night after budbreak. Blue = radiation, orange = advection. ▼ = severe frost. Line = average of the last 10 years.</span>
+    <span class="es">Un punto = una noche de helada tras la brotación. Azul = radiación, naranja = advección. ▼ = helada fuerte. Línea = media de los últimos 10 años.</span></figcaption>
+</figure>
+<div class="result"><p><b>1976–2025:</b> Frost in 19 von 50 Jahren, stark in 9 (z. B. 1991, 2017, 2022). <b>Seit 2016</b> in 8 von 10 Jahren. Die Rebe treibt früher aus: im Mittel am 3. April statt am 25. April (1976–1985). Wärmere Frühjahre (Klimawandel) passen dazu (vgl. Leolini et al. 2020). Die Südlage macht den Austrieb früh, erklärt aber nicht die Änderung über die Jahre. Die Rebe ist so länger in Gefahr.</p>
+<span class="en">1976–2025: frost in 19 of 50 years, severe in 9 (e.g. 1991, 2017, 2022). Since 2016 in 8 of 10 years. The vine buds earlier: on average on 3 April instead of 25 April (1976–1985). Warmer springs (climate change) fit this (cf. Leolini et al. 2020). The south aspect makes budbreak early, but doesn't explain the change over the years. So the vine is at risk for longer.</span>
+<span class="es">1976–2025: helada en 19 de 50 años, fuerte en 9 (p. ej. 1991, 2017, 2022). Desde 2016 en 8 de 10 años. La vid brota antes: de media el 3 de abril en vez del 25 de abril (1976–1985). Unas primaveras más cálidas (cambio climático) encajan con ello (cf. Leolini et al. 2020). La orientación sur hace que brote pronto, pero no explica el cambio con los años. Así la vid está más tiempo en peligro.</span>
+</div>
+</div>
+<div class="block">
+<div class="part-head"><span class="part-num">3</span><span class="part-title">Grenzen und Prüfung <span class="en">Limits and check</span> <span class="es">Límites y comprobación</span></span></div>
+<div class="question">
+  <span class="label">Frage von OMEGA</span>
+  Wo stoßen freie Daten bei dieser Fläche an ihre Grenzen? Wie prüfen Sie, ob die Ergebnisse plausibel sind?
+  <span class="en">Where do free data reach their limits for this plot? How do you check whether the results are plausible?</span>
+  <span class="es">¿Dónde llegan los datos libres a sus límites en esta parcela? ¿Cómo comprueba si los resultados son plausibles?</span>
+</div>
+<table>
+  <tr><th style="width:22%">Grenze<span class="en">Limit</span><span class="es">Límite</span></th><th>Was bedeutet das?<span class="en">What does it mean?</span><span class="es">¿Qué significa?</span></th></tr>
+  <tr><td class="lbl">Grobes Wetter-Raster</td><td>ERA5 ist ein Modell auf einem Raster: ein Wert pro Quadrat von ca. 9 km (Temperatur) bzw. 25 km (Wind, Wolken). Oben und unten am Hang sind gleich.<span class="en">ERA5 is a model on a grid: one value per square of about 9 km (temperature) or 25 km (wind, clouds). Top and bottom of the slope are the same.</span><span class="es">ERA5 es un modelo en una cuadrícula: un valor por cuadrado de unos 9 km (temperatura) o 25 km (viento, nubes). Arriba y abajo de la ladera son iguales.</span></td></tr>
+  <tr><td class="lbl">Messung in 2 m</td><td>In klaren, ruhigen Nächten liegt die kälteste Luft am Boden (Inversion). An den Knospen ist es oft 1–3 °C kälter (vgl. Snyder &amp; de Melo-Abreu 2005). Station Traben-Trarbach: in 20 cm im Mittel 1,7 °C kälter als in 2 m. ERA5 zeigt also zu wenig Frost.<span class="en">On clear, calm nights the coldest air lies at the ground (inversion). At the buds it is often 1–3 °C colder (cf. Snyder &amp; de Melo-Abreu 2005). Station Traben-Trarbach: at 20 cm on average 1.7 °C colder than at 2 m. So ERA5 shows too little frost.</span><span class="es">En noches despejadas y tranquilas el aire más frío está junto al suelo (inversión). En las yemas suele hacer 1–3 °C menos (cf. Snyder y de Melo-Abreu 2005). Estación Traben-Trarbach: a 20 cm de media 1,7 °C menos que a 2 m. ERA5 muestra pocas heladas.</span></td></tr>
+  <tr><td class="lbl">Keine Inversions-Korrektur</td><td>Open-Meteo passt die Temperatur mit einer festen Regel an die Höhe an (unten wärmer). In Frostnächten ist es aber umgekehrt. Gemessen (Traben-Trarbach): in klaren, ruhigen Nächten 2,3 °C kälter als ERA5, bei Wind nur 0,7 °C.<span class="en">Open-Meteo adjusts the temperature to height with a fixed rule (warmer at the bottom). In frost nights it is the other way round. Measured (Traben-Trarbach): on clear, calm nights 2.3 °C colder than ERA5, with wind only 0.7 °C.</span><span class="es">Open-Meteo ajusta la temperatura a la altura con una regla fija (abajo más cálido). En noches de helada es al revés. Medido (Traben-Trarbach): en noches despejadas y en calma 2,3 °C más frío que ERA5, con viento solo 0,7 °C.</span></td></tr>
+  <tr><td class="lbl">NDVI (Sentinel-2, 10 m)</td><td>Geprüft im Copernicus Browser, 2021–2023. NDVI = (B08 − B04)/(B08 + B04). Sommer 2021 ca. 0,65, März und August 2022 je 0,38 (Trockenheit), Herbst 2022 wieder ca. 0,7. Der Frost vom 10.04.2022 ist nicht sichtbar. Ein 10-m-Pixel mischt Reben, Schieferboden und Gras: Das NDVI zeigt hier Gras und Wasser, nicht Frostschäden.<span class="en">Checked in Copernicus Browser, 2021–2023. NDVI = (B08 − B04)/(B08 + B04). Summer 2021 about 0.65, March and August 2022 both 0.38 (drought), autumn 2022 about 0.7 again. The frost of 10 April 2022 is not visible. A 10 m pixel mixes vines, slate soil and grass: here NDVI shows grass and water, not frost damage.</span><span class="es">Comprobado en Copernicus Browser, 2021–2023. NDVI = (B08 − B04)/(B08 + B04). Verano 2021 unos 0,65, marzo y agosto 2022 ambos 0,38 (sequía), otoño 2022 otra vez unos 0,7. La helada del 10/04/2022 no se ve. Un píxel de 10 m mezcla cepas, suelo de pizarra y hierba: aquí el NDVI muestra hierba y agua, no daños por helada.</span></td></tr>
+  <tr><td class="lbl">Wind in 10 m</td><td>Die Grenze 10 km/h (ca. 5 km/h an den Knospen) ist eine Schätzung, keine Messung (siehe Teil 2).<span class="en">The 10 km/h limit (about 5 km/h at the buds) is an estimate, not a measurement (see part 2).</span><span class="es">El límite de 10 km/h (unos 5 km/h en las yemas) es una estimación, no una medición (ver parte 2).</span></td></tr>
+  <tr><td class="lbl">Austrieb</td><td>DWD-Station 7 km entfernt, Rebsorte unbekannt, Modell ca. ±11 Tage.<span class="en">DWD station 7 km away, variety unknown, model about ±11 days.</span><span class="es">Estación del DWD a 7 km, variedad desconocida, modelo de unos ±11 días.</span></td></tr>
+  <tr><td class="lbl">Kaltluft-Bild</td><td>Nur ein Hinweis aus dem Gelände: zeigt wo, aber nicht wie kalt.<span class="en">Only a hint from the terrain: shows where, but not how cold.</span><span class="es">Solo una pista del terreno: muestra dónde, pero no cuánto frío.</span></td></tr>
+</table>
+</div>
+<div class="block">
+<h3>So prüfe ich <span class="en">How I check</span> <span class="es">Cómo lo compruebo</span></h3>
+<ul>
+  <li><b>Gemacht:</b> Austrieb-Modell mit 19 Jahren Ürzig verglichen, unabhängig mit Enkirch (ca. 9 Tage). Bekannte Frostjahre sind zu sehen: 2017 klar (−1,8 °C), 2024 schwach (−0,1 °C in 2 m).
+    <span class="en">Done: budbreak model compared with 19 years of Ürzig, independently with Enkirch (about 9 days). Known frost years are visible: 2017 clearly (−1.8 °C), 2024 weakly (−0.1 °C at 2 m).</span>
+    <span class="es">Hecho: modelo de brotación comparado con 19 años de Ürzig, y de forma independiente con Enkirch (unos 9 días). Los años de helada conocidos aparecen: 2017 claramente (−1,8 °C), 2024 débilmente (−0,1 °C a 2 m).</span></li>
+  <li><b>Gemacht: Messstation Traben-Trarbach</b> (Agrarmeteorologie RLP, wetter.rlp.de): 1 km von der Fläche, Steilhang, 132 m (Fläche im Mittel 136 m), stündlich 2008–2025. Gleicher Austrieb und gleicher Zeitraum wie ERA5, nur die Nachttemperatur ist gemessen.
+    <span class="en">Done: station Traben-Trarbach (Agrarmeteorologie RLP, wetter.rlp.de): 1 km from the plot, steep slope, 132 m (plot mean 136 m), hourly 2008–2025. Same budbreak and period as ERA5, only the night temperature is measured.</span>
+    <span class="es">Hecho: estación Traben-Trarbach (Agrarmeteorologie RLP, wetter.rlp.de): a 1 km de la parcela, ladera empinada, 132 m (parcela de media 136 m), por horas 2008–2025. Misma brotación y mismo periodo que ERA5, solo la temperatura nocturna es medida.</span>
+    <table style="margin-top:3pt;">
+      <tr><th>2008–2025, nach dem Austrieb bis 31. Mai<span class="en">after budbreak to 31 May</span><span class="es">tras la brotación hasta el 31 de mayo</span></th><th class="num">ERA5</th><th class="num">Station 2 m</th><th class="num">Station 20 cm</th></tr>
+      <tr><td>Frostnächte (≤ 0 °C)<span class="en">Frost nights</span><span class="es">Noches de helada</span></td><td class="num">16</td><td class="num"><b>65</b></td><td class="num">134</td></tr>
+      <tr><td>Starker Frost (≤ −1,5 °C)<span class="en">Severe frost</span><span class="es">Helada fuerte</span></td><td class="num">3</td><td class="num"><b>26</b></td><td class="num">72</td></tr>
+      <tr><td>Jahre mit Frost<span class="en">Years with frost</span><span class="es">Años con helada</span></td><td class="num">10 von 18</td><td class="num"><b>14 von 18</b></td><td class="num">—</td></tr>
+      <tr><td>Beispiel 20.04.2017<span class="en">Example</span><span class="es">Ejemplo</span></td><td class="num">−1,8 °C</td><td class="num"><b>−4,9 °C</b></td><td class="num">−6,4 °C</td></tr>
+    </table>
+    Ergebnis: ERA5 unterschätzt Frost an der Fläche deutlich, vor allem in klaren, ruhigen Nächten (Inversion). Mit Wind (Advektion) liegt ERA5 nah dran, z. B. 10.04.2022: ERA5 −1,9 °C, Station 0,0 °C. Grenzen: Station 1 km entfernt, nicht in der Fläche; 2006–2007 ohne Temperatur.
+    <span class="en">Result: ERA5 clearly underestimates frost at the plot, mainly on clear, calm nights (inversion). With wind (advection) ERA5 is close, e.g. 10 April 2022: ERA5 −1.9 °C, station 0.0 °C. Limits: station 1 km away, not in the plot; 2006–2007 without temperature.</span>
+    <span class="es">Resultado: ERA5 subestima mucho la helada en la parcela, sobre todo en noches despejadas y en calma (inversión). Con viento (advección) ERA5 se acerca, p. ej. 10/04/2022: ERA5 −1,9 °C, estación 0,0 °C. Límites: estación a 1 km, no en la parcela; 2006–2007 sin temperatura.</span></li>
+  <li><b>Gemacht:</b> NDVI-Zeitreihe 2021–2023 im Copernicus Browser (Frost 10.04.2022): kein Frostsignal sichtbar.
+    <span class="en">Done: NDVI time series 2021–2023 in Copernicus Browser (frost 10 April 2022): no frost signal visible.</span>
+    <span class="es">Hecho: serie temporal de NDVI 2021–2023 en Copernicus Browser (helada 10/04/2022): no se ve señal de helada.</span></li>
+  <li><b>Für die genaue Fläche:</b> 2–3 Thermometer im Weinberg (unten und oben) für einen Frühling.
+    <span class="en">For the exact plot: 2–3 thermometers in the vineyard (bottom and top) for one spring.</span>
+    <span class="es">Para la parcela exacta: 2–3 termómetros en el viñedo (abajo y arriba) durante una primavera.</span></li>
+</ul>
+</div>
+<div class="block">
+<div class="part-head"><span class="part-num">4</span><span class="part-title">Einschätzung <span class="en">Assessment</span> <span class="es">Valoración</span></span></div>
+<div class="question">
+  <span class="label">Frage von OMEGA</span>
+  Was sagen Sie einem Versicherer über diese Fläche, in zwei, drei Sätzen, wie am Telefon?
+  <span class="en">What do you tell an insurer about this plot, in two or three sentences, as on the phone?</span>
+  <span class="es">¿Qué le diría a una aseguradora sobre esta parcela, en dos o tres frases, como por teléfono?</span>
+</div>
+<div class="callout"><p>„Die Fläche ist ein steiler Südhang an der Mosel. Oben ist das Frostrisiko gering, unten am Hang höher, weil sich dort nachts kalte Luft sammelt. Die Messstation 1 km daneben zeigt etwa viermal mehr Frostnächte nach dem Austrieb als das Wettermodell. Ich sehe ein mittleres bis hohes Risiko, am höchsten am Hangfuß, und würde es mit Sensoren in der Fläche prüfen.“</p>
+<span class="en">“The plot is a steep south-facing slope on the Moselle. At the top the frost risk is low, at the bottom higher, because cold air collects there at night. The weather station 1 km away shows about four times more frost nights after budbreak than the weather model. I see a medium to high risk, highest at the foot of the slope, and would check it with sensors in the plot.”</span>
+<span class="es">«La parcela es una ladera empinada al sur junto al Mosela. Arriba el riesgo de helada es bajo, abajo más alto, porque allí se acumula el aire frío por la noche. La estación a 1 km muestra unas cuatro veces más noches de helada tras la brotación que el modelo. Veo un riesgo medio a alto, mayor al pie de la ladera, y lo comprobaría con sensores en la parcela.»</span>
+</div>
+<p class="note"><b>Warum „mittel bis hoch“?</b> Nach ERA5 allein wäre es „mittel“: Frost oft (19 von 50 Jahren), aber meist leicht, stark etwa alle 5–6 Jahre. Die Station zeigt aber starken Frost in 2 m in fast jedem zweiten Jahr seit 2008, in 20 cm noch öfter. Der steile Hang hilft oben (Kaltluft fließt ab), der Hangfuß erhöht das Risiko unten.</p>
+<span class="en">Why “medium to high”? With ERA5 alone it would be “medium”: frost often (19 of 50 years) but mostly light, severe about every 5–6 years. The station, however, shows severe frost at 2 m in almost every second year since 2008, at 20 cm even more often. The steep slope helps at the top (cold air drains away), the foot of the slope raises the risk at the bottom.</span>
+<span class="es">¿Por qué «medio a alto»? Solo con ERA5 sería «medio»: helada frecuente (19 de 50 años) pero sobre todo leve, fuerte aprox. cada 5–6 años. Pero la estación muestra helada fuerte a 2 m casi uno de cada dos años desde 2008, y a 20 cm aún más. La ladera empinada ayuda arriba (el aire frío se va); el pie de la ladera sube el riesgo abajo.</span>
+</div>
+<div class="block">
+<div class="part-head"><span class="part-title">Nutzung von KI <span class="en">Use of AI</span> <span class="es">Uso de IA</span></span></div>
+<p>Genutzt für: Erklärungen (Fachbegriffe und mir neue Programme wie QGIS), Python-Code und Literatursuche. Geprüft und geändert:</p>
+<span class="en">Used for: explanations (technical terms and programs new to me, such as QGIS), Python code and literature search. Checked and changed:</span>
+<span class="es">Usada para: explicaciones (términos técnicos y programas nuevos para mí, como QGIS), código Python y búsqueda de literatura. Comprobado y cambiado:</span>
+<table>
+  <tr><td style="width:34%">Google Earth Engine → getestet, für Wetter nicht genutzt</td><td>Andere Werte (Tageswerte, UTC-Zeit, keine Höhenkorrektur).<span class="en">Different values (daily values, UTC time, no height correction).</span><span class="es">Valores distintos (diarios, hora UTC, sin corrección de altura).</span></td></tr>
+  <tr><td style="width:34%">Basis 10 °C → 7,5 °C</td><td>Mit 10 °C kam der Austrieb drei Wochen zu spät. 7,5 °C und Schwelle 40 an 19 Jahren Ürzig kalibriert (±11 Tage). Studien: unter 10 °C (Zapata 2015 ca. 7 °C, Leolini et al. 2020 6,7 °C, Pellegrino et al. 2022 5–10 °C).<span class="en">With 10 °C budbreak came three weeks too late. 7.5 °C and threshold 40 calibrated on 19 years of Ürzig (±11 days). Studies: below 10 °C (Zapata 2015 about 7 °C, Leolini et al. 2020 6.7 °C, Pellegrino et al. 2022 5–10 °C).</span><span class="es">Con 10 °C la brotación salía tres semanas tarde. 7,5 °C y umbral 40 calibrados con 19 años de Ürzig (±11 días). Estudios: por debajo de 10 °C (Zapata 2015 unos 7 °C, Leolini et al. 2020 6,7 °C, Pellegrino et al. 2022 5–10 °C).</span></td></tr>
+  <tr><td style="width:34%">Wind 5 → 10 km/h (Wolken unter 20 %)</td><td>Mit 5 km/h gab es fast keinen Strahlungsfrost, weil der Wind in 10 m modelliert ist (FAO-56: 2 m ≈ 0,75 × 10 m). Keine automatische Inversions-Korrektur.<span class="en">With 5 km/h there was almost no radiation frost, because wind is modelled at 10 m (FAO-56: 2 m ≈ 0.75 × 10 m). No automatic inversion correction.</span><span class="es">Con 5 km/h casi no había helada por radiación, porque el viento está modelado a 10 m (FAO-56: 2 m ≈ 0,75 × 10 m). No hay corrección automática de inversión.</span></td></tr>
+  <tr><td style="width:34%">Alle DWD-Stationen → nur Ürzig, Enkirch, Wintrich</td><td>Wittlich (außerhalb des Tals) treibt 15 Tage später aus und hätte Fröste versteckt (z. B. 1991).<span class="en">Wittlich (outside the valley) buds 15 days later and would have hidden frosts (e.g. 1991).</span><span class="es">Wittlich (fuera del valle) brota 15 días más tarde y habría ocultado heladas (p. ej. 1991).</span></td></tr>
+  <tr><td style="width:34%">Geländewerte</td><td>selbst in QGIS berechnet und mit dem Programm verglichen<span class="en">calculated myself in QGIS and compared with the program</span><span class="es">calculados por mí en QGIS y comparados con el programa</span></td></tr>
+</table>
+</div>
+<p class="src" style="margin-top:6pt;"><b>Begriffe:</b> ERA5 / ERA5-Land = Reanalyse des ECMWF für Copernicus: ein Wettermodell, das weltweite Messungen zu stündlichen Werten auf einem Raster verbindet, keine einzelnen Wetterstationen · Copernicus = Erdbeobachtungsprogramm der EU, Daten frei und kostenlos (z. B. im Copernicus Browser im Web) · QGIS = kostenloses Programm (Open Source) für Karten und Geodaten · DGM1 = Höhenmodell des Bodens von Rheinland-Pfalz, 1 m Raster, Laserscan aus dem Flugzeug · DWD = Deutscher Wetterdienst · TPI = vergleicht eine Stelle mit ihrer Umgebung · Austrieb = die Rebe beginnt zu wachsen · Hangfuß = unten am Hang.<br><i>(ERA5 = modelo meteorológico que combina mediciones mundiales, no estaciones · Copernicus = programa de observación de la Tierra de la UE, datos libres y gratuitos · QGIS = programa libre de mapas · DGM1 = modelo de altura del suelo, 1 m, láser desde avión)</i></p>
+<p class="src"><b>Quellen:</b> ERA5-Land / ERA5: contains modified Copernicus Climate Change Service information (2026) · Weather data by Open-Meteo.com (CC BY 4.0) · DGM1 ©GeoBasis-DE / LVermGeoRP (2023), dl-de/by-2-0, www.lvermgeo.rlp.de [Daten bearbeitet] · Quelle: Deutscher Wetterdienst (Phänologie, Weinrebe Austrieb) · Allen, R. G. et al. (1998): FAO Irrigation and Drainage Paper 56 · Snyder, R. L. &amp; de Melo-Abreu, J. P. (2005): Frost Protection, FAO · Zapata, D. (2015), Washington State University · Leolini, L. et al. (2020), Applied Sciences 10, 3800 · Pellegrino, A. et al. (2022), OENO One 56(1) · Weiss, A. (2001): Topographic Position and Landforms Analysis.</p>
+</body>
+</html>

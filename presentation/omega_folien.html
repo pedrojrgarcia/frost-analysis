@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Frostrisiko Kröv – Folien</title>
+<style>
+  @page { size: 297mm 167mm; margin: 0; }
+  :root { --ink: #1d1d1f; --muted: #6e6e73; --line: #d9d9de; --accent: #7a1f2b; --soft: #f5f4f2; --blue: #2b6ca3; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
+  .slide { width: 297mm; height: 167mm; padding: 9mm 11mm 11mm; position: relative; overflow: hidden; break-after: page; display: flex; flex-direction: column; }
+  .slide:last-child { break-after: auto; }
+  .kicker { font-size: 9pt; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 1.5mm; }
+  h1 { font-size: 21pt; margin: 0 0 4mm; line-height: 1.15; }
+  .row { display: flex; gap: 7mm; flex: 1; min-height: 0; }
+  .col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  figure { margin: 0; display: flex; flex-direction: column; min-height: 0; }
+  figure img { width: 100%; height: 92mm; object-fit: cover; border: 0.6pt solid var(--line); border-radius: 2mm; display: block; }
+  figcaption { font-size: 9.5pt; margin-top: 2mm; line-height: 1.35; }
+  figcaption b { color: var(--accent); }
+  .key { display: inline-block; width: 8pt; height: 8pt; vertical-align: -0.5pt; margin: 0 2pt 0 6pt; border: 0.5pt solid #bbb; border-radius: 1pt; }
+  .facts { display: flex; gap: 3mm; margin-top: 4mm; }
+  .fact { flex: 1; background: var(--soft); border-radius: 2mm; padding: 2.5mm 3mm; }
+  .fact .n { font-size: 14pt; font-weight: 700; }
+  .fact .l { font-size: 8.5pt; color: var(--muted); }
+  .chart { width: 100%; aspect-ratio: 1092 / 418; overflow: hidden; border: 0.6pt solid var(--line); border-radius: 2mm; }
+  .chart img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .chart2 { width: 100%; height: 50mm; overflow: hidden; border: 0.6pt solid var(--line); border-radius: 2mm; }
+  .chart2 img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .cap { font-size: 8.5pt; line-height: 1.3; margin: 0 0 1mm; }
+  .cap b { color: var(--accent); }
+  .box { background: var(--soft); border-radius: 2mm; padding: 3mm 4mm; margin-bottom: 3mm; }
+  .box h3 { font-size: 10.5pt; margin: 0 0 1.5mm; color: var(--accent); }
+  .box ul { margin: 0; padding-left: 4.5mm; font-size: 9.5pt; line-height: 1.4; }
+  .box.assess { background: #fff; border: 1.2pt solid var(--accent); }
+  .box.assess p { margin: 0; font-size: 10.5pt; line-height: 1.4; }
+  .src { position: absolute; left: 11mm; right: 11mm; bottom: 3.5mm; font-size: 7pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ===================== FOLIE 1 ===================== -->
+<section class="slide">
+  <p class="kicker">Weinbergsfläche Kröv (Mosel) · Gelände</p>
+  <h1>Steiler Südhang am Moselufer – Kaltluft sammelt sich am Hangfuß</h1>
+  <div class="row">
+    <figure class="col">
+      <img src="gelaende_hillshade.png" alt="Schummerung">
+      <figcaption><b>Gelände (DGM1, 1 m):</b> Fläche rot. Linien quer zum Hang = Terrassen und Mauern.</figcaption>
+    </figure>
+    <figure class="col">
+      <img src="kaltluft_tpi.png" alt="TPI">
+      <figcaption><b>Kaltluft (TPI, 25 m):</b>
+        <span class="key" style="background:#6baed6"></span>tiefer → Kaltluft sammelt sich
+        <span class="key" style="background:#f7f7f7"></span>normal
+        <span class="key" style="background:#f4a582"></span>höher → fließt ab</figcaption>
+    </figure>
+  </div>
+  <div class="facts">
+    <div class="fact"><div class="n">7,72 ha</div><div class="l">Fläche, Weinbau</div></div>
+    <div class="fact"><div class="n">104–185 m</div><div class="l">Höhe ü. NN (81 m Unterschied)</div></div>
+    <div class="fact"><div class="n">24,7° · 46 %</div><div class="l">mittlere Neigung → Steillage</div></div>
+    <div class="fact"><div class="n">Süd</div><div class="l">Ausrichtung (ca. 174°)</div></div>
+  </div>
+  <p class="src">DGM1 Rheinland-Pfalz 1 m (2023) ©GeoBasis-DE / LVermGeoRP, dl-de/by-2-0, www.lvermgeo.rlp.de [Daten bearbeitet] · TPI nach Weiss (2001)</p>
+</section>
+
+<!-- ===================== FOLIE 2 ===================== -->
+<section class="slide">
+  <p class="kicker">Weinbergsfläche Kröv (Mosel) · Frostgeschichte</p>
+  <h1>Frost nach dem Austrieb: häufig – und gemessen viermal öfter als im Modell</h1>
+  <div class="row">
+    <div class="col" style="flex: 1.9; gap: 1.5mm;">
+      <div class="chart2"><img src="app_history_chart_50.png" alt="Frostnächte 1976–2025"></div>
+      <figcaption class="cap"><b>ERA5, 1976–2025:</b> ein Punkt pro Frostnacht (blau Strahlung, orange Advektion, ▼ stark), Linie = Mittel 10 Jahre. 19 von 50 Jahren mit Frost, seit 2016 fast jedes Jahr.</figcaption>
+      <div class="chart2"><img src="app_station_bars.png" alt="ERA5 und Station 2009–2025"></div>
+      <figcaption class="cap"><b>ERA5 (links) und Station Traben-Trarbach, 2 m (rechts, grau; dunkel = stark), 2009–2025:</b> 65 statt 16 Frostnächte, 26 statt 3 starke.</figcaption>
+    </div>
+    <div class="col">
+      <div class="box">
+        <h3>Daten und Methode</h3>
+        <ul>
+          <li>Wetter stündlich seit 1976: ERA5-Land / ERA5</li>
+          <li>Austrieb: DWD im Moseltal, sonst Wärmesumme</li>
+          <li>Frost = Nachtminimum ≤ 0 °C nach dem Austrieb</li>
+          <li>Prüfung: Station Traben-Trarbach, 1 km, Steilhang, 132 m</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Grenzen</h3>
+        <ul>
+          <li>ERA5 gilt für 9–25 km, nicht für die Fläche</li>
+          <li>Klare Nächte: Station 2,3 °C kälter als ERA5</li>
+          <li>In 20 cm noch 1,7 °C kälter als in 2 m</li>
+        </ul>
+      </div>
+      <div class="box assess">
+        <h3>Einschätzung</h3>
+        <p>Mittleres bis hohes Risiko, am höchsten am Hangfuß. Vor Vertragsabschluss Sensoren in der Fläche.</p>
+      </div>
+    </div>
+  </div>
+  <p class="src">ERA5-Land / ERA5: contains modified Copernicus Climate Change Service information (2026) · Weather data by Open-Meteo.com (CC BY 4.0) · Quelle: Deutscher Wetterdienst (Phänologie) · Station Traben-Trarbach: Agrarmeteorologie Rheinland-Pfalz (DLR), wetter.rlp.de</p>
+</section>
+
+</body>
+</html>

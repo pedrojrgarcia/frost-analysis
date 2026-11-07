@@ -235,7 +235,7 @@ data/*
 !data/Traben-Trarbach *.csv
 
 # Interview notes (not public)
-presentation/
+
 
 # macOS Finder files
 .DS_Store
