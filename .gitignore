@@ -220,7 +220,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Local database
-frost_data.db
+
 
 # Frontend
 frontend/node_modules/
@@ -235,7 +235,6 @@ data/*
 !data/Traben-Trarbach *.csv
 
 # Interview notes (not public)
-
 
 # macOS Finder files
 .DS_Store
