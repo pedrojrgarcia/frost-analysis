@@ -211,8 +211,7 @@ See `.gitignore`. Get these yourself after cloning:
 - `frost_data.db`: run `fetch.py` and `analyze.py`
 - `data/dgm1/`: download the DGM1 tiles (see above)
 - `data/Weinbergsflaeche_Kroev.*`: the plot Shapefile (put it in `data/`)
-- `data/Traben-Trarbach AAAA.csv`: hourly station data from wetter.rlp.de (station Traben-Trarbach, Download / Grafik, Stundenwerte, all parameters, 01.01–31.12, one file per year)
-- everything else in `data/` except `dwd_budbreak.csv` and `terrain.json`
+- everything else in `data/` except `dwd_budbreak.csv`, `terrain.json` and `Traben-Trarbach *.csv` (hourly station data from wetter.rlp.de, Agrarmeteorologie RLP, station Traben-Trarbach)
 - `data/*.qgz`, `presentation/`: personal files
 
 ## API
