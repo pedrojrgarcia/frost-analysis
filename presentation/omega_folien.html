@@ -47,23 +47,23 @@
   <div class="row">
     <figure class="col">
       <img src="gelaende_hillshade.png" alt="Schummerung">
-      <figcaption><b>Gelände (DGM1, 1 m):</b> Fläche rot. Linien quer zum Hang = Terrassen und Mauern.</figcaption>
+      <figcaption><b>Gelände (DGM1, 1 m) [6]:</b> Fläche rot.</figcaption>
     </figure>
     <figure class="col">
       <img src="kaltluft_tpi.png" alt="TPI">
-      <figcaption><b>Kaltluft (TPI, 25 m):</b>
-        <span class="key" style="background:#6baed6"></span>tiefer → Kaltluft sammelt sich
+      <figcaption><b>TPI, 25 m [6, 7]:</b>
+        <span class="key" style="background:#6baed6"></span>tiefer als die Umgebung
         <span class="key" style="background:#f7f7f7"></span>normal
-        <span class="key" style="background:#f4a582"></span>höher → fließt ab</figcaption>
+        <span class="key" style="background:#f4a582"></span>höher</figcaption>
     </figure>
   </div>
   <div class="facts">
     <div class="fact"><div class="n">7,72 ha</div><div class="l">Fläche, Weinbau</div></div>
     <div class="fact"><div class="n">104–185 m</div><div class="l">Höhe ü. NN (81 m Unterschied)</div></div>
-    <div class="fact"><div class="n">24,7° · 46 %</div><div class="l">mittlere Neigung → Steillage</div></div>
+    <div class="fact"><div class="n">24,7° · 46 %</div><div class="l">mittlere Neigung</div></div>
     <div class="fact"><div class="n">Süd</div><div class="l">Ausrichtung (ca. 174°)</div></div>
   </div>
-  <p class="src">DGM1 Rheinland-Pfalz 1 m (2023) ©GeoBasis-DE / LVermGeoRP, dl-de/by-2-0, www.lvermgeo.rlp.de [Daten bearbeitet] · TPI nach Weiss (2001)</p>
+  <p class="src">Kaltluft fließt hangabwärts und sammelt sich am Hangfuß [9, S. 2] · [6] DGM1 ©GeoBasis-DE / LVermGeoRP (2023), dl-de/by-2-0 [Daten bearbeitet] · [7] Weiss (2001), TPI · [9] Kotremba, Spätfröste aus meteorologischer Sicht, DLR Mosel · Fläche 7,72 ha: Angabe OMEGA</p>
 </section>
 
 <!-- ===================== FOLIE 2 ===================== -->
@@ -73,35 +73,35 @@
   <div class="row">
     <div class="col" style="flex: 1.9; gap: 1.5mm;">
       <div class="chart2"><img src="app_history_chart_50.png" alt="Frostnächte 1976–2025"></div>
-      <figcaption class="cap"><b>ERA5, 1976–2025:</b> ein Punkt pro Frostnacht (blau Strahlung, orange Advektion, ▼ stark), Linie = Mittel 10 Jahre. 19 von 50 Jahren mit Frost, seit 2016 fast jedes Jahr.</figcaption>
+      <figcaption class="cap"><b>Modell ERA5-Land, 1976–2025 [3, 4]:</b> 1 Punkt = 1 Frostnacht nach dem Austrieb. Dunkelblau = stark (−1,5 °C oder kälter). Frost in 19 von 50 Jahren, stark in 9.</figcaption>
       <div class="chart2"><img src="app_station_bars.png" alt="ERA5 und Station 2009–2025"></div>
-      <figcaption class="cap"><b>ERA5 (links) und Station Traben-Trarbach, 2 m (rechts, grau; dunkel = stark), 2009–2025:</b> 65 statt 16 Frostnächte, 26 statt 3 starke.</figcaption>
+      <figcaption class="cap"><b>Links Modell (blau), rechts Station Traben-Trarbach (grau), 2009–2025 [3, 5]:</b> Dunkel = stark. Station 65 Frostnächte, Modell 16.</figcaption>
     </div>
     <div class="col">
       <div class="box">
         <h3>Daten und Methode</h3>
         <ul>
-          <li>Wetter stündlich seit 1976: ERA5-Land / ERA5</li>
-          <li>Austrieb: DWD im Moseltal, sonst Wärmesumme</li>
-          <li>Frost = Nachtminimum ≤ 0 °C nach dem Austrieb</li>
-          <li>Prüfung: Station Traben-Trarbach, 1 km, Steilhang, 132 m</li>
+          <li>Temperatur: Modell ERA5-Land, jede Stunde seit 1976 [1–3]</li>
+          <li>Austrieb: DWD Ürzig; sonst Wärmesumme, mit Ürzig getestet [4, 12]</li>
+          <li>Frost: 0 °C oder kälter. Stark: −1,5 °C oder kälter, schwere Schäden [9]</li>
+          <li>Test: Station Traben-Trarbach, 1 km weg, Steilhang [5]</li>
         </ul>
       </div>
       <div class="box">
         <h3>Grenzen</h3>
         <ul>
-          <li>ERA5 gilt für 9–25 km, nicht für die Fläche</li>
-          <li>Klare Nächte: Station 2,3 °C kälter als ERA5</li>
-          <li>In 20 cm noch 1,7 °C kälter als in 2 m</li>
+          <li>Modell: ein Wert für 9 × 9 km, nicht für die Fläche [2]</li>
+          <li>In Frostnächten ist das Modell im Mittel 2,8 °C zu warm [3, 5]</li>
+          <li>Am Boden (20 cm) noch 1,6 °C kälter [5]</li>
         </ul>
       </div>
       <div class="box assess">
         <h3>Einschätzung</h3>
-        <p>Mittleres bis hohes Risiko, am höchsten am Hangfuß. Vor Vertragsabschluss Sensoren in der Fläche.</p>
+        <p>Starker Frost: Station in 8 von 18 Jahren [5], Modell in 9 von 50 [3]. <b>Mittleres bis hohes Risiko</b>, unten am Hang am höchsten [9]. Vor dem Vertrag: Sensoren in die Fläche.</p>
       </div>
     </div>
   </div>
-  <p class="src">ERA5-Land / ERA5: contains modified Copernicus Climate Change Service information (2026) · Weather data by Open-Meteo.com (CC BY 4.0) · Quelle: Deutscher Wetterdienst (Phänologie) · Station Traben-Trarbach: Agrarmeteorologie Rheinland-Pfalz (DLR), wetter.rlp.de</p>
+  <p class="src">[1] Hersbach et al. 2020, ERA5 · [2] Muñoz-Sabater et al. 2021, ERA5-Land · [3] Open-Meteo.com (CC BY 4.0) · [4] DWD Phänologie Weinrebe · [5] Agrarmeteorologie RLP, wetter.rlp.de · [9] Kotremba, Spätfröste aus meteorologischer Sicht, DLR Mosel · [12] Nendel 2010, Int. J. Biometeorol. 54 · Contains modified Copernicus Climate Change Service information (2026)</p>
 </section>
 
 </body>

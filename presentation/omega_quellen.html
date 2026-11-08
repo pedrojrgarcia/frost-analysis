@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Quellen – Frostrisiko Kröv</title>
+<style>
+  @page { size: A4; margin: 8mm 11mm 8mm; }
+  :root { --ink: #1d1d1f; --en: #8a8a8e; --line: #e2e2e6; --accent: #7a1f2b; --soft: #f6f5f3; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--ink); font-size: 8.8pt; line-height: 1.3; margin: 0; }
+
+  .doc-title { font-size: 21pt; font-weight: 700; color: var(--accent); margin: 0; line-height: 1.15; }
+  .doc-sub { color: var(--en); font-size: 9.5pt; margin: 1pt 0 0; }
+  .doc-meta { font-size: 8.5pt; color: var(--en); margin: 3pt 0 10pt; padding-bottom: 7pt; border-bottom: 0.8pt solid var(--line); }
+
+  .part-head { display: flex; align-items: baseline; gap: 7pt; margin: 9pt 0 4pt; padding-bottom: 2pt; border-bottom: 1.5pt solid var(--accent); break-after: avoid; }
+  .part-num { background: var(--accent); color: #fff; font-weight: 700; font-size: 10.5pt; border-radius: 3pt; padding: 0 6pt; }
+  .part-title { font-size: 12pt; font-weight: 700; color: var(--accent); }
+  .part-title .en { display: inline; font-size: 9.5pt; font-weight: 400; margin-left: 6pt; }
+  h3 { font-size: 9.8pt; margin: 5pt 0 2pt; break-after: avoid; }
+  h3 .en { display: inline; font-weight: 400; font-size: 8.5pt; margin-left: 6pt; }
+
+  p { margin: 0 0 1pt; }
+  .en { color: var(--en); font-size: 7.6pt; line-height: 1.28; display: block; margin: 0; }
+  ul, ol { margin: 2pt 0 5pt; padding-left: 14pt; }
+  li { margin-bottom: 2pt; }
+  li .en { margin: 1pt 0 0; }
+
+  .question { background: var(--soft); border-left: 3pt solid var(--accent); padding: 4pt 7pt; margin: 0 0 4pt; break-inside: avoid; }
+  .question .label { font-size: 7.5pt; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 1pt; }
+  .question .en { margin-bottom: 0; }
+  .summary { border: 1pt solid var(--line); border-radius: 4pt; padding: 5pt 8pt; margin: 0 0 4pt; break-inside: avoid; }
+  .summary h4 { margin: 0 0 3pt; font-size: 9pt; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+  .summary ul { margin: 0; }
+  .summary li { margin-bottom: 1pt; }
+  .result { background: #faf9f8; border: 1pt solid var(--line); border-radius: 4pt; padding: 4pt 7pt; margin: 3pt 0 4pt; break-inside: avoid; }
+  .result .en { margin-bottom: 0; }
+  .callout { border: 1.3pt solid var(--accent); border-radius: 4pt; padding: 6pt 9pt; break-inside: avoid; }
+  .callout p { font-size: 9.5pt; }
+  .callout .en { margin-bottom: 0; font-size: 8.8pt; }
+  .note { font-size: 8.8pt; color: #444; }
+  .block { break-inside: auto; }
+  tr, li, figure, .note { break-inside: avoid; }
+  .question, .part-head { break-after: avoid; }
+  table.keep { break-inside: avoid; }
+
+  table { width: 100%; border-collapse: collapse; margin: 2pt 0 4pt; font-size: 8.3pt; break-inside: auto; }
+  th, td { text-align: left; padding: 2pt 4pt; border-bottom: 0.6pt solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 600; font-size: 8.5pt; }
+  td .en, th .en { margin: 1pt 0 0; font-size: 7.3pt; }
+  td.lbl { font-weight: 600; }
+  .num { text-align: right; white-space: nowrap; }
+  tr.used td { background: #eef6ee; }
+  tr.out td { color: #777; }
+
+  .two { display: flex; gap: 10pt; }
+  .two > * { flex: 1; min-width: 0; }
+
+  figure { margin: 3pt 0 3pt; break-inside: avoid; }
+  figure img { max-width: 100%; border: 0.6pt solid var(--line); border-radius: 3pt; display: block; margin: 0 auto; }
+  figcaption { font-size: 8.8pt; margin-top: 3pt; }
+  figcaption .en { margin-bottom: 0; }
+  .key { display: inline-block; width: 9pt; height: 9pt; vertical-align: -1pt; margin: 0 3pt 0 7pt; border: 0.5pt solid #bbb; border-radius: 1.5pt; }
+  .src { font-size: 7.3pt; color: var(--en); }
+
+  /* Spanish: below the English, smaller and in italics */
+  .es { color: #a9a9ae; font-size: 6.9pt; line-height: 1.25; display: block; margin: 0 0 3pt; font-style: italic; }
+  .en { margin-bottom: 0; } /* the Spanish line follows directly */
+  li .es, .callout .es, .result .es, .question .es, figcaption .es { margin: 1pt 0 0; }
+  td .es, th .es { margin: 0; font-size: 6.8pt; }
+  h3 .es, .part-title .es { display: inline; font-weight: 400; font-size: 0.7em; margin-left: 5pt; }
+  .explain { font-size: 8pt; color: #555; background: #faf9f8; border-left: 2pt solid var(--line); padding: 3pt 6pt; margin: 2pt 0 3pt; }
+  .explain .en, .explain .es { margin: 1pt 0 0; }
+  .ref { color: var(--accent); font-size: 0.85em; font-weight: 600; white-space: nowrap; }
+  .reflist { font-size: 7.4pt; margin: 2pt 0 0; padding-left: 16pt; }
+  .reflist li { margin-bottom: 1pt; }
+  table { table-layout: fixed; }
+  td { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<p class="doc-title">Quellen: wofür und wo</p>
+<p class="doc-sub">Sources: what for and where · <i>Fuentes: para qué y dónde</i></p>
+<p class="doc-meta">Frostrisiko Weinbergsfläche Kröv · OMEGA Space 11.11.2026 · Nummern wie im Bericht, auf den Folien und in den Notizen</p>
+
+<table>
+  <tr><th style="width:4%">#</th><th style="width:28%">Quelle<span class="en">Source</span><span class="es">Fuente</span></th><th style="width:33%">Wofür genutzt<span class="en">Used for</span><span class="es">Para qué</span></th><th>Wo im Dokument<span class="en">Where in the document</span><span class="es">Dónde está</span></th></tr>
+
+  <tr><td>1</td><td>Hersbach, H. et al. (2020): The ERA5 global reanalysis. Q. J. R. Meteorol. Soc. 146, 1999–2049. doi:10.1002/qj.3803</td>
+  <td>ERA5 ist eine Reanalyse: Modell plus weltweite Messungen, stündlich.<span class="es">ERA5 es un reanálisis: modelo más mediciones mundiales, por horas.</span></td>
+  <td>Abstract, S. 1999<span class="es">Resumen, p. 1999</span></td></tr>
+
+  <tr><td>2</td><td>Muñoz-Sabater, J. et al. (2021): ERA5-Land. Earth Syst. Sci. Data 13, 4349–4383. doi:10.5194/essd-13-4349-2021</td>
+  <td>ERA5-Land: Raster ca. 9 km, also ein Wert pro Feld von ca. 9 × 9 km (Grenze).<span class="es">ERA5-Land: cuadrícula de unos 9 km (límite «un valor para unos 9 km»).</span></td>
+  <td>Abstract, S. 4349<span class="es">Resumen, p. 4349</span></td></tr>
+
+  <tr><td>3</td><td>Open-Meteo Historical Weather API, open-meteo.com/en/docs/historical-weather-api; Zippenfenig, P. (2023), doi:10.5281/zenodo.7970649</td>
+  <td>Stündliche Temperatur ERA5-Land 1976–2025 für den Punkt; Anpassung an die Höhe mit 90-m-Höhenmodell. <b>Eigene Auswertung:</b> 19 von 50 Jahren mit Frost, 9 mit starkem Frost, 16 / 3 Frostnächte 2008–2025, ERA5 2,8 °C wärmer, Austrieb 3. statt 25. April, spätester Frost 2. Mai 1981.<span class="es">Temperatura horaria ERA5-Land 1976–2025 para el punto; ajuste a la altura con modelo de 90 m. Análisis propio: 19 de 50 años, 9 fuertes, 16 / 3 noches 2008–2025, ERA5 2,8 °C más cálido, brotación 3 en vez de 25 de abril, última helada 2 de mayo de 1981.</span></td>
+  <td>Webseite: Parameter „elevation“ (90-m-Höhenmodell, Downscaling) und Tabelle der Wettermodelle (ERA5-Land 0,1°)<span class="es">Web: parámetro «elevation» y tabla de modelos (ERA5-Land 0,1°)</span></td></tr>
+
+  <tr><td>4</td><td>Deutscher Wetterdienst, Climate Data Center: Phänologie, Jahresmelder Weinrebe, opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/annual_reporters/vine</td>
+  <td>Beobachteter Austrieb (Phase 3) in Ürzig, Enkirch, Wintrich, Wittlich; Kalibrierung der Wärmesumme (7,5 °C, 40; eigener Test der Basen 0, 5, 7,5, 10 °C: Fehler 10–11 Tage); Lese (Phase 30) in Ürzig, Median 3. Oktober 2011–2025. Rebsorten in Ürzig: Müller-Thurgau und Riesling; frühester Austrieb meist Müller-Thurgau (14 von 19 Jahren), Riesling im Mittel ca. 6 Tage später.<span class="es">Brotación observada (fase 3) en Ürzig, Enkirch, Wintrich, Wittlich; calibración de la suma térmica (7,5 °C, 40); vendimia (fase 30) en Ürzig, mediana 3 de octubre 2011–2025.</span></td>
+  <td>Ordner historical/ und recent/, Dateien PH_Jahresmelder_Weinrebe_Weinrebe_*.txt; Phasen in PH_Beschreibung_Phasendefinition_Jahresmelder_Weinrebe.txt; Stationen Ürzig 10134, Enkirch 10046, Wintrich 10059; Sorten in PH_Jahresmelder_Weinrebe_Spezifizierung.txt<span class="es">Carpetas historical/ y recent/; fases en el archivo de definición; IDs de estación</span></td></tr>
+
+  <tr><td>5</td><td>Agrarmeteorologie Rheinland-Pfalz (DLR), Station Traben-Trarbach (Nr. 113), wetter.rlp.de</td>
+  <td>Lage (1 km, 132 m, Steilhang). <b>Eigene Auswertung:</b> 65 / 26 Frostnächte in 2 m, 134 / 72 in 20 cm, starker Frost in 8 von 18 Jahren, 20.04.2017 −4,9 °C, 20 cm 1,6 °C kälter, Nachtwind unter 1,5 m/s, Herbstfrost.<span class="es">Ubicación. Análisis propio: 65 / 26 noches a 2 m, 134 / 72 a 20 cm, helada fuerte en 8 de 18 años, −4,9 °C el 20/04/2017, 20 cm 1,6 °C más frío, viento nocturno &lt; 1,5 m/s, helada de otoño.</span></td>
+  <td>Stationsinfo Traben-Trarbach; Download Stundenwerte 2008–2025, Spalten MIN_TA200min, MAX_TA200max, MIN_TA020min, AVG_WV200<span class="es">Ficha de la estación; descarga de valores horarios, columnas indicadas</span></td></tr>
+
+  <tr><td>6</td><td>DGM1 ©GeoBasis-DE / LVermGeoRP (2023), dl-de/by-2-0, www.lvermgeo.rlp.de</td>
+  <td>Höhe 104–185 m (Mittel 136 m), Neigung 24,7°, Richtung 174°, Schummerung, Grundlage TPI. Eigene Auswertung in QGIS.<span class="es">Altura, pendiente, orientación, sombreado, base del TPI. Análisis propio en QGIS.</span></td>
+  <td>Open Data, DGM1-Kacheln um Kröv<span class="es">Datos abiertos, teselas DGM1 de Kröv</span></td></tr>
+
+  <tr><td>7</td><td>Weiss, A. (2001): Topographic Position and Landforms Analysis. Poster, ESRI User Conference, San Diego</td>
+  <td>Definition TPI: Höhe einer Stelle minus mittlere Höhe der Umgebung.<span class="es">Definición del TPI.</span></td>
+  <td>Poster, Abschnitt zur TPI-Definition<span class="es">Póster, apartado de la definición</span></td></tr>
+
+  <tr><td>8</td><td>Copernicus Sentinel-2 L2A (ESA), Copernicus Browser, browser.dataspace.copernicus.eu</td>
+  <td>NDVI-Zeitreihe 2021–2023: Frost vom 10.04.2022 nicht sichtbar.<span class="es">Serie NDVI 2021–2023: la helada del 10/04/2022 no se ve.</span></td>
+  <td>Copernicus Browser, Polygon der Fläche, NDVI-Zeitreihe (CSV-Export im Ordner presentation)<span class="es">Polígono, serie temporal NDVI (CSV exportado)</span></td></tr>
+
+  <tr><td>9</td><td>Kotremba, C.: Spätfröste aus meteorologischer Sicht – Entstehungsmechanismen, Maßnahmenempfehlungen. RLP AgroScience, PDF beim DLR Mosel (dlr-mosel.rlp.de)</td>
+  <td colspan="2">
+    <b>S. 1, Zusammenfassung:</b> April 2017 massive Frostschäden; diesmal auch Hang- und Kuppenlagen betroffen.<span class="es">p. 1: abril 2017, daños masivos; también laderas y cimas.</span>
+    <b>S. 2, Abschnitt 1:</b> Strahlungsnächte: Wolken unter 3/8 (ca. 37 %), Wind unter 1,5 m/s (5,4 km/h); Strahlungsfröste häufiger und meist verantwortlich für Schäden; Kaltluft fließt hangabwärts, sammelt sich in Senken, Tälern, am Hangfuß; bei Advektivfrösten auch höhere Lagen.<span class="es">p. 2, apartado 1: condiciones de radiación, más frecuente y principal causa de daños; acumulación del aire frío; advección también en zonas altas.</span>
+    <b>S. 3, Abschnitt 3:</b> nach dem Austrieb besonders empfindlich; unter −1,5 °C schwere Schäden möglich; Vegetationsbeginn früher durch Klimawandel, Zeitraum für Spätfrost länger; kein signifikanter Trend zu mehr Spätfrösten.<span class="es">p. 3, apartado 3: sensibilidad tras la brotación; −1,5 °C; brotación más temprana; sin tendencia significativa.</span>
+    <b>S. 4–6, Abschnitte 4–5:</b> Frostschutz (Beregnung, Windmaschinen) kann Schäden vermindern oder vermeiden (Grenze „Frostschutz nicht bekannt“, Empfehlung).<span class="es">pp. 4–6: la protección puede reducir o evitar daños.</span>
+    <b>S. 6, Abschnitt 5:</b> Zusammenfassung, kritische Temperatur ca. −1,5 °C.<span class="es">p. 6, apartado 5: resumen, −1,5 °C.</span></td></tr>
+
+  <tr><td>10</td><td>AWRI (2024): Assessing damage after a frost event. Fact Sheet Viticulture, awri.com.au</td>
+  <td colspan="2">
+    <b>S. 1, „Vine response to frost“:</b> geschlossene Knospen ca. −3 °C, junge Triebe ca. −1 °C; Ersatztriebe aus Nebenknospen ca. 30 % Fruchtbarkeit (zitiert Dal Zozzo et al. 2022).<span class="es">p. 1: yemas cerradas −3 °C, brotes jóvenes −1 °C; yemas secundarias ~30 %.</span>
+    <b>S. 2, „Quantifying the frost damage“:</b> Schaden bis 2 Wochen nach dem Frost zählen, bis zu 50 Reben.<span class="es">p. 2: contar el daño hasta 2 semanas después, hasta 50 cepas.</span>
+    <b>S. 3, Tabelle:</b> &lt; 30 % geschädigte Triebe → bis 20 % Verlust; 30–60 % → 20–40 %; &gt; 60 % → mindestens 40 %.<span class="es">p. 3, tabla de categorías de daño y pérdida.</span></td></tr>
+  <tr><td>11</td><td>García de Cortázar-Atauri, I., Brisson, N., Gaudillère, J. P. (2009): Performance of several models for predicting budburst date of grapevine (Vitis vinifera L.). Int. J. Biometeorol. 53, 317–326. doi:10.1007/s00484-009-0217-4</td>
+  <td>Basis 10 °C allein: 9–21 Tage Fehler (10 Sorten inkl. Riesling, 5 Orte in Frankreich); Basistemperatur ist der wichtigste Faktor; Parameter für ein GDD-Modell mit Basis 5 °C.<span class="es">Base 10 °C: 9–21 días de error; la base es el factor principal; parámetros de un modelo GDD con base 5 °C.</span></td>
+  <td>Abstract<span class="es">Resumen</span></td></tr>
+  <tr><td>12</td><td>Nendel, C. (2010): Grapevine bud break prediction for cool winter climates. Int. J. Biometeorol. 54, 231–241. doi:10.1007/s00484-009-0274-8</td>
+  <td>Riesling und Müller-Thurgau, 13 Orte am Nordrand des Weinbaus in Europa. Begründung, warum ich an Ürzig kalibriere und ERA5 (40) und Station (60) eigene Schwellen haben: Parameter für den Standort (±2,5 Tage) besser als mittlere (±4,5 Tage); Methode empfindlich für die genutzten Temperaturdaten; Basistemperatur verbessert die Vorhersage nicht.<span class="es">Por qué calibro con Ürzig y ERA5 (40) y estación (60) tienen umbrales propios: parámetros del sitio mejores; sensible a los datos de temperatura; la temperatura base no mejora la predicción.</span></td>
+  <td>Abstract<span class="es">Resumen</span></td></tr>
+  <tr><td>13</td><td>Snyder, R. L.: Grapevine Frost Protection. University of California Cooperative Extension, ucanr.edu/sites/default/files/2011-04/89491.pdf</td>
+  <td>Kritische Temperaturen je Stadium: 10 % und 90 % der Knospen tot (z. B. 2. Blatt −2,2 / −5,6 °C; 4.–5. Blatt −2,2 / −2,8 °C). Antwort auf „2 oder 15 Frostnächte?“. Werte in °F, von mir in °C umgerechnet.<span class="es">Temperaturas críticas por estado: muere el 10 % y el 90 % de las yemas. Respuesta a «¿2 o 15 noches?». Valores en °F, pasados a °C.</span></td>
+  <td>S. 1, Tabelle „Critical Temperatures“ (Daten: Proebsting, Brummund, Clore, WSU Prosser). Laut Quelle Laborwerte, im Feld wenig geprüft.<span class="es">p. 1, tabla «Critical Temperatures»; valores de laboratorio.</span></td></tr>
+  <tr><td>14</td><td>Coombe, B. G. (1995): Growth stages of the grapevine. Aust. J. Grape Wine Res. 1, 104–110. doi:10.1111/j.1755-0238.1995.tb00086.x · Abbildung: Dry, P. &amp; Coombe, B. (Hrsg., 2004): Viticulture 1 – Resources, 2. Aufl., Winetitles; PDF bei der AWRI: awri.com.au/wp-content/uploads/grapegrowth.pdf</td>
+  <td>Bild der Rebstadien (Winterauge bis 5 Blätter) in den Notizen, neben der Tabelle der kritischen Temperaturen [13].<span class="es">Dibujo de los estadios de la vid (yema de invierno a 5 hojas) en las notas, junto a la tabla de temperaturas críticas [13].</span></td>
+  <td>Abb. 7.3, S. 153 „Modified E-L system“; Ausschnitt E-L 1–12 (Datei rebe_stadien_austrieb.png), ganze Seite in rebe_stadien_el.png<span class="es">Fig. 7.3, p. 153; recorte E-L 1–12</span></td></tr>
+  <tr><td>15</td><td>Statistisches Landesamt Rheinland-Pfalz: Weinmosternte nach Anbaugebieten und Bereichen, Statistischer Bericht C2053, Jahrgänge 2008–2025, statistik.rlp.de</td>
+  <td>Ernte im Bereich Bernkastel (dort liegt Kröv) im Vergleich zum 10-Jahres-Mittel. <b>Eigene Auswertung:</b> Jahre mit starkem Frost an der Station im Durchschnitt −11 %, ohne −1 %; 2017 −32 %, 2012 −21 %. Nur Antwortmaterial, kein Beweis.<span class="es">Cosecha en el Bereich Bernkastel frente a la media de 10 años. Análisis propio: años con helada fuerte −11 %, sin ella −1 %; 2017 −32 %. Solo material de respuesta.</span></td>
+  <td>Tabelle T1 „Weinmosternte … nach Anbaugebieten und Bereichen“, Zeile „Weinmost insgesamt – Bernkastel“, Spalten Hektarertrag (Jahr und Durchschnitt der 10 Vorjahre)<span class="es">Tabla T1, fila Bernkastel, columnas de rendimiento por ha</span></td></tr>
+</table>
+
+<p class="note" style="margin-top:6pt;"><b>„Eigene Auswertung“</b> heißt: Die Zahl habe ich selbst aus den Daten dieser Quelle berechnet (App und Python-Skripte im Projekt). <b>„Mittel bis hoch“</b> ist meine Bewertung; dafür gibt es keine Norm.</p>
+<span class="es">«Análisis propio»: el número lo calculé yo con los datos de esa fuente (app y scripts del proyecto). «Medio a alto» es mi valoración; no hay una norma para ello.</span>
+</body>
+</html>

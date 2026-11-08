@@ -198,7 +198,7 @@ export default function App() {
             <FrostChart
               summary={summary}
               station={stationCounts}
-              stationLabel={`station Traben-Trarbach ${stationHeight === "2m" ? "2 m" : "20 cm"}`}
+              stationLabel={`Station Traben-Trarbach ${stationHeight === "2m" ? "2 m" : "20 cm"}`}
             />
             <FrostHistoryChart summary={summary} history={summaryWithHistory} />
             <FrostSummaryTable summary={summary} />

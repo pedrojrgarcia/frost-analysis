@@ -6,8 +6,9 @@ interface Props {
   history: FrostSummary[]; // the selected years plus the years before, for the average
 }
 
-const RADIATION_COLOR = "#2a6fbb";
-const ADVECTION_COLOR = "#e08a1e";
+// same colours as the calendar: light blue = frost night, dark blue = severe frost night
+const FROST_COLOR = "#85c1e9";
+const SEVERE_COLOR = "#1a5276";
 const AVERAGE_COLOR = "#7a1f2b";
 const INK = "#222";
 const MUTED = "#6b6b6b";
@@ -40,8 +41,8 @@ export default function FrostHistoryChart({ summary, history }: Props) {
   const last = summary[summary.length - 1].year;
   const withFrost = summary.filter((s) => (s.frost_nights ?? 0) > 0).length;
   const severeYears = summary.filter((s) => (s.severe_frost_nights ?? 0) > 0).map((s) => s.year);
-  const radiation = summary.reduce((sum, s) => sum + (s.radiation_nights ?? 0), 0);
-  const advection = summary.reduce((sum, s) => sum + (s.advection_nights ?? 0), 0);
+  const severeNights = summary.reduce((sum, s) => sum + (s.severe_frost_nights ?? 0), 0);
+  const frostNights = summary.reduce((sum, s) => sum + (s.frost_nights ?? 0), 0);
   const modelYears = summary.filter((s) => s.budbreak_source === "model").length;
 
   // same width rule as the bar chart (chartLayout.ts)
@@ -65,16 +66,17 @@ export default function FrostHistoryChart({ summary, history }: Props) {
   for (let t = 0; t <= maxNights; t += maxNights > 6 ? 2 : 1) ticks.push(t);
 
   return (
-    <div style={{ fontSize: 13 }}>
+    // measure the available width outside; title, text, chart and legend all get the chart width
+    <div ref={boxRef} style={{ fontSize: 13, width: "100%", maxWidth: CHART_MAX_WIDTH }}>
+      <div style={{ width, maxWidth: "100%" }}>
       <h3 style={{ margin: "0 0 6px", fontSize: 15 }}>
-        Frost nights after budbreak, {first}–{last} (one dot per night)
+        Frostnächte nach dem Austrieb, {first}–{last} (ein Punkt pro Nacht)
       </h3>
       <p style={{ margin: "0 0 8px", lineHeight: 1.4 }}>
-        {withFrost} of {summary.length} years with frost, {severeYears.length} with severe frost.{" "}
-        <span style={{ color: RADIATION_COLOR, fontWeight: 600 }}>{radiation} radiation</span> and{" "}
-        <span style={{ color: ADVECTION_COLOR, fontWeight: 600 }}>{advection} advection</span> nights.
+        {withFrost} von {summary.length} Jahren mit Frost, {severeYears.length} mit starkem Frost.{" "}
+        {frostNights} Frostnächte, davon {severeNights} stark.
       </p>
-      <div ref={boxRef} style={{ width: "100%", maxWidth: CHART_MAX_WIDTH }}>
+      <div>
         <svg width={width} height={height} role="img" aria-label="Frost nights after budbreak per year, as dots">
           {/* thin vertical guide at each labelled year */}
           {summary.map((s, i) =>
@@ -97,23 +99,20 @@ export default function FrostHistoryChart({ summary, history }: Props) {
             fontSize={11}
             fill={MUTED}
           >
-            frost nights
+            Frostnächte
           </text>
 
           {summary.map((s, i) => {
             const cx = xFor(i);
-            const rad = s.radiation_nights ?? 0;
-            const adv = s.advection_nights ?? 0;
             const total = s.frost_nights ?? 0;
-            const severe = (s.severe_frost_nights ?? 0) > 0;
-            // one dot per frost night: radiation at the bottom, advection on top
-            const colors = [...Array(rad).fill(RADIATION_COLOR), ...Array(adv).fill(ADVECTION_COLOR)];
+            const severeCount = s.severe_frost_nights ?? 0;
+            // one dot per frost night: severe nights at the bottom, the other frost nights on top
+            const colors = [...Array(severeCount).fill(SEVERE_COLOR), ...Array(total - severeCount).fill(FROST_COLOR)];
             const tip =
               s.frost_nights === null
-                ? `${s.year}: no budbreak date`
-                : `${s.year}: ${total} frost nights (${rad} radiation, ${adv} advection), ` +
-                  `${s.severe_frost_nights ?? 0} severe. Budbreak ${s.budbreak_date} (${s.budbreak_source})`;
-            const markerY = yFor(total + 0.55);
+                ? `${s.year}: kein Austriebsdatum`
+                : `${s.year}: ${total} Frostnächte, davon ${severeCount} stark. ` +
+                  `Austrieb ${s.budbreak_date} (${s.budbreak_source === "model" ? "Modell" : s.budbreak_source})`;
             return (
               <g key={s.year}>
                 <title>{tip}</title>
@@ -121,12 +120,6 @@ export default function FrostHistoryChart({ summary, history }: Props) {
                 {colors.map((color, k) => (
                   <circle key={k} cx={cx} cy={yFor(k + 0.5)} r={radius} fill={color} stroke="#fff" strokeWidth={1} />
                 ))}
-                {severe && (
-                  <path
-                    d={`M ${cx - 5} ${markerY - 3} L ${cx + 5} ${markerY - 3} L ${cx} ${markerY + 4} Z`}
-                    fill={INK}
-                  />
-                )}
                 {s.budbreak_source === "model" && (
                   <circle cx={cx} cy={baseY + 7} r={2} fill="#b5b5b5" />
                 )}
@@ -159,24 +152,24 @@ export default function FrostHistoryChart({ summary, history }: Props) {
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 14px", marginTop: 2, fontSize: 12, color: INK, maxWidth: CHART_MAX_WIDTH }}>
         <span>
-          <span style={dot(RADIATION_COLOR)} /> Radiation night (clear, calm)
+          <span style={dot(FROST_COLOR)} /> Frostnacht (≤ 0 °C)
         </span>
         <span>
-          <span style={dot(ADVECTION_COLOR)} /> Advection night (wind, cold air)
+          <span style={dot(SEVERE_COLOR)} /> Starke Frostnacht (≤ −1,5 °C)
         </span>
-        <span>▼ Severe frost year</span>
         {averagePoints.length > 1 && (
           <span>
             <span style={{ display: "inline-block", width: 18, height: 3, borderRadius: 2, background: AVERAGE_COLOR, verticalAlign: "3px" }} />{" "}
-            {AVERAGE_YEARS}-year average of frost nights per year
-            {lastAverage !== null && ` (last: ${lastAverage.toFixed(1)})`}
+            Frostnächte pro Jahr, Mittel über {AVERAGE_YEARS} Jahre
+            {lastAverage !== null && ` (zuletzt: ${lastAverage.toFixed(1).replace(".", ",")})`}
           </span>
         )}
         {modelYears > 0 && (
           <span style={{ color: MUTED }}>
-            <span style={dot("#b5b5b5", 6)} /> budbreak from the model ({modelYears} years, no DWD valley date)
+            <span style={dot("#b5b5b5", 6)} /> Austrieb aus dem Modell ({modelYears} {modelYears === 1 ? "Jahr" : "Jahre"} ohne DWD-Datum im Tal)
           </span>
         )}
+      </div>
       </div>
     </div>
   );

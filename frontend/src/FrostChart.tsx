@@ -13,8 +13,9 @@ interface Props {
   stationLabel?: string;
 }
 
-const RADIATION_COLOR = "#2a6fbb";
-const ADVECTION_COLOR = "#e08a1e";
+// same colours as the calendar: light blue = frost nights, dark blue = of them severe
+const FROST_COLOR = "#85c1e9";
+const SEVERE_COLOR = "#1a5276";
 const STATION_COLOR = "#9a9a9a";
 const STATION_SEVERE_COLOR = "#3d3d3d";
 const INK = "#333";
@@ -31,11 +32,11 @@ function summaryLine(summary: FrostSummary[]): string {
   const range = first === last ? String(first) : `${first}–${last}`;
   const withFrost = summary.filter((s) => (s.frost_nights ?? 0) > 0).length;
   const severeYears = summary.filter((s) => (s.severe_frost_nights ?? 0) > 0).map((s) => s.year);
-  const radiation = summary.reduce((sum, s) => sum + (s.radiation_nights ?? 0), 0);
-  const advection = summary.reduce((sum, s) => sum + (s.advection_nights ?? 0), 0);
+  const frostNights = summary.reduce((sum, s) => sum + (s.frost_nights ?? 0), 0);
+  const severeNights = summary.reduce((sum, s) => sum + (s.severe_frost_nights ?? 0), 0);
   const severe =
-    severeYears.length === 0 ? "none with severe frost" : `${severeYears.length} with severe frost (${severeYears.join(", ")})`;
-  return `${range}: ${withFrost} of ${summary.length} years with frost after budbreak, ${severe}. ${radiation} radiation and ${advection} advection nights.`;
+    severeYears.length === 0 ? "keines mit starkem Frost" : `${severeYears.length} mit starkem Frost (${severeYears.join(", ")})`;
+  return `${range}: ${withFrost} von ${summary.length} Jahren mit Frost nach dem Austrieb, ${severe}. ${frostNights} Frostnächte, davon ${severeNights} stark.`;
 }
 
 export default function FrostChart({ summary, station, stationLabel }: Props) {
@@ -62,10 +63,12 @@ export default function FrostChart({ summary, station, stationLabel }: Props) {
   const y = (n: number) => MARGIN.top + PLOT_HEIGHT - (n / yMax) * PLOT_HEIGHT;
 
   return (
-    <div style={{ fontSize: 13 }}>
+    // measure the available width outside; title, text, chart and legend all get the chart width
+    <div ref={boxRef} style={{ fontSize: 13, width: "100%", maxWidth: CHART_MAX_WIDTH }}>
+      <div style={{ width, maxWidth: "100%" }}>
       <p style={{ margin: "0 0 12px", lineHeight: 1.4 }}>{summaryLine(summary)}</p>
-      <h3 style={{ margin: "0 0 8px", fontSize: 15 }}>Frost nights after budbreak per year</h3>
-      <div ref={boxRef} style={{ width: "100%", maxWidth: CHART_MAX_WIDTH }}>
+      <h3 style={{ margin: "0 0 8px", fontSize: 15 }}>Frostnächte nach dem Austrieb pro Jahr</h3>
+      <div>
         <svg width={width} height={height} role="img" aria-label="Frost nights after budbreak per year">
           {ticks.map((t) => (
             <g key={t}>
@@ -81,7 +84,7 @@ export default function FrostChart({ summary, station, stationLabel }: Props) {
             fontSize={11}
             fill={MUTED}
           >
-            frost nights
+            Frostnächte
           </text>
           {summary.map((s, i) => {
             const groupWidth = hasStation ? barWidth * 2 + pairGap : barWidth;
@@ -93,54 +96,31 @@ export default function FrostChart({ summary, station, stationLabel }: Props) {
             const sTop = y(st?.frost ?? 0);
             const sSevereTop = y(st?.severe ?? 0);
             const total = s.frost_nights;
-            const rad = s.radiation_nights ?? 0;
-            const adv = s.advection_nights ?? 0;
-            const severe = (s.severe_frost_nights ?? 0) > 0;
+            const severeCount = s.severe_frost_nights ?? 0;
             const top = y(total ?? 0);
-            const radTop = y(rad);
-            const advTop = y(rad + adv);
+            const severeTop = y(severeCount);
             const tip =
               total === null
-                ? `${s.year}: no budbreak date`
-                : `${s.year}: ERA5 ${total} frost nights (${rad} radiation, ${adv} advection), ${s.severe_frost_nights ?? 0} severe`;
+                ? `${s.year}: kein Austriebsdatum`
+                : `${s.year}: ERA5 ${total} Frostnächte, davon ${severeCount} stark`;
             const stationTip = !hasStation
               ? ""
               : st === null
-                ? "\nStation: no data"
-                : `\nStation: ${st.frost} frost nights, ${st.severe} severe`;
+                ? "\nStation: keine Daten"
+                : `\nStation: ${st.frost} Frostnächte, davon ${st.severe} stark`;
             return (
               <g key={s.year}>
                 <title>{tip + stationTip}</title>
-                {rad > 0 && (
-                  <rect x={x} y={radTop} width={barWidth} height={y(0) - radTop} fill={RADIATION_COLOR} />
+                {(total ?? 0) > 0 && (
+                  <rect x={x} y={top} width={barWidth} height={y(0) - top} fill={FROST_COLOR} />
                 )}
-                {adv > 0 && (
-                  <rect
-                    x={x}
-                    y={advTop}
-                    width={barWidth}
-                    height={radTop - advTop - (rad > 0 ? 2 : 0)}
-                    fill={ADVECTION_COLOR}
-                  />
-                )}
-                {severe && (
-                  <rect
-                    x={x - 1.5}
-                    y={top - 1.5}
-                    width={barWidth + 3}
-                    height={y(0) - top + 3}
-                    fill="none"
-                    stroke={INK}
-                    strokeWidth={2}
-                  />
+                {severeCount > 0 && (
+                  <rect x={x} y={severeTop} width={barWidth} height={y(0) - severeTop} fill={SEVERE_COLOR} />
                 )}
                 {showValues && (
                   <text x={cx} y={top - 5} textAnchor="middle" fontSize={11} fill={INK}>
                     {total === null ? "–" : total}
                   </text>
-                )}
-                {severe && (
-                  <path d={`M ${cx - 4} ${top - 22} L ${cx + 4} ${top - 22} L ${cx} ${top - 15} Z`} fill={INK} />
                 )}
                 {st && st.frost > 0 && (
                   <rect x={sx} y={sTop} width={barWidth} height={y(0) - sTop} fill={STATION_COLOR} />
@@ -166,22 +146,18 @@ export default function FrostChart({ summary, station, stationLabel }: Props) {
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 16px", marginTop: 4, color: INK }}>
         <span>
-          <span style={swatch(RADIATION_COLOR)} /> Radiation nights
-        </span>
-        <span>
-          <span style={swatch(ADVECTION_COLOR)} /> Advection nights
-        </span>
-        <span>
-          <span style={{ ...swatch("transparent"), border: `2px solid ${INK}` }} /> Dark outline and ▼ = at least one
-          severe frost night (≤ −1.5 °C)
+          {hasStation ? "Linker Balken = ERA5-Land: " : "ERA5-Land: "}
+          <span style={swatch(FROST_COLOR)} /> Frostnächte (≤ 0 °C),{" "}
+          <span style={swatch(SEVERE_COLOR)} /> davon stark (≤ −1,5 °C)
         </span>
         {hasStation && (
           <span>
-            Left bar = ERA5 · right bar = {stationLabel ?? "station"}:{" "}
-            <span style={swatch(STATION_COLOR)} /> frost nights,{" "}
-            <span style={swatch(STATION_SEVERE_COLOR)} /> of them severe
+            Rechter Balken = {stationLabel ?? "Station"}:{" "}
+            <span style={swatch(STATION_COLOR)} /> Frostnächte,{" "}
+            <span style={swatch(STATION_SEVERE_COLOR)} /> davon stark
           </span>
         )}
+      </div>
       </div>
     </div>
   );

@@ -33,183 +33,255 @@
 <body>
 
 <h1>Erklärung zu den Folien</h1><span class="en">Notes for the slides</span>
-<p class="meta">Nur für mich · OMEGA Space · 11.11.2026 · ca. 10 Minuten</p>
+<p class="meta">Nur für mich · OMEGA Space · 11.11.2026 · ca. 10 Minuten · [n] = Quelle (Liste am Ende)</p>
 
 <div class="block">
 <h3>Ablauf <span class="en">Timing</span></h3>
 <table>
-  <tr><th style="width:30%">Teil<span class="en">Part</span></th><th style="width:15%">Zeit<span class="en">Time</span></th><th>Inhalt<span class="en">Content</span></th></tr>
-  <tr><td>Einleitung</td><td>1 Min.</td><td>Aufgabe und Fläche kurz nennen<span class="en">State the task and the plot</span></td></tr>
-  <tr><td>Folie 1: Gelände</td><td>4 Min.</td><td>Fragen 1 und 2: Geländedaten, Kleinklima<span class="en">Questions 1 and 2: terrain data, microclimate</span></td></tr>
-  <tr><td>Folie 2: Frostgeschichte</td><td>4 Min.</td><td>Fragen 1, 3 und 4: Wetterdaten, Grenzen, Einschätzung<span class="en">Questions 1, 3 and 4: weather data, limits, assessment</span></td></tr>
-  <tr><td>Schluss</td><td>1 Min.</td><td>Nächste Schritte, KI-Nutzung<span class="en">Next steps, use of AI</span></td></tr>
+  <tr><th style="width:30%">Teil</th><th style="width:15%">Zeit</th><th>Inhalt</th></tr>
+  <tr><td>Einleitung</td><td>1 Min.</td><td>Aufgabe und Fläche<span class="en">Task and plot</span></td></tr>
+  <tr><td>Folie 1: Gelände</td><td>4 Min.</td><td>Fragen 1 und 2<span class="en">Questions 1 and 2</span></td></tr>
+  <tr><td>Folie 2: Frost</td><td>4 Min.</td><td>Fragen 1, 3 und 4<span class="en">Questions 1, 3 and 4</span></td></tr>
+  <tr><td>Schluss</td><td>1 Min.</td><td>Nächste Schritte, KI<span class="en">Next steps, AI</span></td></tr>
+</table>
+</div>
+
+<div class="block">
+<h3>Wichtige Wörter <span class="en">Key words</span></h3>
+<table>
+  <tr><td style="width:30%"><b>der Austrieb</b></td><td>die Rebe beginnt zu wachsen<span class="en">budbreak · <i>la brotación</i></span></td></tr>
+  <tr><td><b>der Hangfuß</b></td><td>unten am Hang<span class="en">foot of the slope · <i>el pie de la ladera</i></span></td></tr>
+  <tr><td><b>die Kaltluft</b></td><td>kalte Luft, sie ist schwer<span class="en">cold air · <i>el aire frío</i></span></td></tr>
+  <tr><td><b>die Wärmesumme</b></td><td>Wärme pro Tag, addiert ab 1. Januar (GDD)<span class="en">heat sum · <i>la suma de calor</i></span></td></tr>
+  <tr><td><b>die Schwelle</b></td><td>diese Zahl muss die Summe erreichen<span class="en">threshold · <i>el umbral</i></span></td></tr>
+  <tr><td><b>im Mittel</b></td><td>im Durchschnitt<span class="en">on average · <i>de media</i></span></td></tr>
+  <tr><td><b>daneben liegen</b></td><td>falsch sein, um ... Tage<span class="en">to be off by · <i>equivocarse por</i></span></td></tr>
+  <tr><td><b>unterschätzen</b></td><td>zu wenig sehen<span class="en">underestimate · <i>subestimar</i></span></td></tr>
 </table>
 </div>
 
 <div class="say">
   <p class="time">Einleitung · 1 Min.</p>
-  <p>„Die Aufgabe war: Wie kann man das Frost- und Geländerisiko dieser Fläche mit freien Daten einschätzen? Die Fläche liegt in Kröv an der Mosel, ist 7,72 Hektar groß und ein Weinberg. Ich zeige zuerst das Gelände und dann die Frostgeschichte."</p>
-  <span class="en">"The task was: how can you estimate the frost and terrain risk of this plot with free data? The plot is in Kröv on the Moselle, 7.72 hectares, a vineyard. I'll show the terrain first and then the frost history."</span>
+  <p>„Die Frage war: Wie hoch ist das Frostrisiko von dieser Fläche? Mit freien Daten. Die Fläche liegt in Kröv an der Mosel. Sie ist 7,72 Hektar groß. Es ist ein Weinberg. Ich zeige zuerst das Gelände. Dann zeige ich den Frost."</p>
+  <span class="en">"The question was: how high is the frost risk of this plot? With free data. The plot is in Kröv on the Moselle. It is 7.72 hectares. It is a vineyard. First I show the terrain. Then I show the frost."</span>
 </div>
 
 <!-- ================= FOLIE 1 ================= -->
 <h2>Folie 1: Gelände <span class="en">Slide 1: Terrain</span></h2>
 
-<h3>Titel <span class="en">Title</span></h3>
-<p>„Steiler Südhang am Moselufer – Kaltluft sammelt sich am Hangfuß." Das ist die Hauptaussage der Folie in einem Satz.</p>
-<span class="en">"Steep south slope on the Moselle bank – cold air collects at the foot of the slope." This is the main message of the slide in one sentence.</span>
-
 <div class="block">
-<h3>Bild links: Schummerung <span class="en">Left picture: hillshade</span></h3>
+<h3>Was auf der Folie ist <span class="en">What is on the slide</span></h3>
 <ul>
-  <li><b>Was es ist:</b> Das Gelände aus dem DGM1, so beleuchtet, als ob die Sonne von der Seite scheint. So sieht man die Form des Hangs.
-    <span class="en">What it is: the terrain from DGM1, lit as if the sun shines from the side. That way you see the shape of the slope.</span></li>
-  <li><b>Was man sieht:</b> Unten die Mosel (glatte Fläche). Die Fläche (rot) liegt direkt am Ufer. Die Linien quer zum Hang sind Terrassen und Mauern.
-    <span class="en">What you see: at the bottom the Moselle (smooth area). The plot (red) lies right on the bank. The lines across the slope are terraces and walls.</span></li>
-  <li><b>Warum DGM1:</b> frei verfügbar, mit Laser gemessen, 1 m Auflösung. Die Fläche hat damit ca. 77.000 Höhenpunkte, beim 90-m-Modell nur etwa 10.
-    <span class="en">Why DGM1: free, measured by laser, 1 m resolution. The plot has about 77,000 height points, with the 90 m model only about 10.</span></li>
+  <li><b>Bild links:</b> das Gelände von oben. Daten: DGM1, 1 Meter [6]. Rot = die Fläche.
+    <span class="en">Left picture: the terrain from above. Data: DGM1, 1 metre [6]. Red = the plot.</span></li>
+  <li><b>Bild rechts:</b> der TPI. Blau = tiefer als die Umgebung [7]. Das Blau ist unten an der Fläche.
+    <span class="en">Right picture: the TPI. Blue = lower than the surroundings [7]. The blue is at the bottom of the plot.</span></li>
+  <li><b>Regel vom DLR:</b> Kalte Luft fließt nach unten. Sie bleibt unten am Hang [9, S. 2].
+    <span class="en">Rule from DLR: cold air flows down. It stays at the bottom of the slope [9, p. 2].</span></li>
+  <li><b>Zahlen:</b> 7,72 ha · 104 bis 185 m · 46 % Neigung · Süden [6].
+    <span class="en">Numbers: 7.72 ha · 104 to 185 m · 46 % slope · south [6].</span></li>
 </ul>
-</div>
-
-<div class="block">
-<h3>Bild rechts: Kaltluft (TPI) <span class="en">Right picture: cold air (TPI)</span></h3>
-<ul>
-  <li><b>Was es ist:</b> Der TPI vergleicht jede Stelle mit ihrer Umgebung. Blau = tiefer als die Umgebung, rot = höher.
-    <span class="en">What it is: the TPI compares each spot with its surroundings. Blue = lower than the surroundings, red = higher.</span></li>
-  <li><b>Warum 25 m:</b> Mit 1 m würden Mauern und Rebzeilen wie Senken aussehen. Mit 25 m sieht man die echte Form des Hangs.
-    <span class="en">Why 25 m: with 1 m, walls and vine rows would look like hollows. With 25 m you see the real shape of the slope.</span></li>
-  <li><b>Ergebnis:</b> Ein blauer Streifen am unteren Rand der Fläche. Dort sammelt sich in klaren, windstillen Nächten die Kaltluft.
-    <span class="en">Result: a blue strip along the lower edge of the plot. That's where cold air collects on clear, calm nights.</span></li>
-</ul>
-</div>
-
-<div class="block">
-<h3>Die vier Zahlen <span class="en">The four numbers</span></h3>
-<table>
-  <tr><th style="width:22%">Zahl<span class="en">Number</span></th><th>Bedeutung<span class="en">Meaning</span></th></tr>
-  <tr><td><b>7,72 ha</b></td><td>Größe der Fläche (ca. 730 × 320 m)<span class="en">Size of the plot (about 730 × 320 m)</span></td></tr>
-  <tr><td><b>104–185 m</b></td><td>Tiefster und höchster Punkt. Unten fast auf Moselniveau, 81 m Unterschied.<span class="en">Lowest and highest point. At the bottom almost at river level, 81 m difference.</span></td></tr>
-  <tr><td><b>24,7° · 46 %</b></td><td>Mittlere Neigung. Ab 30 % spricht man von Steillage.<span class="en">Mean slope. From 30 % it counts as a steep-slope vineyard.</span></td></tr>
-  <tr><td><b>Süd</b></td><td>Der Hang zeigt nach Süden (ca. 174°): viel Sonne, früher Austrieb.<span class="en">The slope faces south (about 174°): lots of sun, early budbreak.</span></td></tr>
-</table>
 </div>
 
 <div class="say">
   <p class="time">Was ich sage · Folie 1 · ca. 4 Min.</p>
-  <p>„Für das Gelände habe ich das DGM1 von Rheinland-Pfalz genutzt, mit einem Meter Auflösung. Links sieht man die Schummerung: Die Fläche ist ein steiler Südhang, im Mittel 46 Prozent Neigung, von 104 bis 185 Meter. Unten liegt sie direkt an der Mosel. Die Linien sind Terrassen und Mauern.</p>
-  <p>Landwirtschaftlich ist das wichtig: Am Tag bekommt der Südhang viel Sonne, die Rebe treibt früh aus. In klaren, windstillen Nächten fließt die kalte Luft aber den Hang hinunter, wie Wasser, und sammelt sich unten.</p>
-  <p>Rechts sieht man das mit dem TPI: Blau heißt tiefer als die Umgebung. Der blaue Streifen liegt am unteren Rand der Fläche, am Hangfuß. Dort ist das Risiko für Strahlungsfrost am höchsten. Wichtig: Das ist ein Hinweis aus dem Gelände, keine Messung."</p>
-  <span class="en">"For the terrain I used the DGM1 of Rhineland-Palatinate, with one-metre resolution. On the left is the hillshade: the plot is a steep south slope, 46 percent on average, from 104 to 185 metres. At the bottom it lies right on the Moselle. The lines are terraces and walls. For the vines this matters: during the day the south slope gets a lot of sun, and the vine buds early. But on clear, calm nights the cold air flows down the slope, like water, and collects at the bottom. On the right you see this with the TPI: blue means lower than the surroundings. The blue strip lies along the lower edge of the plot, at the foot of the slope. That's where the risk of radiation frost is highest. Important: this is an indicator from the terrain, not a measurement."</span>
+  <p>„Für das Gelände nutze ich das DGM1. Das ist ein Höhenmodell von Rheinland-Pfalz. Es hat einen Wert pro Meter.</p>
+  <p>Links sehen Sie die Fläche. Sie ist ein steiler Hang nach Süden. Die Neigung ist im Mittel 46 Prozent. Unten liegt die Mosel.</p>
+  <p>Das DLR sagt: In klaren, ruhigen Nächten fließt kalte Luft nach unten. Sie bleibt unten am Hang.</p>
+  <p>Rechts sehen Sie den TPI. Blau heißt: tiefer als die Umgebung. Das Blau ist unten an der Fläche. Dort sammelt sich die kalte Luft. Das ist ein Hinweis. Es ist keine Messung."</p>
+  <span class="en">"For the terrain I use the DGM1. It is a height model of Rhineland-Palatinate. It has one value per metre. On the left you see the plot. It is a steep slope to the south. The slope is 46 percent on average. The Moselle is below. DLR says: on clear, calm nights cold air flows down. It stays at the bottom of the slope. On the right you see the TPI. Blue means: lower than the surroundings. The blue is at the bottom of the plot. Cold air collects there. It is a hint. It is not a measurement."</span>
 </div>
 
 <!-- ================= FOLIE 2 ================= -->
-<h2>Folie 2: Frostgeschichte <span class="en">Slide 2: Frost history</span></h2>
-
-<h3>Titel <span class="en">Title</span></h3>
-<p>„Frost nach dem Austrieb: häufig – und gemessen viermal öfter als im Modell." Oben ERA5 über 50 Jahre, unten ERA5 gegen die Messstation Traben-Trarbach, 2009–2025.</p>
-<span class="en">"Frost after budbreak: frequent – and measured four times more often than in the model." Top: ERA5 over 50 years; bottom: ERA5 against the Traben-Trarbach station, 2009–2025.</span>
+<h2>Folie 2: Frost <span class="en">Slide 2: Frost</span></h2>
 
 <div class="block">
-<h3>Die Grafik lesen <span class="en">Reading the chart</span></h3>
+<h3>Was auf der Folie ist <span class="en">What is on the slide</span></h3>
 <ul>
-  <li><b>Ein Punkt pro Frostnacht</b> nach dem Austrieb, bis Ende Mai. Mehr Punkte übereinander = mehr Frostnächte in dem Jahr.
-    <span class="en">One dot per frost night after budbreak, until the end of May. More dots stacked = more frost nights that year.</span></li>
-  <li><b>Rote Linie = Mittel über 10 Jahre</b> (Frostnächte pro Jahr). Graue Punkte unter der Achse = Austrieb aus dem Modell (kein DWD-Datum im Tal).
-    <span class="en">Red line = 10-year average (frost nights per year). Grey dots below the axis = budbreak from the model (no DWD date in the valley).</span></li>
-  <li><b>Blau = Strahlungsfrost</b> (klare, windstille Nacht), <b>orange = Advektionsfrost</b> (Wind, kalte Luftmasse).
-    <span class="en">Blue = radiation frost (clear, calm night), orange = advection frost (wind, cold air mass).</span></li>
-  <li><b>▼ = Jahr mit starkem Frost</b> (−1,5 °C oder kälter): 9 Jahre, zuletzt 2017 (20.04., −1,8 °C, Strahlung) und 2022 (10.04., −1,9 °C, Advektion).
-    <span class="en">▼ = year with severe frost (−1.5 °C or colder): 9 years, most recently 2017 (20 April, −1.8 °C, radiation) and 2022 (10 April, −1.9 °C, advection).</span></li>
-  <li><b>Was man sieht:</b> 1990–2001 viele Nächte pro Jahr (bis 8). 2002–2015 kaum Frost. Seit 2016 fast jedes Jahr Frost (8 von 10), aber nur 1–3 Nächte. Grund: Der Austrieb kommt früher (1976–85 ca. 25. April, 2016–25 ca. 3. April).
-    <span class="en">What you see: 1990–2001 many nights per year (up to 8). 2002–2015 hardly any frost. Since 2016 frost almost every year (8 of 10), but only 1–3 nights. Reason: budbreak comes earlier (1976–85 about 25 April, 2016–25 about 3 April).</span></li>
-  <li><b>Untere Grafik:</b> zwei Balken pro Jahr. Links ERA5 (blau/orange), rechts die Station Traben-Trarbach in 2 m (grau, dunkelgrau = starker Frost). Gleicher Austrieb, gleicher Zeitraum, nur die gemessene Nachttemperatur ist anders. Summe 2009–2025: 65 statt 16 Frostnächte, 26 statt 3 starke.
-    <span class="en">Bottom chart: two bars per year. Left ERA5 (blue/orange), right the Traben-Trarbach station at 2 m (grey, dark grey = severe frost). Same budbreak, same period, only the measured night temperature differs. Total 2009–2025: 65 instead of 16 frost nights, 26 instead of 3 severe.</span></li>
-  <li><b>Die Beschriftung der Grafik ist englisch</b>, weil sie aus meiner App kommt. Die Erklärung darunter ist deutsch.
-    <span class="en">The chart labels are in English because they come from my app. The caption below is in German.</span></li>
+  <li><b>Grafik oben:</b> 50 Jahre, Wettermodell ERA5-Land [3]. Ein Punkt = eine Nacht mit Frost nach dem Austrieb. Dunkelblau = starker Frost (−1,5 °C oder kälter).
+    <span class="en">Top chart: 50 years, weather model ERA5-Land [3]. One dot = one frost night after budbreak. Dark blue = severe frost (−1.5 °C or colder).</span></li>
+  <li><b>Grafik unten:</b> pro Jahr zwei Balken. Links das Modell (blau). Rechts die Station Traben-Trarbach (grau) [5].
+    <span class="en">Bottom chart: two bars per year. Left the model (blue). Right the Traben-Trarbach station (grey) [5].</span></li>
+  <li><b>Die wichtigste Zahl:</b> Station 65 Frostnächte, Modell nur 16. Also viermal mehr.
+    <span class="en">The most important number: station 65 frost nights, model only 16. So four times more.</span></li>
 </ul>
-</div>
-
-<div class="block">
-<h3>Box „Daten und Methode" <span class="en">Box "Data and method"</span></h3>
-<ul>
-  <li><b>Wetter stündlich seit 1976:</b> Temperatur aus ERA5-Land (ca. 9 km), Wind und Wolken aus ERA5 (ca. 25 km). Stündlich, weil Frost nachts kommt.
-    <span class="en">Hourly weather since 1976: temperature from ERA5-Land (about 9 km), wind and clouds from ERA5 (about 25 km). Hourly, because frost comes at night.</span></li>
-  <li><b>Austrieb:</b> echtes DWD-Datum aus Ürzig (7,3 km, gleiches Tal). Wenn es fehlt: Wärmesumme, Basis 7,5 °C, Schwelle 40, Fehler ca. ±11 Tage.
-    <span class="en">Budbreak: real DWD date from Ürzig (7.3 km, same valley). If missing: heat sum, base 7.5 °C, threshold 40, error about ±11 days.</span></li>
-  <li><b>Frost:</b> Nachtminimum (20–8 Uhr) 0 °C oder kälter, nur nach dem Austrieb. Vorher ist die Knospe geschützt.
-    <span class="en">Frost: night minimum (20:00–08:00) 0 °C or colder, only after budbreak. Before that, the bud is protected.</span></li>
-  <li><b>Prüfung:</b> Station Traben-Trarbach der Agrarmeteorologie RLP: 1 km von der Fläche, Steilhang, 132 m (Fläche im Mittel 136 m), stündlich seit 2008.
-    <span class="en">Check: Traben-Trarbach station of Agrarmeteorologie RLP: 1 km from the plot, steep slope, 132 m (plot mean 136 m), hourly since 2008.</span></li>
-</ul>
-</div>
-
-<div class="block">
-<h3>Box „Grenzen" <span class="en">Box "Limits"</span></h3>
-<ul>
-  <li><b>9–25 km:</b> Das Wetter gilt für die Gegend, nicht für den Weinberg. Oben und unten am Hang sind gleich.
-    <span class="en">9–25 km: the weather is for the area, not the vineyard. Top and bottom of the slope look the same.</span></li>
-  <li><b>Klare Nächte 2,3 °C kälter:</b> In klaren, ruhigen Nächten ist die Station im Mittel 2,3 °C kälter als ERA5 (Inversion, Kaltluft). Bei Wind nur 0,7 °C. Beispiel 20.04.2017: ERA5 −1,8 °C, Station −4,9 °C.
-    <span class="en">Clear nights 2.3 °C colder: on clear, calm nights the station is on average 2.3 °C colder than ERA5 (inversion, cold air). With wind only 0.7 °C. Example 20 April 2017: ERA5 −1.8 °C, station −4.9 °C.</span></li>
-  <li><b>20 cm:</b> Nahe den Knospen ist es noch 1,7 °C kälter als in 2 m (gemessen an der Station).
-    <span class="en">20 cm: near the buds it is another 1.7 °C colder than at 2 m (measured at the station).</span></li>
-</ul>
-</div>
-
-<div class="block">
-<h3>Box „Einschätzung" <span class="en">Box "Assessment"</span></h3>
-<p>Das ist die Antwort auf Frage 4, wie am Telefon: mittleres bis hohes Risiko, am höchsten am Hangfuß. Mit ERA5 allein wäre es „mittel“, die Station zeigt aber viel mehr Frost. Vor Vertragsabschluss Sensoren in der Fläche.</p>
-<span class="en">This is the answer to question 4, as on the phone: medium to high risk, highest at the foot of the slope. With ERA5 alone it would be "medium", but the station shows much more frost. Before signing, sensors in the plot.</span>
 </div>
 
 <div class="say">
   <p class="time">Was ich sage · Folie 2 · ca. 4 Min.</p>
-  <p>„Für das Wetter nutze ich stündliche Daten seit 1976 von Copernicus, über Open-Meteo. Den Austrieb nehme ich vom Deutschen Wetterdienst in Ürzig, sieben Kilometer entfernt im gleichen Tal. Gezählt wird nur Frost nach dem Austrieb, weil die Knospe vorher geschützt ist.</p>
-  <p>Die Grafik zeigt 50 Jahre: In 19 Jahren gab es Frost nach dem Austrieb. Seit 2016 fast jedes Jahr, aber meistens nur ein bis drei leichte Nächte, weil die Rebe heute etwa drei Wochen früher austreibt. Stark war es zuletzt 2017 und 2022. 2017 war ein Strahlungsfrost, also genau der Fall, bei dem das Gelände wichtig ist.</p>
-  <p>Dann habe ich geprüft: Die Messstation Traben-Trarbach steht einen Kilometer von der Fläche, auch am Steilhang. Unten sehen Sie ERA5 links und die Station rechts. Die Station hat viermal mehr Frostnächte, 65 statt 16, und 26 starke statt 3. In klaren, ruhigen Nächten ist sie im Mittel 2,3 Grad kälter. Das Modell sieht die Kaltluft am Hang nicht.</p>
-  <p>Meine Einschätzung für den Versicherer: mittleres bis hohes Risiko, am höchsten am Hangfuß. Vor Vertragsabschluss würde ich Sensoren in der Fläche aufstellen."</p>
-  <span class="en">"For the weather I use hourly data since 1976 from Copernicus, via Open-Meteo. I take budbreak from the German Weather Service in Ürzig, seven kilometres away in the same valley. I only count frost after budbreak, because before that the bud is protected. The chart shows 50 years: in 19 years there was frost after budbreak. Almost every year since 2016, but mostly only one to three light nights, because the vine now buds about three weeks earlier. It was last severe in 2017 and 2022. 2017 was a radiation frost, exactly the case where terrain matters. Then I checked: the Traben-Trarbach station is one kilometre from the plot, also on a steep slope. Below you see ERA5 on the left and the station on the right. The station has four times more frost nights, 65 instead of 16, and 26 severe instead of 3. On clear, calm nights it is on average 2.3 degrees colder. The model does not see the cold air on the slope. My assessment for the insurer: medium to high risk, highest at the foot of the slope. Before signing, I would put sensors in the plot."</span>
+  <p>„Für das Wetter nutze ich ERA5-Land. Das ist ein Wettermodell. Ich habe Werte für jede Stunde seit 1976.</p>
+  <p>Frost ist nur nach dem Austrieb gefährlich. Den Austrieb nehme ich vom Deutschen Wetterdienst in Ürzig. Ürzig ist 7 Kilometer weit weg, im gleichen Tal.</p>
+  <p>Ab minus 1,5 Grad gibt es schwere Schäden. Das sagt das DLR.</p>
+  <p>Oben sehen Sie 50 Jahre. In 19 Jahren gab es Frost. In 9 Jahren war er stark. Die Rebe treibt heute etwa 3 Wochen früher aus. Darum ist sie länger in Gefahr.</p>
+  <p>Dann habe ich geprüft. Die Station Traben-Trarbach ist 1 Kilometer von der Fläche weg. Sie steht auch am Steilhang. Unten links sehen Sie das Modell, rechts die Station. Die Station hat viermal mehr Frostnächte: 65 statt 16. Starken Frost gab es an der Station in 8 von 18 Jahren. Im Modell nur in 3. Das Modell ist im Mittel 2,8 Grad zu warm. Es unterschätzt den Frost.</p>
+  <p>Mein Ergebnis: mittleres bis hohes Risiko. Unten am Hang ist es am höchsten. Vor einem Vertrag würde ich Sensoren in die Fläche stellen."</p>
+  <span class="en">"For the weather I use ERA5-Land. It is a weather model. I have values for every hour since 1976. Frost is only dangerous after budbreak. I take budbreak from the German Weather Service in Ürzig. Ürzig is 7 kilometres away, in the same valley. From minus 1.5 degrees there is severe damage. DLR says that. At the top you see 50 years. In 19 years there was frost. In 9 years it was severe. Today the vine buds about 3 weeks earlier. So it is in danger for longer. Then I checked. The Traben-Trarbach station is 1 kilometre from the plot. It is also on a steep slope. Bottom left you see the model, right the station. The station has four times more frost nights: 65 instead of 16. Severe frost at the station in 8 of 18 years. In the model only in 3. The model is 2.8 degrees too warm on average. It underestimates frost. My result: medium to high risk. It is highest at the bottom of the slope. Before a contract I would put sensors in the plot."</span>
 </div>
 
 <div class="say">
   <p class="time">Schluss · 1 Min.</p>
-  <p>„Nächste Schritte wären: Sensoren in der Fläche, oben und am Hangfuß, für einen Frühling, und eine Inversions-Korrektur für ERA5, kalibriert mit der Station. Das NDVI von Sentinel-2 habe ich geprüft: Mit 10 m ist der Frost 2022 nicht sichtbar. KI habe ich für Erklärungen, Code und Literatursuche genutzt. Die Ergebnisse habe ich geprüft, zum Beispiel habe ich die Basis 10 °C verworfen, weil sie drei Wochen zu spät lag."</p>
-  <span class="en">"Next steps would be: sensors in the plot, at the top and at the foot of the slope, for one spring, and an inversion correction for ERA5, calibrated with the station. I checked Sentinel-2 NDVI: at 10 m the 2022 frost is not visible. I used AI for explanations, code and literature search. I checked the results; for example, I rejected the 10 °C base because it was three weeks too late."</span>
+  <p>„Nächste Schritte: Erstens, Sensoren in der Fläche, oben und unten, für einen Frühling. Zweitens, das Modell mit der Station korrigieren. Satellitenbilder habe ich auch geprüft. Mit 10 Metern sieht man den Frost nicht. KI habe ich für Erklärungen, Code und Literatur genutzt. Die Ergebnisse habe ich selbst geprüft."</p>
+  <span class="en">"Next steps: first, sensors in the plot, top and bottom, for one spring. Second, correct the model with the station. I also checked satellite images. At 10 metres you cannot see the frost. I used AI for explanations, code and literature. I checked the results myself."</span>
 </div>
 
 <!-- ================= FRAGEN ================= -->
 <h2>Mögliche Fragen <span class="en">Possible questions</span></h2>
 
 <div class="qa">
-  <p><b>Warum Nächte und nicht Tage?</b> Ein Kalendertag mischt zwei Nächte. Und für die Frostart brauche ich Wind und Wolken der Nacht.</p>
-  <span class="en">Why nights, not days? A calendar day mixes two nights. And for the frost type I need the wind and clouds of the night.</span>
+  <p><b>Wo sind die Grenzen? Wie prüfen Sie? (Frage 3)</b></p>
+  <p>„Es gibt drei Grenzen. Erstens: Das Modell hat einen Wert für 9 mal 9 Kilometer. Die Fläche ist viel kleiner. Das Modell sieht die kalte Luft am Hangfuß nicht. In Frostnächten ist es im Mittel 2,8 Grad zu warm. [2, 3, 5]</p>
+  <p>Zweitens: Den Austrieb schätze ich. Im Vergleich mit dem DWD liege ich im Mittel 11 Tage daneben. [3, 4]</p>
+  <p>Drittens: Den Schaden in Prozent kann ich nicht berechnen. Er hängt vom Stadium der Rebe ab, und das kenne ich nicht für jede Nacht. Darum zeige ich die Gefahr, nicht den Verlust. [13]</p>
+  <p>Geprüft habe ich auf drei Wegen: mit der Messstation, mit dem Austrieb vom DWD und mit dem Frostjahr 2017. Alles passt zusammen." [4, 5, 9]</p>
+  <span class="en">"There are three limits. First: the model has one value for 9 by 9 kilometres. The plot is much smaller. The model does not see the cold air at the foot of the slope. On frost nights it is 2.8 degrees too warm on average. Second: I estimate budbreak. Compared with DWD I am off by 11 days on average. Third: I cannot calculate the damage in percent. It depends on the stage of the vine, and I don't know that for each night. So I show the hazard, not the loss. I checked in three ways: with the station, with DWD budbreak and with the frost year 2017. Everything fits."</span>
 </div>
 <div class="qa">
-  <p><b>Warum Basis 7,5 °C?</b> 10 °C lag drei Wochen zu spät. 7,5 °C passt zu 19 Jahren DWD-Daten in Ürzig und zur Literatur (Zapata: ca. 7 °C).</p>
-  <span class="en">Why base 7.5 °C? 10 °C was three weeks too late. 7.5 °C fits 19 years of DWD data at Ürzig and the literature (Zapata: about 7 °C).</span>
+  <p><b>Ihr Fazit? (Schlusssatz)</b></p>
+  <p>„Mit freien Daten sehe ich ein mittleres bis hohes Frostrisiko, unten am Hang am höchsten [9]. Die Station 1 km daneben hatte starken Frost in 8 von 18 Jahren, das Modell sieht davon nur 3 [3, 5]. Meine Grenzen: Ich kenne die Rebsorte nicht [4], ich habe keine Messung in der Fläche und keine Schadensdaten [10]. Darum würde ich vor dem Vertrag Sensoren aufstellen und den Winzer nach Sorte, Frostschutz und alten Schäden fragen [9]."</p>
+  <span class="en">"With free data I see a medium to high frost risk, highest at the bottom of the slope [9]. The station 1 km away had severe frost in 8 of 18 years, the model sees only 3 of them [3, 5]. My limits: I don't know the variety [4], I have no measurement in the plot and no damage data [10]. So before the contract I would install sensors and ask the grower about variety, frost protection and past damage [9]."</span>
 </div>
 <div class="qa">
-  <p><b>Warum 10 km/h Wind?</b> Der Wind ist in 10 m Höhe modelliert. 10 km/h dort entsprechen etwa 5 km/h an den Knospen. Mit 5 km/h gab es fast keinen Strahlungsfrost.</p>
-  <span class="en">Why 10 km/h wind? Wind is modelled at 10 m. 10 km/h there is about 5 km/h at the buds. With 5 km/h there was almost no radiation frost.</span>
+  <p><b>Welche Rebsorte?</b></p>
+  <p>„Die Sorte ist nicht bekannt. Der DWD in Ürzig beobachtet Müller-Thurgau und Riesling. Ich nehme den frühesten Austrieb, meistens Müller-Thurgau. Das ist vorsichtig: Ich zähle eher mehr Frost. Riesling treibt im Mittel etwa 6 Tage später aus." [4]</p>
+  <span class="en">"The variety is not known. DWD at Ürzig observes Müller-Thurgau and Riesling. I take the earliest budbreak, mostly Müller-Thurgau. That is cautious: I count rather more frost. Riesling buds about 6 days later on average." [4]</span>
 </div>
 <div class="qa">
-  <p><b>Ist Ürzig genau genug?</b> Gleiches Tal, 7,3 km, ähnliche Höhe. Unabhängig geprüft mit Enkirch (2,5 km): ca. 9 Tage Abweichung. Wittlich außerhalb des Tals treibt 15 Tage später aus. Das zeigt, wie wichtig der Standort ist.</p>
-  <span class="en">Is Ürzig accurate enough? Same valley, 7.3 km, similar height. Checked independently with Enkirch (2.5 km): about 9 days difference. Wittlich, outside the valley, buds 15 days later. That shows how much location matters.</span>
+  <p><b>Warum „mittel bis hoch"?</b></p>
+  <p>„Es gibt keine feste Skala. Ich schaue auf drei Dinge. Die Station hat starken Frost in 8 von 18 Jahren. Das ist hoch. Das Modell hat starken Frost in 9 von 50 Jahren. Das ist mittel. Die Station hat aber nur 18 Jahre. Darum sage ich: mittel bis hoch." [3, 5]</p>
+  <span class="en">"There is no fixed scale. I look at three things. The station has severe frost in 8 of 18 years. That is high. The model has severe frost in 9 of 50 years. That is medium. But the station has only 18 years. So I say: medium to high." [3, 5]</span>
 </div>
 <div class="qa">
-  <p><b>Warum nicht Google Earth Engine?</b> Die Werte wichen ab: anderes Modell, UTC-Zeit, Tageswerte. Ich habe ein festes Modell pro Wert gewählt.</p>
-  <span class="en">Why not Google Earth Engine? The values differed: different model, UTC time, daily values. I chose one fixed model per value.</span>
+  <p><b>Wie funktioniert die Wärmesumme (GDD)?</b></p>
+  <p>„Jeden Tag rechne ich: Mitteltemperatur minus 7,5 Grad. Das addiere ich ab 1. Januar. Wenn die Summe 40 erreicht, ist Austrieb. Beispiel: 16 und 6 Grad. Mittel ist 11. Minus 7,5 ist 3,5." Nur wenn der DWD kein Datum hat. [4]</p>
+  <span class="en">"Every day I calculate: mean temperature minus 7.5 degrees. I add it up from 1 January. When the sum reaches 40, that is budbreak. Example: 16 and 6 degrees. Mean is 11. Minus 7.5 is 3.5." Only when DWD has no date. [4]</span>
 </div>
 <div class="qa">
-  <p><b>Warum nicht nur die Messstation?</b> Die Station Traben-Trarbach misst erst seit 2008 (Temperatur), ERA5 deckt 50 Jahre gleichmäßig ab und zeigt den langen Trend. Die Station nutze ich zur Prüfung: Sie zeigt, dass ERA5 Frost am Hang deutlich unterschätzt. Für die genaue Fläche bräuchte man eigene Sensoren unten und oben am Hang.</p>
-  <span class="en">Why not only the station? Traben-Trarbach has measured temperature only since 2008; ERA5 covers 50 years evenly and shows the long trend. I use the station as a check: it shows that ERA5 clearly underestimates frost on the slope. For the exact plot you would need your own sensors at the bottom and top of the slope.</span>
+  <p><b>Warum 7,5 Grad und 40?</b></p>
+  <p>„Ich habe die Werte mit echten Daten getestet. Der DWD hat in Ürzig den Austrieb beobachtet, 19 Jahre lang. Mit 7,5 Grad und 40 liegt mein Modell im Mittel 11 Tage daneben. Mit 10 Grad war der Austrieb 3 Wochen zu spät. Mit 5 Grad war es genauso gut. Die Basis ist also nicht so wichtig. Das sagt auch eine Studie: Nendel, 2010." [4, 12]</p>
+  <table style="font-size:8.5pt; margin:2pt 0 3pt;">
+    <tr><th>Basis</th><th>beste Schwelle</th><th>Fehler (ERA5, 19 Jahre)</th></tr>
+    <tr><td>0 °C</td><td>485</td><td>10,9 Tage</td></tr>
+    <tr><td>5 °C</td><td>125</td><td>10,7 Tage</td></tr>
+    <tr><td><b>7,5 °C</b></td><td><b>40</b></td><td><b>10,7 Tage</b></td></tr>
+    <tr><td>10 °C</td><td>10</td><td>10,1 Tage</td></tr>
+  </table>
+  <span class="en">"I tested the values with real data. DWD observed budbreak in Ürzig, for 19 years. With 7.5 degrees and 40 my model is off by 11 days on average. With 10 degrees budbreak was 3 weeks too late. With 5 degrees it was just as good. So the base is not so important. A study says this too: Nendel, 2010." [4, 12]</span>
 </div>
 <div class="qa">
-  <p><b>Wie sicher ist der TPI?</b> Die Geländedaten sind sehr genau. Der TPI ist aber ein Hinweis, keine Messung. Sicher wird es erst mit Temperaturloggern im Weinberg.</p>
-  <span class="en">How reliable is the TPI? The terrain data is very accurate. But the TPI is an indicator, not a measurement. Only temperature loggers in the vineyard make it certain.</span>
+  <p><b>Wie haben Sie kalibriert?</b></p>
+  <p>„Ich habe verschiedene Zahlen getestet: 20, 30, 40, 50 und so weiter. Für jede Zahl habe ich den Austrieb berechnet. Dann habe ich mit dem echten Datum vom DWD in Ürzig verglichen, 19 Jahre lang. Ich habe die Zahl mit dem kleinsten Fehler genommen." [3, 4, 12]</p>
+  <table style="font-size:8.5pt; margin:2pt 0 3pt;">
+    <tr><th>Jahr</th><th>DWD (echt)</th><th>Schwelle 30</th><th><b>40</b></th><th>50</th></tr>
+    <tr><td>2018</td><td>2. April</td><td>8. April</td><td><b>10. April (+8 Tage)</b></td><td>12. April</td></tr>
+    <tr><td>2022</td><td>9. April</td><td>27. März</td><td><b>29. März (−11 Tage)</b></td><td>13. April</td></tr>
+  </table>
+  <span class="en">"I tested different numbers: 20, 30, 40, 50 and so on. For each number I calculated budbreak. Then I compared it with the real DWD date in Ürzig, for 19 years. I took the number with the smallest error." [3, 4, 12] · Only if asked; the table is just for me.</span>
 </div>
 <div class="qa">
-  <p><b>Und Herbst- oder Winterfrost?</b> Selten: Herbstfrost in 11 von 50 Jahren, meist nach der Lese. Schädlicher Winterfrost nur 1979.</p>
-  <span class="en">And autumn or winter frost? Rare: autumn frost in 11 of 50 years, mostly after harvest. Damaging winter frost only in 1979.</span>
+  <p><b>Warum nicht 50?</b></p>
+  <p>„40 und 50 passen fast gleich gut, der Unterschied ist etwa 1 Tag. Ich nehme 40, weil das vorsichtig ist: Der Austrieb ist eher früher, und ich zähle eher mehr Frost." [3, 4]</p>
+  <span class="en">"40 and 50 fit almost equally well, the difference is about 1 day. I take 40 because it is cautious: budbreak is rather earlier, and I count rather more frost." [3, 4]</span>
+</div>
+<div class="qa">
+  <p><b>Warum 60 für die Station?</b></p>
+  <p>„Die Station hat andere Daten. Darum braucht sie eine andere Zahl. Mit 40 war der Austrieb 11 Tage zu früh. Mit 60 nur 2 Tage. Aber es sind nur 13 Jahre." [4, 5, 12]</p>
+  <span class="en">"The station has different data. So it needs a different number. With 40 budbreak was 11 days too early. With 60 only 2 days. But it is only 13 years." [4, 5, 12]</span>
+</div>
+<div class="qa">
+  <p><b>Sind 11 Tage Fehler nicht viel?</b></p>
+  <p>„Ja, das ist eine Grenze. Mit Daten von der Fläche wären etwa 3 Tage möglich." [12]</p>
+  <span class="en">"Yes, that is a limit. With data from the plot about 3 days would be possible." [12]</span>
+</div>
+<div class="qa">
+  <p><b>Wie groß wäre der Schaden?</b></p>
+  <p>„Das zeigen meine Daten nicht. Ich zeige die Gefahr, nicht den Schaden. Nach einem Frost zählt man die kaputten Triebe. Die AWRI sagt: Unter 30 Prozent kaputt, dann bis 20 Prozent weniger Ernte. Über 60 Prozent kaputt, dann mindestens 40 Prozent weniger." [10, S. 3]</p>
+  <span class="en">"My data does not show that. I show the hazard, not the damage. After a frost you count the damaged shoots. AWRI says: below 30 percent damaged, up to 20 percent less harvest. Above 60 percent damaged, at least 40 percent less." [10, p. 3]</span>
+</div>
+<div class="qa">
+  <p><b>Wie groß war der Schaden in den Frostjahren?</b></p>
+  <p>„Den Schaden auf der Fläche kenne ich nicht. Aber die amtliche Ernte im Bereich Bernkastel war in Jahren mit starkem Frost im Durchschnitt 11 Prozent niedriger, 2017 sogar 32 Prozent. Das passt zu meinen Daten, ist aber kein Beweis: Auch andere Dinge senken die Ernte." [5, 15]</p>
+  <table style="font-size:8.5pt; margin:2pt 0 3pt;">
+    <tr><th>Jahr</th><th>kälteste Nacht (Station)</th><th>Ernte im Vergleich zum 10-Jahres-Mittel</th></tr>
+    <tr><td>2012</td><td>−5,1 °C</td><td>−21 %</td></tr>
+    <tr><td>2017</td><td>−4,9 °C</td><td>−32 %</td></tr>
+    <tr><td>Jahre mit starkem Frost (8)</td><td>≤ −1,5 °C</td><td>im Durchschnitt −11 %</td></tr>
+    <tr><td>Jahre ohne starken Frost (10)</td><td>&gt; −1,5 °C</td><td>im Durchschnitt −1 %</td></tr>
+  </table>
+  <span class="en">"I don't know the damage on the plot. But the official harvest in the Bernkastel district was 11 percent lower on average in years with severe frost, in 2017 even 32 percent. That fits my data, but it is no proof: other things also lower the harvest." [5, 15] Note: Bereich Bernkastel is the statistical district of the Moselle region where Kröv lies (about 5,600 ha). 2013 and 2024 had big losses without frost at the station; 2020 had −2.2 °C and +16 %.</span>
+</div>
+<div class="qa">
+  <p><b>Sind 2 Frostnächte schlimm, oder braucht es 15?</b></p>
+  <p>„Wichtig ist nicht die Zahl der Frostnächte. Wichtig ist die kälteste Nacht und das Stadium der Rebe. Eine Nacht bei minus 5 Grad kann mehr schaden als 15 Nächte bei minus 1 Grad." [9, 10, 13]</p>
+  <table style="font-size:8.5pt; margin:2pt 0 3pt;">
+    <tr><th>Stadium</th><th>10 % der Knospen tot</th><th>90 % tot</th></tr>
+    <tr><td>Austrieb</td><td>−3,9 °C</td><td>−8,9 °C</td></tr>
+    <tr><td>1. Blatt</td><td>−2,8 °C</td><td>−6,1 °C</td></tr>
+    <tr><td>2. Blatt</td><td>−2,2 °C</td><td>−5,6 °C</td></tr>
+    <tr><td>3. Blatt</td><td>−2,2 °C</td><td>−3,3 °C</td></tr>
+    <tr><td>4.–5. Blatt</td><td>−2,2 °C</td><td>−2,8 °C</td></tr>
+  </table>
+  <img src="rebe_stadien_austrieb.png" alt="Stadien der Rebe" style="width:100%; max-width:170mm; margin:3pt 0;">
+  <p style="font-size:8pt; color:#666;">Stadien vom Winterauge bis 5 Blätter (E-L 1–12) [14]: So sieht die Rebe in der Frostzeit aus.</p>
+  <p>„Diese Werte sind aus dem Labor [13]. Dann zählt man die kaputten Triebe: über 60 Prozent kaputt heißt mindestens 40 Prozent weniger Ernte [10]. An der Station gab es in 4 von 18 Jahren Nächte bei −2,8 °C oder kälter, zum Beispiel 2017 mit −4,9 °C [5]."</p>
+  <span class="en">"What matters is not the number of frost nights. What matters is the coldest night and the stage of the vine. One night at minus 5 degrees can do more damage than 15 nights at minus 1 degree. These values are from the lab [13]. Then you count the damaged shoots: more than 60 percent damaged means at least 40 percent less harvest [10]. At the station there were nights at −2.8 °C or colder in 4 of 18 years, for example 2017 with −4.9 °C [5]." Table: UC/Snyder p. 1 (Proebsting et al., WSU), converted from °F; lab values, not well checked in the field; variety not given.</span>
+</div>
+<div class="qa">
+  <p><b>Und Frost vor dem Austrieb?</b></p>
+  <p>„Vor dem Austrieb sind die Knospen viel härter. Laut Labortabelle sterben bei geschwollenen Knospen erst ab −6 °C etwa 10 Prozent. An der Station gab es das nur einmal in 18 Jahren: 2018, mit −7,9 °C. Darum zähle ich diesen Frost nicht mit." [5, 10, 13]</p>
+  <table style="font-size:8.5pt; margin:2pt 0 3pt;">
+    <tr><th>Stadium</th><th>10 % tot</th><th>90 % tot</th></tr>
+    <tr><td>Winterruhe</td><td>&lt; −18 °C</td><td>&lt; −18 °C</td></tr>
+    <tr><td>erstes Schwellen</td><td>−10,6 °C</td><td>−19,4 °C</td></tr>
+    <tr><td>Knospe geschwollen</td><td>−6,1 °C</td><td>−12,2 °C</td></tr>
+    <tr><td>Austrieb</td><td>−3,9 °C</td><td>−8,9 °C</td></tr>
+  </table>
+  <span class="en">"Before budbreak the buds are much hardier. According to the lab table, swollen buds only lose about 10 percent from −6 °C. At the station that happened only once in 18 years: 2018, with −7.9 °C. So I do not count this frost." [5, 10, 13] Note: AWRI says closed buds tolerate about −3 °C [10, p. 1]; the sources differ. The 3-week window before budbreak is my choice.</span>
+</div>
+<div class="qa">
+  <p><b>Strahlungsfrost oder Advektionsfrost?</b></p>
+  <p>„Strahlungsfrost: klare Nacht, Wolken unter etwa 37 Prozent, Wind unter 5,4 Kilometer pro Stunde. Er ist häufiger und macht die meisten Schäden. Das sagt das DLR. An der Station war es in allen Frostnächten fast windstill: im Mittel 0,2 km/h. Das Modell sieht hier zu viel Wind. Darum werte ich die Frostart nicht aus." [5, 9]</p>
+  <span class="en">"Radiation frost: clear night, clouds below about 37 percent, wind below 5.4 km/h. It is more frequent and does most damage. DLR says that. At the station it was almost calm on all frost nights. The model sees too much wind here. So I do not evaluate the frost type." [5, 9]</span>
+</div>
+<div class="qa">
+  <p><b>Gibt es Frost am Tag, aber nicht in der Nacht?</b></p>
+  <p>„Ich habe das geprüft. Nach dem Austrieb gab es keinen Frost am Tag ohne Frost in der Nacht. Weder im Modell, 50 Jahre, noch an der Station, 18 Jahre." [3, 5]</p>
+  <span class="en">"I checked it. After budbreak there was no frost during the day without frost at night. Neither in the model, 50 years, nor at the station, 18 years." [3, 5]</span>
+</div>
+<div class="qa">
+  <p><b>Warum nicht nur die Station?</b></p>
+  <p>„Die Station misst erst seit 2008. Das Modell hat 50 Jahre. Die Station zeigt mir, wie viel das Modell unterschätzt." [3, 5]</p>
+  <span class="en">"The station only measures since 2008. The model has 50 years. The station shows me how much the model underestimates." [3, 5]</span>
+</div>
+<div class="qa">
+  <p><b>Und Frost im Herbst?</b></p>
+  <p>„Kaum wichtig. Die Lese in Ürzig ist im Mittel am 3. Oktober. An der Station gab es im September nie Frost. Im Oktober meist erst am Ende vom Monat. Seit 2020 gar nicht." [4, 5]</p>
+  <span class="en">"Hardly important. Harvest at Ürzig is on average on 3 October. At the station there was never frost in September. In October mostly only at the end of the month. Since 2020 none." [4, 5]</span>
+</div>
+<div class="qa">
+  <p><b>Ist der TPI sicher?</b></p>
+  <p>„Die Höhendaten sind sehr genau. Der TPI ist aber nur ein Hinweis. Sicher ist es erst mit Sensoren." [6, 7]</p>
+  <span class="en">"The height data are very accurate. But the TPI is only a hint. It is certain only with sensors." [6, 7]</span>
+</div>
+
+<div class="block">
+<h3>Quellen <span class="en">Sources</span></h3>
+<ol style="font-size:8pt;">
+  <li>Hersbach et al. (2020): ERA5</li>
+  <li>Muñoz-Sabater et al. (2021): ERA5-Land</li>
+  <li>Open-Meteo (Zippenfenig 2023) · eigene Auswertung</li>
+  <li>DWD, Phänologie Weinrebe (Austrieb, Lese) · eigene Auswertung</li>
+  <li>Agrarmeteorologie RLP, Station Traben-Trarbach · eigene Auswertung</li>
+  <li>DGM1, LVermGeoRP (2023) · eigene Auswertung in QGIS</li>
+  <li>Weiss (2001): TPI</li>
+  <li>Copernicus Sentinel-2</li>
+  <li>Kotremba: Spätfröste aus meteorologischer Sicht, DLR Mosel</li>
+  <li>AWRI (2024): Assessing damage after a frost event</li>
+  <li>García de Cortázar-Atauri et al. (2009): Budburst models, Int. J. Biometeorol. 53</li>
+  <li>Nendel (2010): Grapevine bud break prediction, Int. J. Biometeorol. 54</li>
+  <li>Snyder, R. L.: Grapevine Frost Protection, UC Cooperative Extension, S. 1 (Tabelle Proebsting et al., WSU)</li>
+  <li>Coombe, B. G. (1995): Growth stages of the grapevine, Aust. J. Grape Wine Res. 1; Abbildung: Dry &amp; Coombe (2004), Viticulture 1, Abb. 7.3, S. 153 (über awri.com.au)</li>
+  <li>Statistisches Landesamt Rheinland-Pfalz: Weinmosternte nach Anbaugebieten und Bereichen (C2053), 2008–2025, Tabelle T1, Bereich Bernkastel · eigene Auswertung</li>
+</ol>
 </div>
 
 </body>
